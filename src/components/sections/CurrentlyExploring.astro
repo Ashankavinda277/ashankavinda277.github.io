@@ -1,0 +1,72 @@
+---
+import Container from '@/components/ui/Container.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import { Sparkles, Server, Workflow, Network, Layers } from 'lucide-react';
+
+const explorationTopics = [
+  {
+    title: 'AI-Powered Applications',
+    description: 'Integrating foundation models (Amazon Bedrock, LLM action groups, OpenAPI tools) directly into software workflows.',
+    icon: Sparkles,
+    status: 'Active Focus',
+  },
+  {
+    title: 'Cloud Architecture',
+    description: 'Designing resilient multi-tier cloud applications using AWS services and infrastructure-as-code principles.',
+    icon: Server,
+    status: 'In Progress',
+  },
+  {
+    title: 'DevOps & Automation',
+    description: 'Building continuous integration/deployment pipelines, container orchestration with Docker, and automated checks.',
+    icon: Workflow,
+    status: 'Learning',
+  },
+  {
+    title: 'Serverless Systems',
+    description: 'Event-driven architectures using AWS Lambda, GraphQL AppSync, and single-table DynamoDB data patterns.',
+    icon: Layers,
+    status: 'In Progress',
+  },
+  {
+    title: 'Distributed Systems',
+    description: 'Exploring consensus algorithms, message queues, state synchronization, and low-latency API transport protocols.',
+    icon: Network,
+    status: 'Exploring',
+  },
+];
+---
+
+<section id="exploring" class="py-16 sm:py-24 border-b border-border/40 scroll-mt-16 bg-muted/10">
+  <Container size="lg" class="space-y-12">
+    <SectionHeading
+      kicker="Continuous Learning"
+      title="Currently Exploring"
+      description="Domains and concepts I am actively researching, experimenting with, and building projects around."
+    />
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {explorationTopics.map((topic) => (
+        <div class="group relative flex flex-col rounded-xl border border-border/70 bg-card p-6 hover:border-accent/40 transition-all duration-300 shadow-sm hover:shadow-md">
+          <div class="flex items-center justify-between gap-2 mb-4">
+            <div class="w-9 h-9 rounded-lg bg-accent-muted text-accent flex items-center justify-center border border-accent/20 group-hover:scale-105 transition-transform">
+              <topic.icon className="w-4 h-4" />
+            </div>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-muted text-muted-foreground border border-border/50">
+              <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
+              {topic.status}
+            </span>
+          </div>
+
+          <h3 class="text-base font-bold tracking-tight text-foreground group-hover:text-accent transition-colors mb-2">
+            {topic.title}
+          </h3>
+
+          <p class="text-xs sm:text-sm text-muted-foreground leading-relaxed flex-1">
+            {topic.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </Container>
+</section>
