@@ -1,0 +1,17 @@
+---
+import Container from '@/components/ui/Container.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import { TerminalMode } from '@/components/interactive/TerminalMode';
+---
+
+<section id="terminal" class="py-16 sm:py-24 border-b border-border/40 scroll-mt-16">
+  <Container size="lg" class="space-y-12">
+    <SectionHeading
+      kicker="Interactive CLI"
+      title="Developer Workspace Terminal"
+      description="Inspect developer metadata, execute commands, or toggle between GUI and CLI mode."
+    />
+
+    <TerminalMode client:load />
+  </Container>
+</section>

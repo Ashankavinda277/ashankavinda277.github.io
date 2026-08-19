@@ -4,6 +4,8 @@ export interface SiteConfig {
   role: string;
   headline: string;
   bio: string;
+  description: string;
+  ogImage: string;
   location: string;
   email: string;
   availability: {
@@ -18,6 +20,8 @@ export const siteConfig: SiteConfig = {
   role: "FULL-STACK DEVELOPER",
   headline: "I build digital experiences that solve real problems.",
   bio: "I'm an IT undergraduate who enjoys turning ideas into useful software. I work across frontend, backend and cloud technologies, with a particular interest in building scalable web applications.",
+  description: "Personal developer portfolio and minimal workspace for Ashan Kavinda — Full-Stack Developer & IT Undergraduate.",
+  ogImage: "/images/og-cover.png",
   location: "Sri Lanka",
   email: "ashan.kavinda@example.com",
   availability: {

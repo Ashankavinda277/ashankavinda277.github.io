@@ -1,75 +1,86 @@
 ---
 import '@/styles/global.css';
+import { siteConfig } from '@/data/site';
+import { CommandPalette } from '@/components/interactive/CommandPalette';
 
 interface Props {
   title?: string;
   description?: string;
   image?: string;
-  canonicalURL?: string;
-  type?: 'website' | 'article';
 }
 
-const siteTitle = "Ashan Kavinda — Full-Stack Developer";
-const defaultDescription = "Undergraduate Information Technology student and aspiring full-stack developer building modern web applications with React, Next.js, FastAPI, and AWS.";
-const defaultImage = "/images/og/og-image.png";
-
 const {
-  title = siteTitle,
-  description = defaultDescription,
-  image = defaultImage,
-  canonicalURL = Astro.url.href,
-  type = 'website'
+  title = siteConfig.name,
+  description = siteConfig.description,
+  image = siteConfig.ogImage,
 } = Astro.props;
 
-const formattedTitle = title === siteTitle ? title : `${title} | Ashan Kavinda`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://ashankavinda.dev');
 ---
 
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="dark scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Primary Meta Tags -->
-    <title>{formattedTitle}</title>
-    <meta name="title" content={formattedTitle} />
-    <meta name="description" content={description} />
+    <!-- Canonical URL -->
     <link rel="canonical" href={canonicalURL} />
 
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="author" content={siteConfig.name} />
+
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content={type} />
-    <meta property="og:url" content={canonicalURL} />
-    <meta property="og:title" content={formattedTitle} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL(image, Astro.url)} />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonicalURL} />
-    <meta property="twitter:title" content={formattedTitle} />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
-    <!-- Dark mode inline flash prevention script -->
+    <!-- Flash of Unstyled Theme (FOUC) Prevention Script -->
     <script is:inline>
-      (function() {
-        const storedTheme = localStorage.getItem('theme');
-        if (storedTheme === 'light') {
-          document.documentElement.classList.remove('dark');
-        } else {
-          document.documentElement.classList.add('dark');
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
         }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'dark';
       })();
+
+      if (theme === 'light') {
+        document.documentElement.classList.remove('dark');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+      window.localStorage.setItem('theme', theme);
     </script>
   </head>
-  <body class="min-h-screen bg-background text-foreground antialiased flex flex-col font-sans selection:bg-accent/20 selection:text-accent">
+  <body class="min-h-screen bg-background text-foreground antialiased selection:bg-accent selection:text-accent-foreground flex flex-col font-sans">
     <slot />
+
+    <!-- Global Client Islands -->
+    <CommandPalette client:idle />
   </body>
 </html>
