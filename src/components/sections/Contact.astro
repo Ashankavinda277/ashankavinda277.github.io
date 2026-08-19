@@ -7,7 +7,7 @@ import { siteConfig } from '@/data/site';
 import { Mail, MapPin, CheckCircle2, Github, Linkedin } from 'lucide-react';
 ---
 
-<section id="contact" class="py-20 lg:py-28 border-b border-cyan-500/10 scroll-mt-16 relative bg-cyber-network">
+<section id="contact" class="py-20 lg:py-28 border-b border-blue-500/10 scroll-mt-16 relative bg-[#040717]">
   <Container size="full" class="space-y-16">
 
     <SectionHeading
@@ -17,14 +17,14 @@ import { Mail, MapPin, CheckCircle2, Github, Linkedin } from 'lucide-react';
       align="center"
     />
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start max-w-5xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start max-w-6xl mx-auto">
       
       <!-- Left Stacked Info Cards -->
       <div class="lg:col-span-5 space-y-4">
         
         <!-- Email Info Card -->
-        <div class="p-5 rounded-2xl cyber-glass-card flex items-center gap-4">
-          <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0">
+        <div class="p-5 rounded-2xl bg-[#070b21]/90 border border-slate-800 hover:border-blue-500/40 transition-all flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/25 flex items-center justify-center text-blue-400 shrink-0">
             <Mail className="w-5 h-5" />
           </div>
           <div class="space-y-0.5 font-mono text-xs">
@@ -34,8 +34,8 @@ import { Mail, MapPin, CheckCircle2, Github, Linkedin } from 'lucide-react';
         </div>
 
         <!-- Location Info Card -->
-        <div class="p-5 rounded-2xl cyber-glass-card flex items-center gap-4">
-          <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 shrink-0">
+        <div class="p-5 rounded-2xl bg-[#070b21]/90 border border-slate-800 hover:border-blue-500/40 transition-all flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/25 flex items-center justify-center text-blue-400 shrink-0">
             <MapPin className="w-5 h-5" />
           </div>
           <div class="space-y-0.5 font-mono text-xs">
@@ -45,13 +45,13 @@ import { Mail, MapPin, CheckCircle2, Github, Linkedin } from 'lucide-react';
         </div>
 
         <!-- Status Info Card -->
-        <div class="p-5 rounded-2xl cyber-glass-card flex items-center gap-4">
-          <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+        <div class="p-5 rounded-2xl bg-[#070b21]/90 border border-slate-800 hover:border-blue-500/40 transition-all flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/25 flex items-center justify-center text-blue-400 shrink-0">
             <CheckCircle2 className="w-5 h-5" />
           </div>
           <div class="space-y-0.5 font-mono text-xs">
             <span class="text-slate-400 uppercase tracking-wider text-[10px]">STATUS</span>
-            <p class="font-bold text-emerald-400 text-sm">Available for opportunities</p>
+            <p class="font-bold text-blue-400 text-sm">Available for opportunities</p>
           </div>
         </div>
 
@@ -65,11 +65,11 @@ import { Mail, MapPin, CheckCircle2, Github, Linkedin } from 'lucide-react';
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.name}
-                class="p-3 rounded-xl border border-cyan-500/20 bg-slate-900/80 hover:border-cyan-400 hover:bg-cyan-500/10 text-slate-300 hover:text-cyan-300 transition-all duration-200 flex-1 flex items-center justify-center gap-2"
+                class="p-3 rounded-xl border border-slate-800 bg-[#070b21]/90 hover:border-blue-500/50 hover:bg-blue-500/10 text-slate-300 hover:text-blue-400 transition-all duration-200 flex-1 flex items-center justify-center gap-2"
               >
                 {social.iconName === 'github' && <Github className="w-4 h-4" />}
                 {social.iconName === 'linkedin' && <Linkedin className="w-4 h-4" />}
-                {social.iconName === 'mail' && <Mail className="w-4 h-4" />}
+                {(social.iconName === 'mail' || social.iconName === 'email') && <Mail className="w-4 h-4" />}
                 <span class="font-medium text-xs hidden sm:inline">{social.name}</span>
               </a>
             ))}
@@ -80,7 +80,7 @@ import { Mail, MapPin, CheckCircle2, Github, Linkedin } from 'lucide-react';
 
       <!-- Right Interactive Form Card -->
       <div class="lg:col-span-7">
-        <div class="rounded-3xl cyber-glass-card p-6 sm:p-8 shadow-xl">
+        <div class="rounded-3xl bg-[#070b21]/90 border border-slate-800 p-6 sm:p-8 shadow-xl">
           <ContactForm client:visible />
         </div>
       </div>
@@ -88,4 +88,3 @@ import { Mail, MapPin, CheckCircle2, Github, Linkedin } from 'lucide-react';
     </div>
   </Container>
 </section>
-

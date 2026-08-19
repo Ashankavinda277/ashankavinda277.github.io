@@ -2,15 +2,14 @@
 import Container from '@/components/ui/Container.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
 import { 
-  Laptop, Youtube, Search, School, HelpCircle, Coffee,
+  Laptop, Search, School, HelpCircle, Coffee, BookOpen,
   Code2, Cloud, Database, CheckCircle2, Zap
 } from 'lucide-react';
 ---
 
-<section id="evolution" class="py-20 lg:py-28 border-b border-cyan-500/10 scroll-mt-16 relative bg-cyber-network">
+<section id="evolution" class="py-20 lg:py-28 border-b border-blue-500/10 scroll-mt-16 relative bg-[#040717]">
   <Container size="full" class="space-y-16">
 
-    
     <SectionHeading
       kicker="GROWTH & SKILLS MATRIX"
       title="Tech Evolution (2017 vs 2026)"
@@ -22,43 +21,43 @@ import {
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center max-w-6xl mx-auto">
       
       <!-- Left Column: 2017 Early Beginnings (5 Cols) -->
-      <div class="lg:col-span-5 p-6 sm:p-8 rounded-3xl cyber-glass-card border-rose-500/30 space-y-6 relative group hover:border-rose-500/50 transition-colors">
+      <div class="lg:col-span-5 p-6 sm:p-8 rounded-3xl bg-[#070b21]/90 border border-slate-800 space-y-6 relative group hover:border-slate-700 transition-colors">
         
-        <div class="flex items-center justify-between border-b border-rose-500/20 pb-4">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
           <div class="flex items-center gap-2">
-            <span class="text-xs font-mono font-bold uppercase tracking-wider text-rose-400">2017 — The Beginning</span>
+            <span class="text-xs font-mono font-bold uppercase tracking-wider text-slate-300">2017 — The Beginning</span>
           </div>
-          <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-rose-950/60 text-rose-300 border border-rose-500/30">Early Curiosity</span>
+          <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-slate-900 text-slate-400 border border-slate-700">Early Curiosity</span>
         </div>
 
         <div class="space-y-4 font-mono text-xs text-slate-300">
           <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <Laptop className="w-4 h-4 text-rose-400 shrink-0" />
+            <Laptop className="w-4 h-4 text-slate-400 shrink-0" />
             <span class="text-slate-200">Basic Computer Literacy</span>
           </div>
 
           <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <Youtube className="w-4 h-4 text-rose-400 shrink-0" />
+            <BookOpen className="w-4 h-4 text-slate-400 shrink-0" />
             <span class="text-slate-200">Watching Online Tutorials</span>
           </div>
 
           <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <Search className="w-4 h-4 text-rose-400 shrink-0" />
+            <Search className="w-4 h-4 text-slate-400 shrink-0" />
             <span class="text-slate-200">Google Searching Basics</span>
           </div>
 
           <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <School className="w-4 h-4 text-rose-400 shrink-0" />
+            <School className="w-4 h-4 text-slate-400 shrink-0" />
             <span class="text-slate-200">School / Foundation Education</span>
           </div>
 
           <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <HelpCircle className="w-4 h-4 text-amber-400 shrink-0" />
+            <HelpCircle className="w-4 h-4 text-slate-400 shrink-0" />
             <span class="text-slate-200">Initial Confusion & Experimentation</span>
           </div>
 
           <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-            <Coffee className="w-4 h-4 text-rose-400 shrink-0" />
+            <Coffee className="w-4 h-4 text-slate-400 shrink-0" />
             <span class="text-slate-200">Late Nights with Big Dreams</span>
           </div>
         </div>
@@ -68,8 +67,8 @@ import {
       <!-- Center Divider Pill (2 Cols) -->
       <div class="lg:col-span-2 flex flex-col items-center justify-center space-y-3 py-4 lg:py-0">
         <div class="relative flex items-center justify-center">
-          <div class="absolute -inset-2 rounded-full bg-gradient-to-r from-rose-500 via-cyan-400 to-purple-600 opacity-60 blur"></div>
-          <div class="relative w-14 h-14 rounded-full bg-slate-950 border-2 border-cyan-400 flex items-center justify-center font-mono font-extrabold text-cyan-300 text-base shadow-[0_0_15px_#00f0ff]">
+          <div class="absolute -inset-2 rounded-full bg-blue-500/40 blur-lg"></div>
+          <div class="relative w-14 h-14 rounded-full bg-slate-950 border-2 border-blue-500 flex items-center justify-center font-mono font-extrabold text-blue-400 text-base shadow-[0_0_15px_rgba(59,130,246,0.5)]">
             VS
           </div>
         </div>
@@ -77,55 +76,55 @@ import {
       </div>
 
       <!-- Right Column: 2026 Skilled Full-Stack Engineer (5 Cols) -->
-      <div class="lg:col-span-5 p-6 sm:p-8 rounded-3xl cyber-glass-card space-y-6 border-cyan-500/40 relative group hover:border-cyan-400/70 transition-colors shadow-[0_0_30px_rgba(0,240,255,0.15)]">
+      <div class="lg:col-span-5 p-6 sm:p-8 rounded-3xl bg-[#070b21]/90 border border-blue-500/30 space-y-6 relative group hover:border-blue-500/50 transition-colors shadow-[0_0_30px_rgba(59,130,246,0.1)]">
         
-        <div class="flex items-center justify-between border-b border-cyan-500/20 pb-4">
+        <div class="flex items-center justify-between border-b border-blue-500/20 pb-4">
           <div class="flex items-center gap-2">
-            <span class="text-xs font-mono font-bold uppercase tracking-wider text-cyan-400">2026 — Skilled Developer</span>
+            <span class="text-xs font-mono font-bold uppercase tracking-wider text-blue-400">2026 — Skilled Developer</span>
           </div>
-          <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-slate-900 text-cyan-300 border border-cyan-500/40">Full-Stack & Cloud</span>
+          <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-slate-900 text-blue-300 border border-blue-500/40">Full-Stack & Cloud</span>
         </div>
 
         <div class="space-y-4 font-mono text-xs">
           
           <!-- Web & App Dev -->
-          <div class="p-3 rounded-xl bg-slate-950/90 border border-cyan-500/30 space-y-1.5">
-            <div class="flex items-center gap-2 text-cyan-400 font-bold">
+          <div class="p-3 rounded-xl bg-slate-950/90 border border-blue-500/20 space-y-1.5">
+            <div class="flex items-center gap-2 text-blue-400 font-bold">
               <Code2 className="w-3.5 h-3.5" />
               <span>Web & App Development</span>
             </div>
-            <div class="flex flex-wrap gap-1.5 text-[10px] text-cyan-300">
-              <span class="px-2 py-0.5 rounded-full bg-slate-900 border border-cyan-500/30">React</span>
-              <span class="px-2 py-0.5 rounded-full bg-slate-900 border border-cyan-500/30">Next.js</span>
-              <span class="px-2 py-0.5 rounded-full bg-slate-900 border border-cyan-500/30">TypeScript</span>
-              <span class="px-2 py-0.5 rounded-full bg-slate-900 border border-cyan-500/30">Tailwind</span>
+            <div class="flex flex-wrap gap-1.5 text-[10px] text-blue-300">
+              <span class="px-2 py-0.5 rounded-full bg-slate-900 border border-blue-500/25">React</span>
+              <span class="px-2 py-0.5 rounded-full bg-slate-900 border border-blue-500/25">Next.js</span>
+              <span class="px-2 py-0.5 rounded-full bg-slate-900 border border-blue-500/25">TypeScript</span>
+              <span class="px-2 py-0.5 rounded-full bg-slate-900 border border-blue-500/25">Tailwind</span>
             </div>
           </div>
 
           <!-- Backend & DB -->
-          <div class="p-3 rounded-xl bg-slate-950/90 border border-purple-500/30 space-y-1.5">
-            <div class="flex items-center gap-2 text-purple-400 font-bold">
+          <div class="p-3 rounded-xl bg-slate-950/90 border border-blue-500/20 space-y-1.5">
+            <div class="flex items-center gap-2 text-blue-400 font-bold">
               <Database className="w-3.5 h-3.5" />
               <span>Backend & Databases</span>
             </div>
-            <div class="flex flex-wrap gap-1.5 text-[10px] text-purple-300">
-              <span class="px-2 py-0.5 rounded-full bg-slate-900 border border-purple-500/30">Python FastAPI</span>
-              <span class="px-2 py-0.5 rounded-full bg-slate-900 border border-purple-500/30">Node.js</span>
-              <span class="px-2 py-0.5 rounded-full bg-slate-900 border border-purple-500/30">DynamoDB</span>
-              <span class="px-2 py-0.5 rounded-full bg-slate-900 border border-purple-500/30">PostgreSQL</span>
+            <div class="flex flex-wrap gap-1.5 text-[10px] text-blue-300">
+              <span class="px-2 py-0.5 rounded-full bg-slate-900 border border-blue-500/25">Python FastAPI</span>
+              <span class="px-2 py-0.5 rounded-full bg-slate-900 border border-blue-500/25">Node.js</span>
+              <span class="px-2 py-0.5 rounded-full bg-slate-900 border border-blue-500/25">DynamoDB</span>
+              <span class="px-2 py-0.5 rounded-full bg-slate-900 border border-blue-500/25">PostgreSQL</span>
             </div>
           </div>
 
           <!-- Cloud & AI -->
-          <div class="p-3 rounded-xl bg-slate-950/90 border border-cyan-500/30 space-y-1.5">
-            <div class="flex items-center gap-2 text-cyan-300 font-bold">
+          <div class="p-3 rounded-xl bg-slate-950/90 border border-blue-500/20 space-y-1.5">
+            <div class="flex items-center gap-2 text-blue-400 font-bold">
               <Cloud className="w-3.5 h-3.5" />
               <span>Cloud & Bedrock AI</span>
             </div>
-            <div class="flex flex-wrap gap-1.5 text-[10px] text-cyan-200">
-              <span class="px-2 py-0.5 rounded-full bg-slate-900 border border-cyan-500/30">AWS Amplify</span>
-              <span class="px-2 py-0.5 rounded-full bg-slate-900 border border-cyan-500/30">AppSync</span>
-              <span class="px-2 py-0.5 rounded-full bg-slate-900 border border-cyan-500/30">Amazon Bedrock</span>
+            <div class="flex flex-wrap gap-1.5 text-[10px] text-blue-300">
+              <span class="px-2 py-0.5 rounded-full bg-slate-900 border border-blue-500/25">AWS Amplify</span>
+              <span class="px-2 py-0.5 rounded-full bg-slate-900 border border-blue-500/25">AppSync</span>
+              <span class="px-2 py-0.5 rounded-full bg-slate-900 border border-blue-500/25">Amazon Bedrock</span>
             </div>
           </div>
 
@@ -148,11 +147,10 @@ import {
     </div>
 
     <!-- Bottom Infographic Banner -->
-    <div class="p-6 rounded-2xl cyber-glass-card text-center font-mono text-xs sm:text-sm text-cyan-300 max-w-4xl mx-auto flex items-center justify-center gap-3 border-cyan-500/30">
-      <Zap className="w-4 h-4 text-cyan-400 shrink-0" />
+    <div class="p-6 rounded-2xl bg-[#070b21]/90 border border-slate-800 text-center font-mono text-xs sm:text-sm text-blue-300 max-w-4xl mx-auto flex items-center justify-center gap-3 hover:border-blue-500/40 transition-all">
+      <Zap className="w-4 h-4 text-blue-400 shrink-0" />
       <span><strong>BUILD SKILLS, BUILD THE FUTURE</strong> — The difference between 2017 and 2026 is consistent discipline & real-world practice.</span>
     </div>
 
   </Container>
 </section>
-

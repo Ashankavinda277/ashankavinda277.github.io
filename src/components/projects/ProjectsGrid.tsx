@@ -31,15 +31,15 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
   return (
     <div className="space-y-8">
       {/* Category Filter Tabs */}
-      <div className="flex flex-wrap items-center gap-2 pb-4 border-b border-border/40">
+      <div className="flex flex-wrap items-center gap-2 pb-4 border-b border-slate-800">
         {categories.map((category) => (
           <button
             key={category}
             onClick={() => setSelectedCategory(category)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all cursor-pointer ${
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-mono transition-all cursor-pointer ${
               selectedCategory === category
-                ? 'bg-foreground text-background font-semibold shadow-sm'
-                : 'bg-muted/40 text-muted-foreground hover:bg-muted hover:text-foreground border border-border/40'
+                ? 'bg-blue-600 text-white font-semibold shadow-md shadow-blue-600/30'
+                : 'bg-slate-900/80 text-slate-400 hover:bg-slate-800 hover:text-slate-200 border border-slate-800'
             }`}
           >
             {category}
@@ -54,9 +54,9 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
           return (
             <article
               key={project.slug}
-              className="group relative flex flex-col rounded-xl border border-border/70 bg-card/60 hover:bg-card hover:border-accent/40 transition-all duration-300 overflow-hidden hover:shadow-lg hover:shadow-accent/5"
+              className="group relative flex flex-col rounded-3xl border border-slate-800 bg-[#070b21]/90 hover:border-blue-500/40 transition-all duration-300 overflow-hidden shadow-xl hover:shadow-[0_0_25px_rgba(59,130,246,0.15)]"
             >
-              <div className="relative w-full h-48 sm:h-52 bg-slate-950 overflow-hidden border-b border-cyan-500/15">
+              <div className="relative w-full h-48 sm:h-52 bg-slate-950 overflow-hidden border-b border-slate-800">
                 {project.image ? (
                   <img
                     src={project.image}
@@ -69,16 +69,16 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
                     }}
                   />
                 ) : (
-                  <div className="w-full h-full bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950/40 flex items-center justify-center p-6 text-center">
-                    <span className="font-mono text-cyan-400/80 text-sm font-semibold">{project.title}</span>
+                  <div className="w-full h-full bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950/40 flex items-center justify-center p-6 text-center">
+                    <span className="font-mono text-blue-400/80 text-sm font-semibold">{project.title}</span>
                   </div>
                 )}
                 <div className="absolute top-3 left-3 z-10">
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-mono font-medium bg-slate-950/90 text-cyan-300 border border-cyan-500/30 backdrop-blur-md">
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-mono font-semibold uppercase tracking-wider bg-blue-600 text-white border border-blue-400/30 backdrop-blur-md shadow-md">
                     {project.category}
                   </span>
                 </div>
-                <div className="absolute top-3 right-3 z-10 font-mono text-xs text-slate-400 bg-slate-950/90 backdrop-blur-md px-2 py-0.5 rounded border border-slate-800">
+                <div className="absolute top-3 right-3 z-10 font-mono text-xs text-slate-400 bg-slate-950/85 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-slate-700/80">
                   {project.year}
                 </div>
               </div>
@@ -86,16 +86,16 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
 
               <div className="flex flex-col flex-1 p-5 sm:p-6 space-y-4">
                 <div className="flex items-start justify-between gap-2">
-                  <h3 className="text-lg sm:text-xl font-bold tracking-tight text-foreground group-hover:text-accent transition-colors duration-200">
+                  <h3 className="text-lg sm:text-xl font-bold tracking-tight text-slate-100 group-hover:text-blue-400 transition-colors duration-200">
                     <a href={`/projects/${project.slug}`} className="focus:outline-none">
                       <span className="absolute inset-0 z-10" aria-hidden="true"></span>
                       {project.title}
                     </a>
                   </h3>
-                  <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200 flex-shrink-0" />
+                  <ArrowUpRight className="w-5 h-5 text-slate-400 group-hover:text-blue-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200 flex-shrink-0" />
                 </div>
 
-                <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2 leading-relaxed flex-1">
+                <p className="text-xs sm:text-sm text-slate-400 line-clamp-2 leading-relaxed flex-1">
                   {summary}
                 </p>
 
@@ -103,26 +103,26 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
                   {project.technologies.slice(0, 4).map((tech) => (
                     <span
                       key={tech}
-                      className="inline-flex items-center px-2.5 py-0.5 rounded-md text-[10px] font-mono bg-muted text-foreground/90 border border-border/60"
+                      className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-slate-900 text-blue-300 border border-blue-500/25"
                     >
                       {tech}
                     </span>
                   ))}
                   {project.technologies.length > 4 && (
-                    <span className="text-[10px] font-mono text-muted-foreground self-center">
+                    <span className="text-[10px] font-mono text-slate-400 self-center">
                       +{project.technologies.length - 4} more
                     </span>
                   )}
                 </div>
 
                 {(project.github || project.demo) && (
-                  <div className="flex items-center gap-3 pt-3 border-t border-border/30 text-xs font-mono text-muted-foreground z-20 relative">
+                  <div className="flex items-center gap-3 pt-3 border-t border-slate-800 text-xs font-mono text-slate-400 z-20 relative">
                     {project.github && (
                       <a
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="hover:text-foreground flex items-center gap-1 transition-colors"
+                        className="hover:text-slate-100 flex items-center gap-1 transition-colors"
                       >
                         <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
                           <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
@@ -135,7 +135,7 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
                         href={project.demo}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="hover:text-accent flex items-center gap-1 transition-colors ml-auto"
+                        className="hover:text-blue-400 flex items-center gap-1 transition-colors ml-auto"
                       >
                         <ExternalLink className="w-3.5 h-3.5" />
                         <span>Live Demo</span>

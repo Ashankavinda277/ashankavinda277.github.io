@@ -123,9 +123,9 @@ export function ContactForm() {
       <div className="space-y-2">
         <label
           htmlFor="name"
-          className="block font-mono text-xs uppercase tracking-wider text-foreground font-semibold"
+          className="block font-mono text-xs uppercase tracking-wider text-slate-200 font-semibold"
         >
-          Name <span className="text-accent">*</span>
+          Name <span className="text-blue-400">*</span>
         </label>
         <input
           type="text"
@@ -140,7 +140,7 @@ export function ContactForm() {
           className={`w-full px-4 py-3 rounded-xl border bg-slate-950/90 text-slate-100 placeholder:text-slate-500 text-sm focus:outline-none transition-all ${
             errors.name
               ? 'border-rose-500 focus:ring-2 focus:ring-rose-500/30'
-              : 'border-slate-800 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20'
+              : 'border-slate-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
           }`}
         />
         {errors.name && (
@@ -157,7 +157,7 @@ export function ContactForm() {
           htmlFor="email"
           className="block font-mono text-xs uppercase tracking-wider text-slate-200 font-semibold"
         >
-          Email <span className="text-cyan-400">*</span>
+          Email <span className="text-blue-400">*</span>
         </label>
         <input
           type="email"
@@ -172,7 +172,7 @@ export function ContactForm() {
           className={`w-full px-4 py-3 rounded-xl border bg-slate-950/90 text-slate-100 placeholder:text-slate-500 text-sm focus:outline-none transition-all ${
             errors.email
               ? 'border-rose-500 focus:ring-2 focus:ring-rose-500/30'
-              : 'border-slate-800 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20'
+              : 'border-slate-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
           }`}
         />
         {errors.email && (
@@ -189,7 +189,7 @@ export function ContactForm() {
           htmlFor="message"
           className="block font-mono text-xs uppercase tracking-wider text-slate-200 font-semibold"
         >
-          Message <span className="text-cyan-400">*</span>
+          Message <span className="text-blue-400">*</span>
         </label>
         <textarea
           id="message"
@@ -204,7 +204,7 @@ export function ContactForm() {
           className={`w-full px-4 py-3 rounded-xl border bg-slate-950/90 text-slate-100 placeholder:text-slate-500 text-sm focus:outline-none transition-all resize-y ${
             errors.message
               ? 'border-rose-500 focus:ring-2 focus:ring-rose-500/30'
-              : 'border-slate-800 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20'
+              : 'border-slate-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
           }`}
         />
         {errors.message && (
@@ -217,7 +217,7 @@ export function ContactForm() {
 
       {/* Status Feedback Banner */}
       {status === 'success' && (
-        <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs sm:text-sm font-mono flex items-center gap-2">
+        <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs sm:text-sm font-mono flex items-center gap-2">
           <CheckCircle2 className="w-5 h-5 shrink-0" />
           <span>{responseMessage}</span>
         </div>
@@ -234,7 +234,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={status === 'submitting'}
-        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full btn-cyber-primary font-mono text-xs uppercase tracking-wider font-bold transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs uppercase tracking-wider font-bold transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-600/25"
       >
         {status === 'submitting' ? (
           <>
@@ -251,4 +251,3 @@ export function ContactForm() {
     </form>
   );
 }
-

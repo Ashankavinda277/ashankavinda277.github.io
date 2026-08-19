@@ -1,74 +1,20 @@
 ---
 import Container from '@/components/ui/Container.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
-import { Sparkles, Server, Workflow, Network, Layers } from 'lucide-react';
-
-const explorationTopics = [
-  {
-    title: 'AI-Powered Applications',
-    description: 'Integrating foundation models (Amazon Bedrock, LLM action groups, OpenAPI tools) directly into software workflows.',
-    icon: Sparkles,
-    status: 'Active Focus',
-  },
-  {
-    title: 'Cloud Architecture',
-    description: 'Designing resilient multi-tier cloud applications using AWS services and infrastructure-as-code principles.',
-    icon: Server,
-    status: 'In Progress',
-  },
-  {
-    title: 'DevOps & Automation',
-    description: 'Building continuous integration/deployment pipelines, container orchestration with Docker, and automated checks.',
-    icon: Workflow,
-    status: 'Learning',
-  },
-  {
-    title: 'Serverless Systems',
-    description: 'Event-driven architectures using AWS Lambda, GraphQL AppSync, and single-table DynamoDB data patterns.',
-    icon: Layers,
-    status: 'In Progress',
-  },
-  {
-    title: 'Distributed Systems',
-    description: 'Exploring consensus algorithms, message queues, state synchronization, and low-latency API transport protocols.',
-    icon: Network,
-    status: 'Exploring',
-  },
-];
+import { ExploringInteractive } from '@/components/interactive/ExploringInteractive';
 ---
 
-<section id="exploring" class="py-16 sm:py-24 border-b border-cyan-500/10 scroll-mt-16 bg-[#060814]">
-  <Container size="full" class="space-y-12">
+<section id="exploring" class="py-20 lg:py-28 border-b border-blue-500/10 scroll-mt-16 bg-[#040717]">
+  <Container size="full" class="space-y-16">
 
     <SectionHeading
       kicker="Continuous Learning"
       title="Currently Exploring"
-      description="Domains and concepts I am actively researching, experimenting with, and building projects around."
+      description="Domains and concepts I am actively researching, experimenting with, and building real projects around."
+      align="center"
     />
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {explorationTopics.map((topic) => (
-        <div class="group relative flex flex-col rounded-2xl cyber-glass-card p-6 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(0,240,255,0.15)] transition-all duration-300">
-          <div class="flex items-center justify-between gap-2 mb-4">
-            <div class="w-10 h-10 rounded-xl bg-slate-900 border border-cyan-500/30 text-cyan-400 flex items-center justify-center group-hover:scale-105 transition-transform shadow-[0_0_10px_rgba(0,240,255,0.2)]">
-              <topic.icon className="w-5 h-5" />
-            </div>
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono bg-slate-900 text-cyan-300 border border-cyan-500/30">
-              <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
-              {topic.status}
-            </span>
-          </div>
+    <ExploringInteractive client:visible />
 
-          <h3 class="text-base font-bold tracking-tight text-slate-100 group-hover:text-cyan-300 transition-colors mb-2">
-            {topic.title}
-          </h3>
-
-          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed flex-1">
-            {topic.description}
-          </p>
-        </div>
-      ))}
-    </div>
   </Container>
 </section>
-

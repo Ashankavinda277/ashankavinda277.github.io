@@ -4,39 +4,39 @@
 
 @layer base {
   :root {
-    --background: #060814;
+    --background: #040717;
     --foreground: #f8fafc;
-    --muted: #0c1126;
+    --muted: #0a0f2b;
     --muted-foreground: #94a3b8;
-    --card: #090d20;
+    --card: #070b21;
     --card-foreground: #f8fafc;
-    --border: rgba(0, 240, 255, 0.15);
-    --input: rgba(0, 240, 255, 0.2);
-    --ring: #00f0ff;
+    --border: rgba(59, 130, 246, 0.15);
+    --input: rgba(59, 130, 246, 0.2);
+    --ring: #3b82f6;
 
-    --accent-cyan: #00f0ff;
-    --accent-violet: #a855f7;
-    --accent: #00f0ff;
-    --accent-foreground: #060814;
-    --accent-muted: rgba(0, 240, 255, 0.15);
+    --accent-cyan: #3b82f6;
+    --accent-violet: #60a5fa;
+    --accent: #3b82f6;
+    --accent-foreground: #040717;
+    --accent-muted: rgba(59, 130, 246, 0.12);
   }
 
   .dark {
-    --background: #060814;
+    --background: #040717;
     --foreground: #f8fafc;
-    --muted: #0c1126;
+    --muted: #0a0f2b;
     --muted-foreground: #94a3b8;
-    --card: #090d20;
+    --card: #070b21;
     --card-foreground: #f8fafc;
-    --border: rgba(0, 240, 255, 0.15);
-    --input: rgba(0, 240, 255, 0.2);
-    --ring: #00f0ff;
+    --border: rgba(59, 130, 246, 0.15);
+    --input: rgba(59, 130, 246, 0.2);
+    --ring: #3b82f6;
 
-    --accent-cyan: #00f0ff;
-    --accent-violet: #a855f7;
-    --accent: #00f0ff;
-    --accent-foreground: #060814;
-    --accent-muted: rgba(0, 240, 255, 0.15);
+    --accent-cyan: #3b82f6;
+    --accent-violet: #60a5fa;
+    --accent: #3b82f6;
+    --accent-foreground: #040717;
+    --accent-muted: rgba(59, 130, 246, 0.12);
   }
 
   * {
@@ -60,12 +60,17 @@
   }
 
   ::selection {
-    background-color: rgba(0, 240, 255, 0.3);
+    background-color: rgba(59, 130, 246, 0.35);
     color: #ffffff;
   }
 
   /* Typography Defaults */
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-weight: 700;
     letter-spacing: -0.025em;
     color: var(--foreground);
@@ -76,7 +81,9 @@
     letter-spacing: -0.035em;
   }
 
-  code, pre, .font-mono {
+  code,
+  pre,
+  .font-mono {
     font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, monospace;
   }
 
@@ -91,83 +98,87 @@
     width: 6px;
     height: 6px;
   }
+
   ::-webkit-scrollbar-track {
     background: var(--background);
   }
+
   ::-webkit-scrollbar-thumb {
     background: #111827;
     border-radius: 3px;
   }
+
   ::-webkit-scrollbar-thumb:hover {
-    background: #00f0ff;
+    background: #3b82f6;
   }
 }
 
 @layer utilities {
-  /* Cyber Tech Circuit & Grid Background */
+
+  /* Subtle grid background */
   .bg-cyber-network {
-    background-color: #060814;
-    background-image: 
-      radial-gradient(circle at 50% 30%, rgba(0, 240, 255, 0.08) 0%, transparent 60%),
-      radial-gradient(circle at 85% 70%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
-      linear-gradient(to right, rgba(0, 240, 255, 0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
-    background-size: 100% 100%, 100% 100%, 80px 80px, 80px 80px;
+    background-color: #040717;
+    background-image:
+      radial-gradient(circle at 50% 30%, rgba(59, 130, 246, 0.06) 0%, transparent 60%),
+      radial-gradient(circle at 85% 70%, rgba(96, 165, 250, 0.04) 0%, transparent 50%);
   }
 
   .bg-grid-pattern {
-    background-image: radial-gradient(rgba(0, 240, 255, 0.18) 1px, transparent 1px);
+    background-image: radial-gradient(rgba(59, 130, 246, 0.12) 1px, transparent 1px);
     background-size: 32px 32px;
   }
 
-  /* Glowing Text Gradient matching Image 2 */
+  /* Blue accent text gradient */
   .text-gradient-cyan-purple {
-    background: linear-gradient(135deg, #ffffff 0%, #00f0ff 45%, #c084fc 100%);
+    background: linear-gradient(135deg, #ffffff 0%, #3b82f6 50%, #60a5fa 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
   .text-gradient-cyan {
-    background: linear-gradient(135deg, #ffffff 0%, #00f0ff 100%);
+    background: linear-gradient(135deg, #ffffff 0%, #3b82f6 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
-  /* Pill Cyber Glow Button Shadow */
+  /* Primary blue button */
   .btn-cyber-primary {
-    background: linear-gradient(135deg, #00f0ff 0%, #7c3aed 100%);
-    color: #030712;
-    box-shadow: 0 0 25px -3px rgba(0, 240, 255, 0.45);
+    background: #3b82f6;
+    color: #ffffff;
+    box-shadow: 0 0 20px -3px rgba(59, 130, 246, 0.4);
     transition: all 0.25s ease-in-out;
   }
+
   .btn-cyber-primary:hover {
-    box-shadow: 0 0 35px 2px rgba(0, 240, 255, 0.65), 0 0 20px 0px rgba(168, 85, 247, 0.5);
+    background: #2563eb;
+    box-shadow: 0 0 30px 2px rgba(59, 130, 246, 0.55);
     transform: translateY(-2px);
   }
 
   .btn-cyber-outline {
-    background: rgba(12, 17, 38, 0.7);
-    border: 1px solid rgba(0, 240, 255, 0.25);
+    background: rgba(7, 11, 33, 0.8);
+    border: 1px solid rgba(148, 163, 184, 0.2);
     color: #e2e8f0;
     transition: all 0.25s ease-in-out;
   }
+
   .btn-cyber-outline:hover {
-    border-color: rgba(0, 240, 255, 0.6);
-    background: rgba(0, 240, 255, 0.1);
-    box-shadow: 0 0 15px -3px rgba(0, 240, 255, 0.3);
+    border-color: rgba(59, 130, 246, 0.5);
+    background: rgba(59, 130, 246, 0.08);
+    box-shadow: 0 0 15px -3px rgba(59, 130, 246, 0.25);
     transform: translateY(-2px);
   }
 
-  /* Glowing Circuit Node Lines Effect */
+  /* Glass card */
   .cyber-glass-card {
-    background: rgba(9, 13, 32, 0.75);
+    background: rgba(7, 11, 33, 0.85);
     backdrop-filter: blur(16px);
-    border: 1px solid rgba(0, 240, 255, 0.15);
+    border: 1px solid rgba(148, 163, 184, 0.15);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   }
+
   .cyber-glass-card:hover {
-    border-color: rgba(0, 240, 255, 0.4);
-    box-shadow: 0 0 25px -5px rgba(0, 240, 255, 0.2);
+    border-color: rgba(59, 130, 246, 0.35);
+    box-shadow: 0 0 25px -5px rgba(59, 130, 246, 0.15);
   }
 }
-

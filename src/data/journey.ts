@@ -8,29 +8,23 @@ export interface JourneyItem {
 }
 
 export const journeyTimeline: JourneyItem[] = [
+
   {
-    year: "2023 — Present",
-    role: "BSc (Hons) in Information Technology",
-    organization: "Undergraduate IT Degree",
-    description: "Developing strong technical expertise in Information Technology with a focus on full-stack web development, AWS cloud infrastructure, database architecture, and artificial intelligence integration.",
-    skills: ["React", "Next.js", "TypeScript", "AWS", "Python", "Docker"],
-    status: "in_progress"
-  },
-  {
-    year: "2024 — Present",
-    role: "Full-Stack & Cloud Engineering Projects",
-    organization: "Independent Development",
-    description: "Building production-grade web systems including HRMS management portals, cloud serverless applications with AWS Amplify & Bedrock AI, and interactive developer tools.",
-    skills: ["FastAPI", "DynamoDB", "AWS Amplify", "GraphQL", "Bedrock AI"],
+    year: "2023 - Present",
+    role: "Bachelor of Science (hons) in Information Technology",
+    organization: "University of Moratuwa",
+    description: "Developing strong technical expertise in Information Technology with a focus on AI/ML, secure software development, and modern system architecture.",
+    skills: ["Software Engineering", "Cloud Systems", "AI/ML"],
     status: "in_progress"
   },
   {
     year: "Next Milestone",
-    role: "Full-Stack / Cloud Engineer Role",
+    role: "Full-Stack / Cloud Engineering Role",
     organization: "Open for Opportunities",
-    description: "Actively seeking software engineering roles & internships focused on full-stack development, cloud architecture, and AI-driven solutions.",
-    skills: ["Full-Stack", "System Design", "AWS Infrastructure", "CI/CD"],
+    description: "Actively seeking software engineering roles & internships focused on full-stack web platforms, cloud architecture, and AI-driven solutions.",
+    skills: ["Full-Stack", "AWS", "System Design"],
     status: "pending"
   }
 ];
+
 
