@@ -2,11 +2,13 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/layout/Navbar.astro';
 import Hero from '@/components/sections/Hero.astro';
-import SelectedWork from '@/components/sections/SelectedWork.astro';
 import About from '@/components/sections/About.astro';
+import SelectedWork from '@/components/sections/SelectedWork.astro';
+import Articles from '@/components/sections/Articles.astro';
+import Journey from '@/components/sections/Journey.astro';
+import Evolution from '@/components/sections/Evolution.astro';
 import Skills from '@/components/sections/Skills.astro';
 import CurrentlyExploring from '@/components/sections/CurrentlyExploring.astro';
-import TerminalSection from '@/components/sections/TerminalSection.astro';
 import Contact from '@/components/sections/Contact.astro';
 import Footer from '@/components/layout/Footer.astro';
 import { siteConfig } from '@/data/site';
@@ -16,11 +18,13 @@ import { siteConfig } from '@/data/site';
   <Navbar />
   <main class="flex-1">
     <Hero />
-    <SelectedWork />
     <About />
+    <SelectedWork />
+    <Articles />
+    <Journey />
+    <Evolution />
     <Skills />
     <CurrentlyExploring />
-    <TerminalSection />
     <Contact />
   </main>
   <Footer />

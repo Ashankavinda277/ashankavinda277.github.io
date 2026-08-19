@@ -16,6 +16,28 @@ const {
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://ashankavinda.dev');
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: siteConfig.name,
+  jobTitle: siteConfig.role,
+  description: siteConfig.bio,
+  url: canonicalURL.toString(),
+  sameAs: [
+    'https://github.com/Ashankavinda277',
+    'https://linkedin.com/in/ashan-kavinda'
+  ],
+  knowsAbout: [
+    'React',
+    'Next.js',
+    'TypeScript',
+    'Python',
+    'FastAPI',
+    'AWS Cloud Architecture',
+    'Software Engineering'
+  ]
+};
 ---
 
 <!DOCTYPE html>
@@ -25,6 +47,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://ashankav
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+
+    <!-- Sitemap -->
+    <link rel="sitemap" href="/sitemap-index.xml" />
 
     <!-- Canonical URL -->
     <link rel="canonical" href={canonicalURL} />
@@ -48,6 +73,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://ashankav
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={new URL(image, Astro.url)} />
+
+    <!-- JSON-LD Structured Data -->
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

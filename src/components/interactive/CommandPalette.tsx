@@ -13,11 +13,14 @@ interface CommandItem {
 
 const COMMAND_ITEMS: CommandItem[] = [
   { id: 'home', label: 'Home', category: 'Navigation', href: '/' },
-  { id: 'work', label: 'Work', category: 'Navigation', href: '/#work' },
   { id: 'about', label: 'About', category: 'Navigation', href: '/#about' },
+  { id: 'work', label: 'Work', category: 'Navigation', href: '/#projects' },
+  { id: 'articles', label: 'Articles', category: 'Navigation', href: '/#articles' },
+  { id: 'journey', label: 'Journey', category: 'Navigation', href: '/#journey' },
   { id: 'skills', label: 'Skills', category: 'Navigation', href: '/#skills' },
   { id: 'contact', label: 'Contact', category: 'Navigation', href: '/#contact' },
   { id: 'all-projects', label: 'All Projects', category: 'Navigation', href: '/projects' },
+  { id: 'all-articles', label: 'Blog Archive', category: 'Navigation', href: '/blog' },
   ...socialLinks.map((s) => ({
     id: s.name.toLowerCase(),
     label: s.name,

@@ -3,64 +3,88 @@ import Container from '@/components/ui/Container.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
 import { ContactForm } from '@/components/interactive/ContactForm';
 import { socialLinks } from '@/data/social';
-import { Mail, ArrowUpRight, Github, Linkedin } from 'lucide-react';
+import { siteConfig } from '@/data/site';
+import { Mail, MapPin, CheckCircle2, Github, Linkedin } from 'lucide-react';
 ---
 
-<section id="contact" class="py-16 sm:py-24 border-b border-border/40 scroll-mt-16">
-  <Container size="lg" class="space-y-12">
+<section id="contact" class="py-20 lg:py-28 border-b border-cyan-500/10 scroll-mt-16 relative bg-cyber-network">
+  <Container size="lg" class="space-y-16">
     <SectionHeading
-      kicker="Get In Touch"
+      kicker="GET IN TOUCH"
       title="Have an idea?"
-      description="Let's build something."
+      description="Let me know how I can help bring your project to life."
+      align="center"
     />
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-      <!-- Left Contact Info & Direct Links -->
-      <div class="lg:col-span-5 space-y-8">
-        <div class="space-y-4">
-          <h3 class="text-xl font-bold text-foreground">
-            Let's connect and discuss your project.
-          </h3>
-          <p class="text-sm text-muted-foreground leading-relaxed">
-            I am always open to discussing new opportunities, software projects, open-source collaborations, or cloud architecture ideas. Drop me a message and I'll get back to you as soon as possible.
-          </p>
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start max-w-5xl mx-auto">
+      
+      <!-- Left Stacked Info Cards -->
+      <div class="lg:col-span-5 space-y-4">
+        
+        <!-- Email Info Card -->
+        <div class="p-5 rounded-2xl cyber-glass-card flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0">
+            <Mail className="w-5 h-5" />
+          </div>
+          <div class="space-y-0.5 font-mono text-xs">
+            <span class="text-slate-400 uppercase tracking-wider text-[10px]">EMAIL</span>
+            <p class="font-bold text-slate-100 text-sm truncate">{siteConfig.email}</p>
+          </div>
         </div>
 
-        <!-- Direct Social Links List -->
-        <div class="space-y-3 pt-4 border-t border-border/40">
-          <h4 class="font-mono text-xs uppercase tracking-wider text-muted-foreground">
-            Direct Reach & Socials
-          </h4>
+        <!-- Location Info Card -->
+        <div class="p-5 rounded-2xl cyber-glass-card flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 shrink-0">
+            <MapPin className="w-5 h-5" />
+          </div>
+          <div class="space-y-0.5 font-mono text-xs">
+            <span class="text-slate-400 uppercase tracking-wider text-[10px]">LOCATION</span>
+            <p class="font-bold text-slate-100 text-sm">{siteConfig.location}</p>
+          </div>
+        </div>
 
-          <div class="space-y-2 font-mono text-xs">
+        <!-- Status Info Card -->
+        <div class="p-5 rounded-2xl cyber-glass-card flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+            <CheckCircle2 className="w-5 h-5" />
+          </div>
+          <div class="space-y-0.5 font-mono text-xs">
+            <span class="text-slate-400 uppercase tracking-wider text-[10px]">STATUS</span>
+            <p class="font-bold text-emerald-400 text-sm">Available for opportunities</p>
+          </div>
+        </div>
+
+        <!-- Social Icons Row -->
+        <div class="pt-4 space-y-2 font-mono text-xs">
+          <span class="text-slate-400 uppercase tracking-wider text-[10px] block">FIND ME ON</span>
+          <div class="flex items-center gap-2">
             {socialLinks.map((social) => (
               <a
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="flex items-center justify-between p-3 rounded-lg border border-border/60 bg-card hover:border-accent/40 hover:bg-accent-muted/50 text-foreground transition-all duration-200 group"
+                aria-label={social.name}
+                class="p-3 rounded-xl border border-cyan-500/20 bg-slate-900/80 hover:border-cyan-400 hover:bg-cyan-500/10 text-slate-300 hover:text-cyan-300 transition-all duration-200 flex-1 flex items-center justify-center gap-2"
               >
-                <div class="flex items-center gap-3">
-                  {social.iconName === 'github' && <Github className="w-4 h-4 text-accent" />}
-                  {social.iconName === 'linkedin' && <Linkedin className="w-4 h-4 text-accent" />}
-                  {social.iconName === 'mail' && <Mail className="w-4 h-4 text-accent" />}
-                  <span class="font-medium">{social.name}</span>
-                </div>
-                <div class="flex items-center gap-1 text-muted-foreground group-hover:text-accent">
-                  <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </div>
+                {social.iconName === 'github' && <Github className="w-4 h-4" />}
+                {social.iconName === 'linkedin' && <Linkedin className="w-4 h-4" />}
+                {social.iconName === 'mail' && <Mail className="w-4 h-4" />}
+                <span class="font-medium text-xs hidden sm:inline">{social.name}</span>
               </a>
             ))}
           </div>
         </div>
+
       </div>
 
       <!-- Right Interactive Form Card -->
       <div class="lg:col-span-7">
-        <div class="rounded-xl border border-border/70 bg-card p-6 sm:p-8 shadow-sm">
+        <div class="rounded-3xl cyber-glass-card p-6 sm:p-8 shadow-xl">
           <ContactForm client:visible />
         </div>
       </div>
+
     </div>
   </Container>
 </section>
+

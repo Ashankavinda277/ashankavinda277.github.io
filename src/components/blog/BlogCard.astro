@@ -1,0 +1,65 @@
+---
+import { ExternalLink, Calendar, Clock } from 'lucide-react';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  readTime: string;
+  tags: string[];
+  slug: string;
+  mediumUrl?: string;
+  featured?: boolean;
+}
+
+const { title, description, pubDate, readTime, tags, mediumUrl = 'https://medium.com/@ashankavinda' } = Astro.props;
+
+const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
+---
+
+<article class="group relative flex flex-col rounded-2xl border border-blue-900/40 bg-card/80 hover:border-blue-500/60 hover:bg-card transition-all duration-300 overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-blue-500/10 p-6 space-y-4">
+  <!-- Date & Read Time Row -->
+  <div class="flex items-center justify-between text-xs font-mono text-muted-foreground border-b border-border/30 pb-3">
+    <div class="flex items-center gap-1.5 text-blue-400">
+      <Calendar className="w-3.5 h-3.5" />
+      <span>{formattedDate}</span>
+    </div>
+    <div class="flex items-center gap-1.5">
+      <Clock className="w-3.5 h-3.5" />
+      <span>{readTime}</span>
+    </div>
+  </div>
+
+  <!-- Title & External Link -->
+  <div class="space-y-2 flex-1">
+    <h3 class="text-xl font-bold tracking-tight text-foreground group-hover:text-blue-400 transition-colors duration-200">
+      <a href={mediumUrl} target="_blank" rel="noopener noreferrer" class="focus:outline-none">
+        <span class="absolute inset-0 z-10" aria-hidden="true"></span>
+        {title}
+      </a>
+    </h3>
+    <p class="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
+      {description}
+    </p>
+  </div>
+
+  <!-- Tags Row & Medium CTA -->
+  <div class="flex items-center justify-between pt-3 border-t border-border/30 z-20">
+    <div class="flex flex-wrap gap-1.5">
+      {tags.slice(0, 3).map((tag) => (
+        <span class="text-[10px] font-mono px-2 py-0.5 rounded-md bg-blue-950/40 text-blue-300 border border-blue-900/40">
+          #{tag}
+        </span>
+      ))}
+    </div>
+
+    <div class="flex items-center gap-1.5 text-xs font-mono text-blue-400 font-semibold group-hover:translate-x-1 transition-transform duration-200">
+      <span>Read on Medium</span>
+      <ExternalLink className="w-3.5 h-3.5" />
+    </div>
+  </div>
+</article>

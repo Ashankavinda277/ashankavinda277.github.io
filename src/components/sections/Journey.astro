@@ -1,0 +1,57 @@
+---
+import Container from '@/components/ui/Container.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import { journeyTimeline } from '@/data/journey';
+import { GraduationCap, Briefcase } from 'lucide-react';
+---
+
+<section id="journey" class="py-20 lg:py-28 border-b border-cyan-500/10 scroll-mt-16 relative bg-cyber-network">
+  <Container size="lg" class="space-y-16">
+    <SectionHeading
+      kicker="CAREER & EDUCATION"
+      title="My Journey"
+      description="Academic background, technical progression, and key engineering milestones."
+      align="center"
+    />
+
+    <div class="max-w-3xl mx-auto relative pl-6 sm:pl-8 border-l-2 border-cyan-500/30 space-y-12">
+      {journeyTimeline.map((item, idx) => (
+        <div class="relative group">
+          <!-- Timeline Node Icon -->
+          <div class="absolute -left-[31px] sm:-left-[39px] top-0.5 w-8 h-8 rounded-full bg-slate-950 border-2 border-cyan-400 flex items-center justify-center text-cyan-300 shadow-[0_0_15px_#00f0ff] group-hover:scale-110 transition-transform duration-200">
+            {idx === 0 ? <GraduationCap className="w-4 h-4" /> : <Briefcase className="w-4 h-4" />}
+          </div>
+
+          <!-- Card Content -->
+          <div class="p-6 sm:p-8 rounded-3xl cyber-glass-card hover:border-cyan-400/50 transition-all duration-300 space-y-3 shadow-xl">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-cyan-500/15 pb-3">
+              <span class="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider">
+                {item.year}
+              </span>
+              <span class="text-xs font-mono text-slate-400">
+                {item.organization}
+              </span>
+            </div>
+
+            <h3 class="text-xl font-bold text-slate-100">
+              {item.role}
+            </h3>
+
+            <p class="text-sm text-slate-400 leading-relaxed">
+              {item.description}
+            </p>
+
+            <div class="flex flex-wrap gap-2 pt-2">
+              {item.skills.map((skill) => (
+                <span class="text-[10px] font-mono px-3 py-1 rounded-full bg-slate-900 text-cyan-300 border border-cyan-500/30">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </Container>
+</section>
+

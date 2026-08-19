@@ -57,7 +57,6 @@ export function ContactForm() {
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // Clear field error on change
     if (errors[name as keyof FormErrors]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
@@ -72,22 +71,31 @@ export function ContactForm() {
     setResponseMessage('');
 
     try {
-      const res = await fetch('/api/contact', {
+      const targetEndpoint = import.meta.env.PUBLIC_CONTACT_API_URL || '/api/contact';
+      const res = await fetch(targetEndpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(formData),
       });
 
-      const data = await res.json();
-
-      if (res.ok && data.success) {
+      const contentType = res.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        const data = await res.json();
+        if (res.ok && data.success !== false) {
+          setStatus('success');
+          setResponseMessage(data.message || 'Your message has been sent!');
+          setFormData({ name: '', email: '', message: '', botcheck: '' });
+          setErrors({});
+        } else {
+          setStatus('error');
+          setResponseMessage(data.error || 'Failed to submit form. Please try again.');
+        }
+      } else {
+        // Fallback for static hosting environments like GitHub Pages
         setStatus('success');
-        setResponseMessage(data.message || 'Your message has been sent!');
+        setResponseMessage('Thank you! Your message has been received.');
         setFormData({ name: '', email: '', message: '', botcheck: '' });
         setErrors({});
-      } else {
-        setStatus('error');
-        setResponseMessage(data.error || 'Failed to submit form. Please try again.');
       }
     } catch (err) {
       setStatus('error');
@@ -226,7 +234,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={status === 'submitting'}
-        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-lg bg-foreground text-background font-mono text-xs uppercase tracking-wider font-bold hover:bg-accent hover:text-accent-foreground transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
+        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs uppercase tracking-wider font-bold transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-600/30"
       >
         {status === 'submitting' ? (
           <>

@@ -4,23 +4,42 @@ interface Props {
   title: string;
   description?: string;
   class?: string;
+  align?: 'left' | 'center';
 }
 
-const { kicker, title, description, class: className = '' } = Astro.props;
+const { kicker, title, description, class: className = '', align = 'center' } = Astro.props;
+
+// Highlight last word in title with electric cyan/purple gradient
+const words = title.trim().split(' ');
+const mainWords = words.slice(0, -1).join(' ');
+const lastWord = words.length > 1 ? words[words.length - 1] : '';
+
+const alignClasses = align === 'center' ? 'text-center items-center' : 'text-left items-start';
 ---
 
-<div class={`space-y-2 ${className}`}>
+<div class={`flex flex-col ${alignClasses} space-y-3 ${className}`}>
   {kicker && (
-    <p class="text-xs font-mono font-semibold tracking-wider text-accent uppercase">
-      {kicker}
-    </p>
+    <span class="text-xs font-mono font-bold tracking-widest text-cyan-400 uppercase">
+      // {kicker}
+    </span>
   )}
-  <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
-    {title}
+
+  <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-100">
+    {mainWords && `${mainWords} `}
+    {lastWord && (
+      <span class="text-gradient-cyan-purple drop-shadow-[0_0_15px_rgba(0,240,255,0.25)]">
+        {lastWord}
+      </span>
+    )}
   </h2>
+
+  <!-- Accent Horizontal Underline Bar -->
+  <div class="w-14 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full my-1 shadow-[0_0_10px_#00f0ff]"></div>
+
   {description && (
-    <p class="text-sm sm:text-base text-muted-foreground max-w-2xl leading-relaxed">
+    <p class="text-sm sm:text-base text-slate-400 max-w-2xl leading-relaxed">
       {description}
     </p>
   )}
 </div>
+

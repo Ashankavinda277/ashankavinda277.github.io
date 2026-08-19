@@ -1,22 +1,119 @@
 ---
 import Container from '@/components/ui/Container.astro';
 import { siteConfig } from '@/data/site';
-import { HeroMotion } from '@/components/interactive/HeroMotion';
+import { socialLinks } from '@/data/social';
+import { ArrowDown, ArrowRight, Github, Linkedin, Mail, Download, Terminal } from 'lucide-react';
 ---
 
-<section class="py-16 sm:py-24 lg:py-32 flex items-center min-h-[65vh] border-b border-border/40 relative">
-  <!-- Subtle Grid Pattern Accent (Minimal Workspace Aesthetic) -->
-  <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none"></div>
+<section class="relative min-h-[90vh] flex flex-col justify-between pt-28 pb-12 overflow-hidden bg-cyber-network border-b border-cyan-500/10">
+  
+  <!-- Cyber Node Circuit Background Overlay Lines & Glowing Dots -->
+  <div class="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
+    <!-- SVG Network Grid Lines -->
+    <svg class="absolute w-full h-full opacity-25" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="hero-circuit-grid" width="120" height="120" patternUnits="userSpaceOnUse">
+          <path d="M 120 0 L 0 0 0 120" fill="none" stroke="rgba(0, 240, 255, 0.12)" stroke-width="1.2" />
+          <circle cx="120" cy="0" r="3" fill="#00f0ff" class="animate-pulse" />
+          <circle cx="0" cy="120" r="3" fill="#a855f7" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#hero-circuit-grid)" />
+    </svg>
 
-  <Container size="lg" class="relative z-10">
-    <HeroMotion
-      client:load
-      role={siteConfig.role}
-      headline={siteConfig.headline}
-      bio={siteConfig.bio}
-      availabilityText={siteConfig.availability.text}
-      workHref="#work"
-      contactHref="#contact"
-    />
+    <!-- Glowing Background Orbs -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-[160px] pointer-events-none"></div>
+    <div class="absolute top-2/3 right-10 w-[450px] h-[450px] bg-purple-600/10 rounded-full blur-[140px] pointer-events-none"></div>
+
+    <!-- Glowing Node Dots inspired by Image 2 -->
+    <div class="absolute top-[18%] right-[15%] w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_12px_#00f0ff]"></div>
+    <div class="absolute top-[35%] right-[28%] w-2.5 h-2.5 rounded-full bg-purple-400 shadow-[0_0_14px_#a855f7]"></div>
+    <div class="absolute bottom-[25%] right-[8%] w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#00f0ff]"></div>
+    <div class="absolute top-[60%] left-[8%] w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#00f0ff]"></div>
+  </div>
+
+  <Container size="lg" class="relative z-10 my-auto py-8">
+    <div class="max-w-4xl space-y-8">
+      
+      <!-- Tech Monospace Intro (Image 2 style) -->
+      <div class="inline-flex items-center gap-2 font-mono text-cyan-400 text-sm sm:text-base tracking-wider">
+        <Terminal className="w-4 h-4 text-cyan-400 animate-pulse" />
+        <span>Hi, my name is</span>
+      </div>
+
+      <!-- Main Glowing Name Heading (Image 2 style) -->
+      <div class="space-y-4">
+        <h1 class="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight text-gradient-cyan-purple leading-[1.05]">
+          {siteConfig.name}
+        </h1>
+
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold text-slate-300 tracking-tight">
+          Full-Stack Developer @ <span class="text-cyan-400 font-bold drop-shadow-[0_0_15px_rgba(0,240,255,0.4)]">SLIIT</span>
+        </h2>
+      </div>
+
+      <!-- Concise Professional Bio -->
+      <p class="text-base sm:text-lg text-slate-400 leading-relaxed max-w-2xl font-normal">
+        {siteConfig.bio} Passionate about building type-safe web applications, scalable AWS cloud infrastructure, and AI-driven solutions.
+      </p>
+
+      <!-- Pill Buttons (Image 2 style: Rounded Pill with Glow) -->
+      <div class="flex flex-wrap items-center gap-4 pt-4">
+        <a
+          href="#projects"
+          class="btn-cyber-primary font-semibold px-8 py-3.5 rounded-2xl flex items-center gap-2 text-sm sm:text-base tracking-wide"
+        >
+          <span>View My Work</span>
+          <ArrowRight className="w-4 h-4" />
+        </a>
+
+        <a
+          href="#contact"
+          class="btn-cyber-outline font-mono text-sm px-8 py-3.5 rounded-2xl flex items-center gap-2"
+        >
+          <span>Get In Touch</span>
+        </a>
+
+        <a
+          href="/resume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-xs font-mono text-slate-400 hover:text-cyan-400 flex items-center gap-1.5 px-4 py-3 rounded-2xl border border-slate-800 hover:border-cyan-500/30 transition-all bg-slate-900/40 ml-auto sm:ml-0"
+        >
+          <Download className="w-3.5 h-3.5 text-cyan-400" />
+          <span>Resume (PDF)</span>
+        </a>
+      </div>
+
+      <!-- Social Links Row -->
+      <div class="flex items-center gap-6 pt-6 border-t border-slate-800/60 font-mono text-xs text-slate-400">
+        <span class="text-slate-500">Connect:</span>
+        <div class="flex items-center gap-5">
+          {socialLinks.map((social) => (
+            <a
+              href={social.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center gap-2 text-slate-300 hover:text-cyan-400 transition-colors group"
+            >
+              {social.iconName === 'github' && <Github className="w-4 h-4 group-hover:drop-shadow-[0_0_8px_#00f0ff]" />}
+              {social.iconName === 'linkedin' && <Linkedin className="w-4 h-4 group-hover:drop-shadow-[0_0_8px_#00f0ff]" />}
+              {social.iconName === 'email' && <Mail className="w-4 h-4 group-hover:drop-shadow-[0_0_8px_#00f0ff]" />}
+              <span class="capitalize">{social.name}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+    </div>
   </Container>
+
+  <!-- Down-Arrow Indicator (Image 2 bottom arrow) -->
+  <div class="flex justify-center pt-8 relative z-10">
+    <a href="#about" class="text-slate-400 hover:text-cyan-400 transition-colors p-2 animate-bounce" aria-label="Scroll down">
+      <ArrowDown className="w-5 h-5 text-cyan-400/80" />
+    </a>
+  </div>
+
 </section>
+

@@ -33,7 +33,12 @@ const blogCollection = defineCollection({
     title: z.string(),
     description: z.string(),
     pubDate: z.coerce.date(),
+    readTime: z.string().default('5 min read'),
     tags: z.array(z.string()).default([]),
+    featured: z.boolean().default(false),
+    author: z.string().default('Ashan Kavinda'),
+    mediumUrl: z.string().default('https://medium.com/@ashankavinda'),
+    image: z.string().optional(),
   }),
 });
 

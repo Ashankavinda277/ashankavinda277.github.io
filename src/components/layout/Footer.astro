@@ -5,16 +5,16 @@ import { socialLinks } from '@/data/social';
 import { Mail } from 'lucide-react';
 ---
 
-<footer class="border-t border-border/50 py-12 bg-muted/20 mt-auto">
+<footer class="border-t border-cyan-500/10 py-12 bg-[#040612] mt-auto">
   <Container size="lg" class="flex flex-col md:flex-row items-center justify-between gap-6">
     <!-- Brand Tagline -->
     <div class="space-y-1 text-center md:text-left">
-      <p class="font-mono font-bold text-sm tracking-tight text-foreground flex items-center justify-center md:justify-start gap-2">
-        <span class="w-2 h-2 rounded-full bg-accent inline-block"></span>
+      <p class="font-mono font-bold text-sm tracking-tight text-slate-100 flex items-center justify-center md:justify-start gap-2">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 inline-block shadow-[0_0_8px_#00f0ff]"></span>
         {siteConfig.name}
       </p>
-      <p class="text-xs font-mono text-muted-foreground">
-        {siteConfig.role} — Minimal Developer Workspace
+      <p class="text-xs font-mono text-slate-400">
+        {siteConfig.role} — Cyber Tech Developer Workspace
       </p>
     </div>
 
@@ -25,7 +25,7 @@ import { Mail } from 'lucide-react';
           href={link.url}
           target={link.url.startsWith('http') ? '_blank' : '_self'}
           rel={link.url.startsWith('http') ? 'noopener noreferrer' : undefined}
-          class="w-9 h-9 flex items-center justify-center rounded-lg border border-border/60 bg-card hover:bg-muted text-muted-foreground hover:text-foreground transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          class="w-9 h-9 flex items-center justify-center rounded-xl border border-cyan-500/20 bg-slate-900/80 hover:border-cyan-400 hover:text-cyan-300 hover:shadow-[0_0_12px_rgba(0,240,255,0.3)] text-slate-400 transition-all duration-200"
           aria-label={link.name}
           title={link.name}
         >
@@ -45,8 +45,9 @@ import { Mail } from 'lucide-react';
     </div>
 
     <!-- Copyright -->
-    <p class="text-xs font-mono text-muted-foreground text-center md:text-right">
+    <p class="text-xs font-mono text-slate-400 text-center md:text-right">
       © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
     </p>
   </Container>
 </footer>
+

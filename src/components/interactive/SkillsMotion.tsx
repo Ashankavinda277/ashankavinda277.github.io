@@ -42,16 +42,16 @@ export function SkillsMotion({ categories }: SkillsMotionProps) {
         <motion.div
           key={category.title}
           variants={cardVariants}
-          className="group relative flex flex-col rounded-xl border border-border/70 bg-card p-6 hover:border-accent/40 hover:bg-card/90 transition-all duration-300 shadow-sm hover:shadow-md hover:shadow-accent/5"
+          className="group relative flex flex-col rounded-2xl cyber-glass-card p-6 transition-all duration-300 shadow-lg hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(0,240,255,0.15)]"
         >
-          <div className="space-y-2 mb-4 pb-4 border-b border-border/40">
-            <h3 className="text-base font-bold tracking-tight text-foreground flex items-center justify-between">
-              <span>{category.title}</span>
-              <span className="font-mono text-[10px] text-muted-foreground bg-muted px-2 py-0.5 rounded border border-border/40">
+          <div className="space-y-2 mb-4 pb-4 border-b border-cyan-500/15">
+            <h3 className="text-base font-bold tracking-tight text-slate-100 flex items-center justify-between">
+              <span className="group-hover:text-cyan-300 transition-colors">{category.title}</span>
+              <span className="font-mono text-[10px] text-cyan-400 bg-slate-900/80 px-2 py-0.5 rounded-full border border-cyan-500/30">
                 {category.skills.length} items
               </span>
             </h3>
-            <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
+            <p className="text-xs text-slate-400 leading-relaxed line-clamp-2">
               {category.description}
             </p>
           </div>
@@ -60,7 +60,7 @@ export function SkillsMotion({ categories }: SkillsMotionProps) {
             {category.skills.map((skill) => (
               <span
                 key={skill}
-                className="inline-flex items-center px-3 py-1 rounded-md text-xs font-mono bg-muted/60 text-foreground/90 border border-border/60 hover:border-accent/50 hover:bg-accent-muted hover:text-accent transition-all duration-200"
+                className="inline-flex items-center px-3 py-1 rounded-full text-xs font-mono bg-slate-900/90 text-slate-200 border border-slate-700/80 hover:border-cyan-400 hover:text-cyan-300 hover:shadow-[0_0_10px_rgba(0,240,255,0.3)] transition-all duration-200"
               >
                 {skill}
               </span>
@@ -71,3 +71,4 @@ export function SkillsMotion({ categories }: SkillsMotionProps) {
     </motion.div>
   );
 }
+

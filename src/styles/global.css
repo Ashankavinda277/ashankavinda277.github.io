@@ -4,35 +4,39 @@
 
 @layer base {
   :root {
-    --background: #fafafa;
-    --foreground: #09090b;
-    --muted: #f4f4f5;
-    --muted-foreground: #71717a;
-    --card: #ffffff;
-    --card-foreground: #09090b;
-    --border: #e4e4e7;
-    --input: #e4e4e7;
-    --ring: #10b981;
+    --background: #060814;
+    --foreground: #f8fafc;
+    --muted: #0c1126;
+    --muted-foreground: #94a3b8;
+    --card: #090d20;
+    --card-foreground: #f8fafc;
+    --border: rgba(0, 240, 255, 0.15);
+    --input: rgba(0, 240, 255, 0.2);
+    --ring: #00f0ff;
 
-    --accent: #10b981;
-    --accent-foreground: #ffffff;
-    --accent-muted: rgba(16, 185, 129, 0.1);
+    --accent-cyan: #00f0ff;
+    --accent-violet: #a855f7;
+    --accent: #00f0ff;
+    --accent-foreground: #060814;
+    --accent-muted: rgba(0, 240, 255, 0.15);
   }
 
   .dark {
-    --background: #09090b;
-    --foreground: #f4f4f5;
-    --muted: #18181b;
-    --muted-foreground: #a1a1aa;
-    --card: #121215;
-    --card-foreground: #f4f4f5;
-    --border: #27272a;
-    --input: #27272a;
-    --ring: #10b981;
+    --background: #060814;
+    --foreground: #f8fafc;
+    --muted: #0c1126;
+    --muted-foreground: #94a3b8;
+    --card: #090d20;
+    --card-foreground: #f8fafc;
+    --border: rgba(0, 240, 255, 0.15);
+    --input: rgba(0, 240, 255, 0.2);
+    --ring: #00f0ff;
 
-    --accent: #10b981;
-    --accent-foreground: #09090b;
-    --accent-muted: rgba(16, 185, 129, 0.15);
+    --accent-cyan: #00f0ff;
+    --accent-violet: #a855f7;
+    --accent: #00f0ff;
+    --accent-foreground: #060814;
+    --accent-muted: rgba(0, 240, 255, 0.15);
   }
 
   * {
@@ -40,7 +44,7 @@
   }
 
   html {
-    color-scheme: dark light;
+    color-scheme: dark;
     scroll-behavior: smooth;
   }
 
@@ -52,11 +56,12 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     min-height: 100vh;
+    overflow-x: hidden;
   }
 
   ::selection {
-    background-color: var(--accent-muted);
-    color: var(--accent);
+    background-color: rgba(0, 240, 255, 0.3);
+    color: #ffffff;
   }
 
   /* Typography Defaults */
@@ -71,7 +76,7 @@
     letter-spacing: -0.035em;
   }
 
-  code, pre {
+  code, pre, .font-mono {
     font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, monospace;
   }
 
@@ -90,10 +95,79 @@
     background: var(--background);
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--border);
+    background: #111827;
     border-radius: 3px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--muted-foreground);
+    background: #00f0ff;
   }
 }
+
+@layer utilities {
+  /* Cyber Tech Circuit & Grid Background */
+  .bg-cyber-network {
+    background-color: #060814;
+    background-image: 
+      radial-gradient(circle at 50% 30%, rgba(0, 240, 255, 0.08) 0%, transparent 60%),
+      radial-gradient(circle at 85% 70%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
+      linear-gradient(to right, rgba(0, 240, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 80px 80px, 80px 80px;
+  }
+
+  .bg-grid-pattern {
+    background-image: radial-gradient(rgba(0, 240, 255, 0.18) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  /* Glowing Text Gradient matching Image 2 */
+  .text-gradient-cyan-purple {
+    background: linear-gradient(135deg, #ffffff 0%, #00f0ff 45%, #c084fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-gradient-cyan {
+    background: linear-gradient(135deg, #ffffff 0%, #00f0ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Pill Cyber Glow Button Shadow */
+  .btn-cyber-primary {
+    background: linear-gradient(135deg, #00f0ff 0%, #7c3aed 100%);
+    color: #030712;
+    box-shadow: 0 0 25px -3px rgba(0, 240, 255, 0.45);
+    transition: all 0.25s ease-in-out;
+  }
+  .btn-cyber-primary:hover {
+    box-shadow: 0 0 35px 2px rgba(0, 240, 255, 0.65), 0 0 20px 0px rgba(168, 85, 247, 0.5);
+    transform: translateY(-2px);
+  }
+
+  .btn-cyber-outline {
+    background: rgba(12, 17, 38, 0.7);
+    border: 1px solid rgba(0, 240, 255, 0.25);
+    color: #e2e8f0;
+    transition: all 0.25s ease-in-out;
+  }
+  .btn-cyber-outline:hover {
+    border-color: rgba(0, 240, 255, 0.6);
+    background: rgba(0, 240, 255, 0.1);
+    box-shadow: 0 0 15px -3px rgba(0, 240, 255, 0.3);
+    transform: translateY(-2px);
+  }
+
+  /* Glowing Circuit Node Lines Effect */
+  .cyber-glass-card {
+    background: rgba(9, 13, 32, 0.75);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 240, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  }
+  .cyber-glass-card:hover {
+    border-color: rgba(0, 240, 255, 0.4);
+    box-shadow: 0 0 25px -5px rgba(0, 240, 255, 0.2);
+  }
+}
+
