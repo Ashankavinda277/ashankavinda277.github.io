@@ -1,17 +1,20 @@
 ---
 interface Props {
   class?: string;
-  size?: 'sm' | 'md' | 'lg' | 'full';
+  size?: 'sm' | 'md' | 'lg' | 'full' | 'wide';
 }
 
-const { class: className = '', size = 'lg' } = Astro.props;
+const { class: className = '', size = 'full' } = Astro.props;
+
 
 const sizes = {
   sm: 'max-w-3xl',
   md: 'max-w-5xl',
   lg: 'max-w-6xl',
   full: 'max-w-7xl',
+  wide: 'max-w-[1440px]',
 };
+
 ---
 
 <div class={`w-full mx-auto px-4 sm:px-6 lg:px-8 ${sizes[size]} ${className}`}>

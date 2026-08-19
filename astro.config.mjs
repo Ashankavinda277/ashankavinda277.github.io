@@ -3,11 +3,9 @@ import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
-import vercel from '@astrojs/vercel';
 
 export default defineConfig({
-  site: 'https://ashankavinda.dev',
-  adapter: vercel(),
+  site: 'https://ashankavinda277.github.io',
   integrations: [
     react(),
     mdx(),
@@ -17,3 +15,4 @@ export default defineConfig({
     sitemap(),
   ],
 });
+

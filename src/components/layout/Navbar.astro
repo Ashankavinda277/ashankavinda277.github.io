@@ -6,7 +6,9 @@ import { NavbarInteractive } from './NavbarInteractive';
 ---
 
 <header class="sticky top-0 z-50 w-full backdrop-blur-xl bg-[#060814]/80 border-b border-cyan-500/10 transition-colors duration-200">
-  <Container size="lg" class="h-16 flex items-center justify-between">
+  <Container size="full" class="h-16 flex items-center justify-between">
+
+
     <!-- Brand Logo / Initials (Image 2 style: NW logo with bright blue fill/glow) -->
     <a
       href="/"
@@ -21,14 +23,12 @@ import { NavbarInteractive } from './NavbarInteractive';
       </span>
     </a>
 
-    <!-- Desktop Navigation Items (Image 2 style nav links) -->
+    <!-- Desktop Navigation Items (Image 2 style nav links with dynamic active state) -->
     <nav class="hidden md:flex items-center gap-7" aria-label="Main Navigation">
-      {navItems.map((item, index) => (
+      {navItems.map((item) => (
         <a
           href={item.href}
-          class={`text-xs font-mono tracking-wider transition-all relative py-1 hover:text-cyan-400 ${
-            index === 0 ? 'text-cyan-400 font-semibold' : 'text-slate-400'
-          }`}
+          class="desktop-nav-link text-xs font-mono tracking-wider transition-all relative py-1 hover:text-cyan-400 text-slate-400"
         >
           {item.label}
         </a>
@@ -39,4 +39,88 @@ import { NavbarInteractive } from './NavbarInteractive';
     <NavbarInteractive client:load navItems={navItems} />
   </Container>
 </header>
+
+<script is:inline>
+  function setupActiveNav() {
+    const navLinks = document.querySelectorAll('.desktop-nav-link');
+    if (!navLinks.length) return;
+
+    const pathname = window.location.pathname;
+    const isProjectsPage = pathname.startsWith('/projects');
+    const isBlogPage = pathname.startsWith('/blog');
+
+    if (isProjectsPage) {
+      navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === '/#projects' || href === '/projects' || href === '#projects') {
+          link.classList.add('text-cyan-400', 'font-semibold');
+          link.classList.remove('text-slate-400');
+        } else {
+          link.classList.remove('text-cyan-400', 'font-semibold');
+          link.classList.add('text-slate-400');
+        }
+      });
+      return;
+    }
+
+    if (isBlogPage) {
+      navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === '/#articles' || href === '/blog' || href === '#articles') {
+          link.classList.add('text-cyan-400', 'font-semibold');
+          link.classList.remove('text-slate-400');
+        } else {
+          link.classList.remove('text-cyan-400', 'font-semibold');
+          link.classList.add('text-slate-400');
+        }
+      });
+      return;
+    }
+
+    const sectionElements = [];
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      if (href) {
+        const hashIndex = href.indexOf('#');
+        if (hashIndex !== -1) {
+          const hash = href.slice(hashIndex);
+          const target = document.querySelector(hash);
+          if (target) sectionElements.push({ href, hash, el: target });
+        }
+      }
+    });
+
+    function updateActiveNav() {
+      const scrollPos = window.scrollY + 180;
+      let currentHref = '/';
+
+      if (window.scrollY > 100) {
+        sectionElements.forEach(item => {
+          if (item.el.offsetTop <= scrollPos) {
+            currentHref = item.href;
+          }
+        });
+      }
+
+      navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === currentHref) {
+          link.classList.add('text-cyan-400', 'font-semibold');
+          link.classList.remove('text-slate-400');
+        } else {
+          link.classList.remove('text-cyan-400', 'font-semibold');
+          link.classList.add('text-slate-400');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', updateActiveNav, { passive: true });
+    updateActiveNav();
+  }
+
+  document.addEventListener('DOMContentLoaded', setupActiveNav);
+  document.addEventListener('astro:page-load', setupActiveNav);
+</script>
+
+
 

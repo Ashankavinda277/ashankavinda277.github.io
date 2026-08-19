@@ -1,5 +1,5 @@
 ---
-import { ExternalLink, Calendar, Clock } from 'lucide-react';
+import { ExternalLink, Calendar, Clock, BookOpen, Code, Cloud, Cpu, Terminal } from 'lucide-react';
 
 interface Props {
   title: string;
@@ -10,9 +10,20 @@ interface Props {
   slug: string;
   mediumUrl?: string;
   featured?: boolean;
+  image?: string | undefined;
+  icon?: string | undefined;
 }
 
-const { title, description, pubDate, readTime, tags, mediumUrl = 'https://medium.com/@ashankavinda' } = Astro.props;
+const {
+  title,
+  description,
+  pubDate,
+  readTime,
+  tags,
+  mediumUrl = 'https://medium.com/@ashankavinda',
+  image,
+  icon,
+} = Astro.props;
 
 const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
   year: 'numeric',
@@ -21,45 +32,78 @@ const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
 });
 ---
 
-<article class="group relative flex flex-col rounded-2xl border border-blue-900/40 bg-card/80 hover:border-blue-500/60 hover:bg-card transition-all duration-300 overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-blue-500/10 p-6 space-y-4">
-  <!-- Date & Read Time Row -->
-  <div class="flex items-center justify-between text-xs font-mono text-muted-foreground border-b border-border/30 pb-3">
-    <div class="flex items-center gap-1.5 text-blue-400">
-      <Calendar className="w-3.5 h-3.5" />
+<article class="group relative flex flex-col rounded-2xl border border-cyan-500/20 bg-[#090d24]/90 hover:border-cyan-400/60 transition-all duration-300 overflow-hidden shadow-xl hover:shadow-[0_0_25px_rgba(0,240,255,0.15)]">
+  
+  <!-- Banner Header (Image or Cyber Gradient Icon Box) -->
+  <div class="relative w-full h-44 sm:h-48 bg-slate-950 overflow-hidden border-b border-cyan-500/15">
+    {image ? (
+      <img
+        src={image}
+        alt=""
+        class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+        loading="lazy"
+        onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80';"
+      />
+    ) : (
+      <div class="w-full h-full bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950/60 flex items-center justify-center p-6 text-center">
+        <div class="p-3.5 rounded-2xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 shadow-[0_0_15px_rgba(0,240,255,0.2)] group-hover:scale-110 transition-transform">
+          {icon === 'Cloud' ? (
+            <Cloud className="w-7 h-7 text-cyan-400" />
+          ) : icon === 'Cpu' ? (
+            <Cpu className="w-7 h-7 text-purple-400" />
+          ) : icon === 'Code' ? (
+            <Code className="w-7 h-7 text-cyan-400" />
+          ) : icon === 'Terminal' ? (
+            <Terminal className="w-7 h-7 text-emerald-400" />
+          ) : (
+            <BookOpen className="w-7 h-7 text-cyan-400" />
+          )}
+        </div>
+      </div>
+    )}
+
+    <!-- Date & Read Time Floating Badges -->
+    <div class="absolute top-3 left-3 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-950/90 text-cyan-300 text-[10px] font-mono border border-cyan-500/30 backdrop-blur-md">
+      <Calendar className="w-3 h-3 text-cyan-400" />
       <span>{formattedDate}</span>
     </div>
-    <div class="flex items-center gap-1.5">
-      <Clock className="w-3.5 h-3.5" />
+
+    <div class="absolute top-3 right-3 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-950/90 text-slate-400 text-[10px] font-mono border border-slate-800 backdrop-blur-md">
+      <Clock className="w-3 h-3 text-purple-400" />
       <span>{readTime}</span>
     </div>
   </div>
 
-  <!-- Title & External Link -->
-  <div class="space-y-2 flex-1">
-    <h3 class="text-xl font-bold tracking-tight text-foreground group-hover:text-blue-400 transition-colors duration-200">
-      <a href={mediumUrl} target="_blank" rel="noopener noreferrer" class="focus:outline-none">
-        <span class="absolute inset-0 z-10" aria-hidden="true"></span>
-        {title}
-      </a>
-    </h3>
-    <p class="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
-      {description}
-    </p>
-  </div>
-
-  <!-- Tags Row & Medium CTA -->
-  <div class="flex items-center justify-between pt-3 border-t border-border/30 z-20">
-    <div class="flex flex-wrap gap-1.5">
-      {tags.slice(0, 3).map((tag) => (
-        <span class="text-[10px] font-mono px-2 py-0.5 rounded-md bg-blue-950/40 text-blue-300 border border-blue-900/40">
-          #{tag}
-        </span>
-      ))}
+  <!-- Content Body -->
+  <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+    <div class="space-y-2">
+      <h3 class="text-lg font-bold tracking-tight text-slate-100 group-hover:text-cyan-300 transition-colors duration-200">
+        <a href={mediumUrl} target="_blank" rel="noopener noreferrer" class="focus:outline-none">
+          <span class="absolute inset-0 z-10" aria-hidden="true"></span>
+          {title}
+        </a>
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-400 line-clamp-2 leading-relaxed">
+        {description}
+      </p>
     </div>
 
-    <div class="flex items-center gap-1.5 text-xs font-mono text-blue-400 font-semibold group-hover:translate-x-1 transition-transform duration-200">
-      <span>Read on Medium</span>
-      <ExternalLink className="w-3.5 h-3.5" />
+    <!-- Tags Row & Medium CTA -->
+    <div class="flex items-center justify-between pt-3 border-t border-cyan-500/15 z-20">
+      <div class="flex flex-wrap gap-1.5">
+        {tags.slice(0, 3).map((tag) => (
+          <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-slate-900 text-cyan-300 border border-cyan-500/30">
+            #{tag}
+          </span>
+        ))}
+      </div>
+
+      <div class="flex items-center gap-1.5 text-xs font-mono text-cyan-400 font-semibold group-hover:translate-x-1 transition-transform duration-200">
+        <span>Read on Medium</span>
+        <ExternalLink className="w-3.5 h-3.5" />
+      </div>
     </div>
   </div>
+
 </article>
+

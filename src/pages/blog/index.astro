@@ -17,7 +17,8 @@ const sortedPosts = allPosts.sort(
   <Navbar />
   
   <main class="flex-1 py-16 sm:py-24 bg-grid-pattern">
-    <Container size="lg" class="space-y-16">
+    <Container size="full" class="space-y-16">
+
       <SectionHeading
         kicker="MEDIUM WRITINGS"
         title="Blog & Articles"
@@ -36,6 +37,8 @@ const sortedPosts = allPosts.sort(
             mediumUrl={post.data.mediumUrl}
             slug={post.id.replace(/\.mdx?$/, '')}
             featured={post.data.featured}
+            image={post.data.image}
+            icon={post.data.icon}
           />
         ))}
       </div>

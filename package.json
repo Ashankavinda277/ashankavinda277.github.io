@@ -16,7 +16,6 @@
     "@astrojs/react": "^4.2.1",
     "@astrojs/sitemap": "^3.7.3",
     "@astrojs/tailwind": "^5.1.5",
-    "@astrojs/vercel": "^8.2.11",
     "clsx": "^2.1.1",
     "lucide-react": "^0.475.0",
     "motion": "^12.4.3",

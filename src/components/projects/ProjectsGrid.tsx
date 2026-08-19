@@ -56,11 +56,11 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
               key={project.slug}
               className="group relative flex flex-col rounded-xl border border-border/70 bg-card/60 hover:bg-card hover:border-accent/40 transition-all duration-300 overflow-hidden hover:shadow-lg hover:shadow-accent/5"
             >
-              <div className="relative w-full h-48 sm:h-52 bg-muted/40 overflow-hidden border-b border-border/50">
+              <div className="relative w-full h-48 sm:h-52 bg-slate-950 overflow-hidden border-b border-cyan-500/15">
                 {project.image ? (
                   <img
                     src={project.image}
-                    alt={project.title}
+                    alt=""
                     className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                     onError={(e) => {
@@ -69,19 +69,20 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
                     }}
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-muted/30 text-muted-foreground font-mono text-xs">
-                    <span>/{project.slug}</span>
+                  <div className="w-full h-full bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950/40 flex items-center justify-center p-6 text-center">
+                    <span className="font-mono text-cyan-400/80 text-sm font-semibold">{project.title}</span>
                   </div>
                 )}
-                <div className="absolute top-3 left-3">
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-mono font-medium bg-accent-muted text-accent border border-accent/20 backdrop-blur-md">
+                <div className="absolute top-3 left-3 z-10">
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-mono font-medium bg-slate-950/90 text-cyan-300 border border-cyan-500/30 backdrop-blur-md">
                     {project.category}
                   </span>
                 </div>
-                <div className="absolute top-3 right-3 font-mono text-xs text-muted-foreground bg-background/80 backdrop-blur-md px-2 py-0.5 rounded border border-border/50">
+                <div className="absolute top-3 right-3 z-10 font-mono text-xs text-slate-400 bg-slate-950/90 backdrop-blur-md px-2 py-0.5 rounded border border-slate-800">
                   {project.year}
                 </div>
               </div>
+
 
               <div className="flex flex-col flex-1 p-5 sm:p-6 space-y-4">
                 <div className="flex items-start justify-between gap-2">

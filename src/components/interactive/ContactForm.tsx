@@ -137,14 +137,14 @@ export function ContactForm() {
           aria-invalid={!!errors.name}
           aria-describedby={errors.name ? 'name-error' : undefined}
           placeholder="Jane Doe"
-          className={`w-full px-4 py-3 rounded-lg border bg-card text-foreground placeholder:text-muted-foreground/50 text-sm focus:outline-none transition-all ${
+          className={`w-full px-4 py-3 rounded-xl border bg-slate-950/90 text-slate-100 placeholder:text-slate-500 text-sm focus:outline-none transition-all ${
             errors.name
-              ? 'border-destructive focus:ring-2 focus:ring-destructive/30'
-              : 'border-border/70 focus:border-accent focus:ring-2 focus:ring-accent/20'
+              ? 'border-rose-500 focus:ring-2 focus:ring-rose-500/30'
+              : 'border-slate-800 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20'
           }`}
         />
         {errors.name && (
-          <p id="name-error" className="text-xs font-mono text-destructive flex items-center gap-1">
+          <p id="name-error" className="text-xs font-mono text-rose-400 flex items-center gap-1">
             <AlertCircle className="w-3.5 h-3.5" />
             <span>{errors.name}</span>
           </p>
@@ -155,9 +155,9 @@ export function ContactForm() {
       <div className="space-y-2">
         <label
           htmlFor="email"
-          className="block font-mono text-xs uppercase tracking-wider text-foreground font-semibold"
+          className="block font-mono text-xs uppercase tracking-wider text-slate-200 font-semibold"
         >
-          Email <span className="text-accent">*</span>
+          Email <span className="text-cyan-400">*</span>
         </label>
         <input
           type="email"
@@ -169,14 +169,14 @@ export function ContactForm() {
           aria-invalid={!!errors.email}
           aria-describedby={errors.email ? 'email-error' : undefined}
           placeholder="jane@example.com"
-          className={`w-full px-4 py-3 rounded-lg border bg-card text-foreground placeholder:text-muted-foreground/50 text-sm focus:outline-none transition-all ${
+          className={`w-full px-4 py-3 rounded-xl border bg-slate-950/90 text-slate-100 placeholder:text-slate-500 text-sm focus:outline-none transition-all ${
             errors.email
-              ? 'border-destructive focus:ring-2 focus:ring-destructive/30'
-              : 'border-border/70 focus:border-accent focus:ring-2 focus:ring-accent/20'
+              ? 'border-rose-500 focus:ring-2 focus:ring-rose-500/30'
+              : 'border-slate-800 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20'
           }`}
         />
         {errors.email && (
-          <p id="email-error" className="text-xs font-mono text-destructive flex items-center gap-1">
+          <p id="email-error" className="text-xs font-mono text-rose-400 flex items-center gap-1">
             <AlertCircle className="w-3.5 h-3.5" />
             <span>{errors.email}</span>
           </p>
@@ -187,9 +187,9 @@ export function ContactForm() {
       <div className="space-y-2">
         <label
           htmlFor="message"
-          className="block font-mono text-xs uppercase tracking-wider text-foreground font-semibold"
+          className="block font-mono text-xs uppercase tracking-wider text-slate-200 font-semibold"
         >
-          Message <span className="text-accent">*</span>
+          Message <span className="text-cyan-400">*</span>
         </label>
         <textarea
           id="message"
@@ -201,14 +201,14 @@ export function ContactForm() {
           aria-invalid={!!errors.message}
           aria-describedby={errors.message ? 'message-error' : undefined}
           placeholder="Tell me about your project, idea, or inquiry..."
-          className={`w-full px-4 py-3 rounded-lg border bg-card text-foreground placeholder:text-muted-foreground/50 text-sm focus:outline-none transition-all resize-y ${
+          className={`w-full px-4 py-3 rounded-xl border bg-slate-950/90 text-slate-100 placeholder:text-slate-500 text-sm focus:outline-none transition-all resize-y ${
             errors.message
-              ? 'border-destructive focus:ring-2 focus:ring-destructive/30'
-              : 'border-border/70 focus:border-accent focus:ring-2 focus:ring-accent/20'
+              ? 'border-rose-500 focus:ring-2 focus:ring-rose-500/30'
+              : 'border-slate-800 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20'
           }`}
         />
         {errors.message && (
-          <p id="message-error" className="text-xs font-mono text-destructive flex items-center gap-1">
+          <p id="message-error" className="text-xs font-mono text-rose-400 flex items-center gap-1">
             <AlertCircle className="w-3.5 h-3.5" />
             <span>{errors.message}</span>
           </p>
@@ -217,14 +217,14 @@ export function ContactForm() {
 
       {/* Status Feedback Banner */}
       {status === 'success' && (
-        <div className="p-4 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 text-xs sm:text-sm font-mono flex items-center gap-2">
+        <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs sm:text-sm font-mono flex items-center gap-2">
           <CheckCircle2 className="w-5 h-5 shrink-0" />
           <span>{responseMessage}</span>
         </div>
       )}
 
       {status === 'error' && (
-        <div className="p-4 rounded-lg bg-destructive/10 border border-destructive/30 text-destructive text-xs sm:text-sm font-mono flex items-center gap-2">
+        <div className="p-4 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs sm:text-sm font-mono flex items-center gap-2">
           <AlertCircle className="w-5 h-5 shrink-0" />
           <span>{responseMessage}</span>
         </div>
@@ -234,7 +234,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={status === 'submitting'}
-        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs uppercase tracking-wider font-bold transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-600/30"
+        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full btn-cyber-primary font-mono text-xs uppercase tracking-wider font-bold transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
       >
         {status === 'submitting' ? (
           <>
@@ -251,3 +251,4 @@ export function ContactForm() {
     </form>
   );
 }
+

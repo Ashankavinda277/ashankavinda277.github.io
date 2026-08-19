@@ -6,6 +6,7 @@ import Footer from '@/components/layout/Footer.astro';
 import Container from '@/components/ui/Container.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
 import { ProjectsGrid } from '@/components/projects/ProjectsGrid';
+import { ArrowLeft } from 'lucide-react';
 
 const allProjects = await getCollection('projects');
 
@@ -32,7 +33,19 @@ const projectItems = allProjects
   <Navbar />
 
   <main class="flex-1 py-12 sm:py-20">
-    <Container size="lg" class="space-y-12">
+    <Container size="full" class="space-y-12">
+
+      <!-- Back to Home Return Link -->
+      <div class="flex items-center">
+        <a
+          href="/#projects"
+          class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900/80 border border-cyan-500/20 text-xs font-mono font-semibold text-cyan-400 hover:text-cyan-300 hover:border-cyan-400/50 hover:bg-slate-900 transition-all duration-200 shadow-md group"
+        >
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+          <span>Back to Home</span>
+        </a>
+      </div>
+
       <!-- Section Heading -->
       <SectionHeading
         kicker="Portfolio Showcase"
@@ -44,6 +57,7 @@ const projectItems = allProjects
       <ProjectsGrid client:load projects={projectItems} />
     </Container>
   </main>
+
 
   <Footer />
 </BaseLayout>
