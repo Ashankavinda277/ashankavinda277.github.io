@@ -5,13 +5,15 @@ const projectsCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
+    shortDescription: z.string().optional(),
     technologies: z.array(z.string()),
-    image: z.string().optional(),
-    githubUrl: z.string().optional(),
-    liveUrl: z.string().optional(),
-    featured: z.boolean().default(false),
     category: z.string().default('Full-Stack'),
-    order: z.number().optional(),
+    image: z.string().optional(),
+    github: z.string().optional(),
+    demo: z.string().optional(),
+    featured: z.boolean().default(false),
+    year: z.union([z.string(), z.number()]).default('2024'),
+    order: z.number().default(99),
   }),
 });
 

@@ -1,0 +1,56 @@
+---
+import { getCollection } from 'astro:content';
+import Container from '@/components/ui/Container.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import ProjectCard from '@/components/projects/ProjectCard.astro';
+import Button from '@/components/ui/Button.astro';
+import { ArrowRight } from 'lucide-react';
+
+const allProjects = await getCollection('projects');
+
+const featuredProjects = allProjects
+  .filter((project) => project.data.featured)
+  .sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
+---
+
+<section id="work" class="py-16 sm:py-24 border-b border-border/40 scroll-mt-16">
+  <Container size="lg" class="space-y-12">
+    <!-- Header with Section Title and View All Button -->
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+      <SectionHeading
+        kicker="Featured Projects"
+        title="Selected Work"
+        description="A selection of recent applications built with modern frontend, backend, and cloud architectures."
+      />
+
+      <Button href="/projects" variant="outline" size="sm" class="self-start sm:self-auto font-mono text-xs">
+        <span>View All Projects</span>
+        <ArrowRight className="w-3.5 h-3.5 ml-1" />
+      </Button>
+    </div>
+
+    <!-- Project Cards Grid -->
+    {featuredProjects.length > 0 ? (
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        {featuredProjects.map((project) => (
+          <ProjectCard
+            title={project.data.title}
+            description={project.data.description}
+            shortDescription={project.data.shortDescription}
+            technologies={project.data.technologies}
+            category={project.data.category}
+            year={project.data.year}
+            slug={project.id.replace(/\.mdx?$/, '')}
+            image={project.data.image}
+            github={project.data.github}
+            demo={project.data.demo}
+          />
+        ))}
+      </div>
+    ) : (
+      <div class="p-8 text-center rounded-xl border border-border bg-card/40 text-muted-foreground font-mono text-sm">
+        No featured projects currently listed.
+      </div>
+    )}
+  </Container>
+</section>

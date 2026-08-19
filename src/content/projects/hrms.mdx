@@ -1,0 +1,55 @@
+---
+title: "HRMS — Human Resource Management System"
+description: "A cloud-native employee & workspace management platform built with Next.js, AWS Amplify, DynamoDB, and Cognito."
+shortDescription: "Cloud-native workplace management dashboard with real-time employee analytics, attendance tracking, and Cognito auth."
+technologies: ["React", "Next.js", "TypeScript", "FastAPI", "AWS Amplify", "DynamoDB", "Cognito"]
+category: "Full-Stack & Cloud"
+image: "/images/projects/hrms-preview.png"
+github: "https://github.com/ashankavinda/hrms"
+demo: "https://hrms.example.com"
+featured: true
+year: "2024"
+order: 1
+---
+
+## Project Overview
+
+HRMS (Human Resource Management System) is a comprehensive web application designed to streamline internal company operations, employee directory management, attendance tracking, and role-based permissions.
+
+## Problem Statement
+
+Traditional HR administration workflows rely on fragmented spreadsheets and manual attendance logging, leading to data discrepancies, lack of real-time visibility, and inefficient managerial reporting.
+
+## Project Goals
+
+- **Centralized Data Hub**: Unified dashboard for admins, department managers, and employees.
+- **Secure Authentication**: Fine-grained role-based access control (RBAC) powered by Amazon Cognito.
+- **Scalable Backend**: Serverless data persistence using Amazon DynamoDB and AWS Amplify GraphQL APIs.
+- **Real-Time Insights**: Fast frontend analytics rendering attendance trends and departmental performance.
+
+## System Architecture
+
+The application is structured into a modern cloud-native architecture:
+
+1. **Frontend**: Next.js App Router with React Server Components, TypeScript, and Tailwind CSS.
+2. **Authentication**: Amazon Cognito with custom user pools and JWT authorization headers.
+3. **API Layer**: AWS AppSync GraphQL endpoint providing real-time queries and mutations.
+4. **Database**: Amazon DynamoDB single-table design for high-throughput user profile and attendance records.
+
+## Key Features
+
+- **Role-Based Views**: Seamless switching between Admin management view and Employee personal portal.
+- **Automated Attendance Analytics**: Weekly and monthly worklog tracking with interactive progress indicators.
+- **Smart ID Generation**: Custom identifier generator tailored for enterprise workforce tracking.
+- **Responsive Dashboard**: Mobile-optimized administrative controls and quick actions.
+
+## Challenges & Solutions
+
+### Complex Role-Based Switching
+* **Challenge**: Granting administrative superusers the ability to preview employee-facing dashboards without breaking context isolation.
+* **Solution**: Implemented a unified React Context provider with scoped GraphQL queries.
+
+## Lessons Learned
+
+- Architecting serverless backend workflows with AWS Amplify and DynamoDB.
+- Designing strict TypeScript data interfaces across Next.js app router boundaries.

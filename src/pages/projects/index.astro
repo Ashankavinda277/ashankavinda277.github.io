@@ -1,0 +1,49 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/components/layout/Navbar.astro';
+import Footer from '@/components/layout/Footer.astro';
+import Container from '@/components/ui/Container.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import { ProjectsGrid } from '@/components/projects/ProjectsGrid';
+
+const allProjects = await getCollection('projects');
+
+const projectItems = allProjects
+  .sort((a, b) => (a.data.order || 99) - (b.data.order || 99))
+  .map((project) => ({
+    slug: project.id.replace(/\.mdx?$/, ''),
+    title: project.data.title,
+    description: project.data.description,
+    shortDescription: project.data.shortDescription,
+    technologies: project.data.technologies,
+    category: project.data.category,
+    year: project.data.year,
+    image: project.data.image,
+    github: project.data.github,
+    demo: project.data.demo,
+  }));
+---
+
+<BaseLayout
+  title="Projects — Ashan Kavinda"
+  description="Explore full-stack web applications, cloud infrastructure, and software engineering projects built by Ashan Kavinda."
+>
+  <Navbar />
+
+  <main class="flex-1 py-12 sm:py-20">
+    <Container size="lg" class="space-y-12">
+      <!-- Section Heading -->
+      <SectionHeading
+        kicker="Portfolio Showcase"
+        title="All Projects & Case Studies"
+        description="A complete directory of digital products, cloud architecture, and web applications I have built and experimented with."
+      />
+
+      <!-- Category Filter & Projects Grid -->
+      <ProjectsGrid client:load projects={projectItems} />
+    </Container>
+  </main>
+
+  <Footer />
+</BaseLayout>

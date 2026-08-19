@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/layout/Navbar.astro';
 import Hero from '@/components/sections/Hero.astro';
+import SelectedWork from '@/components/sections/SelectedWork.astro';
 import Footer from '@/components/layout/Footer.astro';
 import { siteConfig } from '@/data/site';
 ---
@@ -10,6 +11,7 @@ import { siteConfig } from '@/data/site';
   <Navbar />
   <main class="flex-1">
     <Hero />
+    <SelectedWork />
   </main>
   <Footer />
 </BaseLayout>
