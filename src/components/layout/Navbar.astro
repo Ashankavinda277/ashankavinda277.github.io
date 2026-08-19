@@ -1,0 +1,39 @@
+---
+import Container from '@/components/ui/Container.astro';
+import { siteConfig } from '@/data/site';
+import { navItems } from '@/data/navigation';
+import { NavbarInteractive } from './NavbarInteractive';
+---
+
+<header class="sticky top-0 z-50 w-full backdrop-blur-md bg-background/80 border-b border-border/50 transition-colors duration-200">
+  <Container size="lg" class="h-16 flex items-center justify-between">
+    <!-- Brand Logo / Initials -->
+    <a
+      href="/"
+      class="group font-mono font-bold text-lg tracking-tight flex items-center gap-2 text-foreground transition-colors"
+      aria-label={`${siteConfig.name} - Home`}
+    >
+      <span class="w-8 h-8 rounded-lg bg-foreground text-background flex items-center justify-center font-extrabold text-xs transition-all group-hover:scale-105 group-hover:bg-accent group-hover:text-accent-foreground shadow-sm">
+        {siteConfig.initials}
+      </span>
+      <span class="font-semibold text-sm tracking-tight hidden sm:inline text-foreground group-hover:text-accent transition-colors">
+        {siteConfig.name}
+      </span>
+    </a>
+
+    <!-- Desktop Navigation Items -->
+    <nav class="hidden md:flex items-center gap-8" aria-label="Main Navigation">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class="text-xs font-mono uppercase tracking-wider text-muted-foreground hover:text-foreground relative py-1 transition-colors after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-accent after:origin-bottom-right after:scale-x-0 hover:after:scale-x-100 hover:after:origin-bottom-left after:transition-transform after:duration-200"
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Interactive Client Widget (Theme Toggle & Mobile Menu) -->
+    <NavbarInteractive client:load navItems={navItems} />
+  </Container>
+</header>

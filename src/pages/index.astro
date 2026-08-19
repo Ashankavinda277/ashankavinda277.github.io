@@ -1,88 +1,15 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Container from '@/components/ui/Container.astro';
-import Button from '@/components/ui/Button.astro';
-import Badge from '@/components/ui/Badge.astro';
+import Navbar from '@/components/layout/Navbar.astro';
+import Hero from '@/components/sections/Hero.astro';
+import Footer from '@/components/layout/Footer.astro';
 import { siteConfig } from '@/data/site';
-import { navItems } from '@/data/navigation';
-import { socialLinks } from '@/data/social';
-import { TestInteractive } from '@/components/interactive/TestInteractive';
 ---
 
 <BaseLayout title={`${siteConfig.name} — ${siteConfig.role}`}>
-  <!-- Navbar Placeholder -->
-  <header class="sticky top-0 z-50 backdrop-blur-md bg-background/80 border-b border-border/50">
-    <Container size="lg" class="h-16 flex items-center justify-between">
-      <a href="/" class="font-mono font-bold text-lg tracking-tight flex items-center gap-2 text-foreground hover:text-accent transition-colors">
-        <span class="w-8 h-8 rounded-lg bg-foreground text-background flex items-center justify-center font-extrabold text-sm">
-          {siteConfig.initials}
-        </span>
-        <span class="hidden sm:inline">{siteConfig.name}</span>
-      </a>
-
-      <nav class="flex items-center gap-6">
-        {navItems.map((item) => (
-          <a
-            href={item.href}
-            class="text-xs font-mono uppercase tracking-wider text-muted-foreground hover:text-foreground transition-colors"
-          >
-            {item.label}
-          </a>
-        ))}
-      </nav>
-    </Container>
-  </header>
-
-  <main class="flex-1 py-16 sm:py-24 space-y-16">
-    <!-- Hero Section Placeholder -->
-    <Container size="lg" class="space-y-8">
-      <div class="flex items-center gap-2">
-        <Badge variant="accent">
-          <span class="w-2 h-2 rounded-full bg-accent animate-pulse mr-1.5 inline-block"></span>
-          {siteConfig.availability.text}
-        </Badge>
-      </div>
-
-      <div class="space-y-4 max-w-3xl">
-        <p class="text-xs font-mono font-bold uppercase tracking-widest text-muted-foreground">
-          {siteConfig.role}
-        </p>
-        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
-          {siteConfig.headline}
-        </h1>
-        <p class="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl">
-          {siteConfig.bio}
-        </p>
-      </div>
-
-      <div class="flex flex-wrap items-center gap-4">
-        <Button href="#work" variant="primary" size="lg">
-          View My Work
-        </Button>
-        <Button href="#contact" variant="outline" size="lg">
-          Contact Me
-        </Button>
-      </div>
-
-      <!-- React Hydration Check -->
-      <div class="pt-8 max-w-xl">
-        <p class="text-xs font-mono text-muted-foreground mb-2">Stage 1 Foundation Verification:</p>
-        <TestInteractive client:load />
-      </div>
-    </Container>
+  <Navbar />
+  <main class="flex-1">
+    <Hero />
   </main>
-
-  <!-- Footer Placeholder -->
-  <footer class="border-t border-border/50 py-8 bg-muted/20">
-    <Container size="lg" class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-muted-foreground">
-      <p>© {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
-      <div class="flex items-center gap-6">
-        {socialLinks.map((link) => (
-          <a href={link.url} target="_blank" rel="noopener noreferrer" class="hover:text-foreground transition-colors">
-            {link.name}
-          </a>
-        ))}
-      </div>
-    </Container>
-  </footer>
+  <Footer />
 </BaseLayout>

@@ -1,0 +1,22 @@
+---
+import Container from '@/components/ui/Container.astro';
+import { siteConfig } from '@/data/site';
+import { HeroMotion } from '@/components/interactive/HeroMotion';
+---
+
+<section class="py-16 sm:py-24 lg:py-32 flex items-center min-h-[65vh] border-b border-border/40 relative">
+  <!-- Subtle Grid Pattern Accent (Minimal Workspace Aesthetic) -->
+  <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none"></div>
+
+  <Container size="lg" class="relative z-10">
+    <HeroMotion
+      client:load
+      role={siteConfig.role}
+      headline={siteConfig.headline}
+      bio={siteConfig.bio}
+      availabilityText={siteConfig.availability.text}
+      workHref="#work"
+      contactHref="#contact"
+    />
+  </Container>
+</section>
