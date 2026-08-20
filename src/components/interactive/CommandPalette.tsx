@@ -74,7 +74,17 @@ export function CommandPalette() {
 
   const handleSelect = (item: CommandItem) => {
     setIsOpen(false);
-    if (item.external) {
+    if (item.href.startsWith('mailto:')) {
+      const isMobile = /Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      );
+      if (isMobile) {
+        window.location.href = item.href;
+      } else {
+        const email = item.href.replace('mailto:', '').split('?')[0] ?? '';
+        window.open(`https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(email)}`, '_blank');
+      }
+    } else if (item.external) {
       window.open(item.href, '_blank', 'noopener,noreferrer');
     } else {
       window.location.href = item.href;

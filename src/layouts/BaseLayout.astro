@@ -105,6 +105,27 @@ const personSchema = {
       window.localStorage.setItem('theme', theme);
     </script>
   </head>
+  <!-- Reliable mailto handling: OS mail-app associations are often unset, -->
+  <!-- so desktop opens Gmail compose directly instead of relying on them. -->
+  <script is:inline>
+    (function () {
+      function isMobile() {
+        return /Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        );
+      }
+      document.addEventListener('click', function (e) {
+        const link = e.target.closest('a[href^="mailto:"]');
+        if (!link || isMobile()) return;
+        e.preventDefault();
+        const email = link.href.replace('mailto:', '').split('?')[0];
+        window.open(
+          'https://mail.google.com/mail/?view=cm&to=' + encodeURIComponent(email),
+          '_blank'
+        );
+      });
+    })();
+  </script>
   <body class="min-h-screen bg-background text-foreground antialiased selection:bg-accent selection:text-accent-foreground flex flex-col font-sans">
     <slot />
 

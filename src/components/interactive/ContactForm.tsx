@@ -71,31 +71,26 @@ export function ContactForm() {
     setResponseMessage('');
 
     try {
-      const targetEndpoint = import.meta.env.PUBLIC_CONTACT_API_URL || '/api/contact';
-      const res = await fetch(targetEndpoint, {
+      const accessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY;
+      const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: `New portfolio message from ${formData.name}`,
+          ...formData,
+        }),
       });
 
-      const contentType = res.headers.get('content-type');
-      if (contentType && contentType.includes('application/json')) {
-        const data = await res.json();
-        if (res.ok && data.success !== false) {
-          setStatus('success');
-          setResponseMessage(data.message || 'Your message has been sent!');
-          setFormData({ name: '', email: '', message: '', botcheck: '' });
-          setErrors({});
-        } else {
-          setStatus('error');
-          setResponseMessage(data.error || 'Failed to submit form. Please try again.');
-        }
-      } else {
-        // Fallback for static hosting environments like GitHub Pages
+      const data = await res.json();
+      if (res.ok && data.success) {
         setStatus('success');
-        setResponseMessage('Thank you! Your message has been received.');
+        setResponseMessage(data.message || 'Your message has been sent!');
         setFormData({ name: '', email: '', message: '', botcheck: '' });
         setErrors({});
+      } else {
+        setStatus('error');
+        setResponseMessage(data.message || 'Failed to submit form. Please try again.');
       }
     } catch (err) {
       setStatus('error');
@@ -136,7 +131,7 @@ export function ContactForm() {
           disabled={status === 'submitting'}
           aria-invalid={!!errors.name}
           aria-describedby={errors.name ? 'name-error' : undefined}
-          placeholder="Jane Doe"
+          placeholder="Ashan Kavinda"
           className={`w-full px-4 py-3 rounded-xl border bg-slate-950/90 text-slate-100 placeholder:text-slate-500 text-sm focus:outline-none transition-all ${
             errors.name
               ? 'border-rose-500 focus:ring-2 focus:ring-rose-500/30'
@@ -168,7 +163,7 @@ export function ContactForm() {
           disabled={status === 'submitting'}
           aria-invalid={!!errors.email}
           aria-describedby={errors.email ? 'email-error' : undefined}
-          placeholder="jane@example.com"
+          placeholder="ashan@example.com"
           className={`w-full px-4 py-3 rounded-xl border bg-slate-950/90 text-slate-100 placeholder:text-slate-500 text-sm focus:outline-none transition-all ${
             errors.email
               ? 'border-rose-500 focus:ring-2 focus:ring-rose-500/30'

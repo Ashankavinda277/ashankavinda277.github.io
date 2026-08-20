@@ -62,8 +62,8 @@ import { Mail, MapPin, CheckCircle2, Github, Linkedin } from 'lucide-react';
             {socialLinks.map((social) => (
               <a
                 href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
+                target={social.url.startsWith('http') ? '_blank' : undefined}
+                rel={social.url.startsWith('http') ? 'noopener noreferrer' : undefined}
                 aria-label={social.name}
                 class="p-3 rounded-xl border border-slate-800 bg-[#070b21]/90 hover:border-blue-500/50 hover:bg-blue-500/10 text-slate-300 hover:text-blue-400 transition-all duration-200 flex-1 flex items-center justify-center gap-2"
               >

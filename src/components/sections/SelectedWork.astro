@@ -3,7 +3,6 @@ import { getCollection } from 'astro:content';
 import Container from '@/components/ui/Container.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
 import ProjectCard from '@/components/projects/ProjectCard.astro';
-import Button from '@/components/ui/Button.astro';
 import { ArrowRight } from 'lucide-react';
 
 const allProjects = await getCollection('projects');
@@ -13,24 +12,16 @@ const featuredProjects = allProjects
   .sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
 ---
 
-<section id="projects" class="py-20 lg:py-28 border-b border-border/40 scroll-mt-16 relative">
-  <Container size="full" class="space-y-16">
+<section id="projects" class="py-20 lg:py-28 border-b border-blue-500/10 scroll-mt-16 relative bg-[#040717]">
+  <Container size="full" class="space-y-12">
 
-    <!-- Header with Section Title and View All Button -->
-    <div class="flex flex-col items-center text-center space-y-4">
-      <SectionHeading
-        kicker="FEATURED PROJECTS"
-        title="Selected Work"
-        description="A selection of recent applications built with modern frontend, backend, and cloud architectures."
-        align="center"
-      />
-
-      <Button href="/projects" variant="outline" size="sm" class="font-mono text-xs border-blue-900/50 hover:border-blue-500/50 hover:bg-blue-500/10">
-        <span>View All Projects</span>
-        <ArrowRight className="w-3.5 h-3.5 ml-1" />
-      </Button>
-    </div>
-
+    <!-- Header with Section Title -->
+    <SectionHeading
+      kicker="FEATURED PROJECTS"
+      title="Selected Work"
+      description="A selection of recent applications built with modern frontend, backend, and cloud architectures."
+      align="center"
+    />
 
     <!-- Project Cards Grid -->
     {featuredProjects.length > 0 ? (
@@ -51,9 +42,21 @@ const featuredProjects = allProjects
         ))}
       </div>
     ) : (
-      <div class="p-8 text-center rounded-2xl border border-blue-900/40 bg-card/40 text-muted-foreground font-mono text-sm">
+      <div class="p-8 text-center rounded-2xl border border-slate-800 bg-[#070b21] text-slate-400 font-mono text-sm">
         No featured projects currently listed.
       </div>
     )}
+
+    <!-- View All Projects Button (Placed Under Project Cards) -->
+    <div class="flex justify-center pt-6">
+      <a
+        href="/projects"
+        class="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs uppercase tracking-wider font-bold shadow-lg shadow-blue-600/30 transition-all duration-200 hover:scale-[1.02] group"
+      >
+        <span>View All Projects</span>
+        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+      </a>
+    </div>
+
   </Container>
 </section>

@@ -7,17 +7,17 @@ export interface SocialLink {
 export const socialLinks: SocialLink[] = [
   {
     name: "GitHub",
-    url: "https://github.com/ashankavinda-placeholder",
+    url: "https://github.com/Ashankavinda277",
     iconName: "github",
   },
   {
     name: "LinkedIn",
-    url: "https://linkedin.com/in/ashankavinda-placeholder",
+    url: "https://www.linkedin.com/in/ashan-kavinda-129287302",
     iconName: "linkedin",
   },
   {
     name: "Email",
-    url: "mailto:ashan.kavinda@example.com",
+    url: "mailto:ashankavinda277@gmail.com",
     iconName: "mail",
   },
 ];

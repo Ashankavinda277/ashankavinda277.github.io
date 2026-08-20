@@ -1,12 +1,12 @@
 ---
-title: "Personal Developer Workspace"
-description: "A fast, minimal, and content-driven developer portfolio built with Astro, TypeScript, Tailwind CSS, and Motion."
-shortDescription: "A minimal technical workspace portfolio featuring data-driven content collections, dark theme, and interactive terminal mode."
-technologies: ["Astro", "TypeScript", "React", "Tailwind CSS", "MDX", "Motion"]
-category: "Frontend & Design"
-image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80"
-github: "https://github.com/ashankavinda/portfolio"
-demo: "https://ashankavinda.dev"
+title: "Full-Stack Personal Blog & Content Platform"
+description: "A fast, modern, content-driven blogging application and CMS engineered with Next.js 16, React 19, FastAPI, MongoDB, and TipTap rich-text editor."
+shortDescription: "Modern content platform featuring TipTap rich-text editing, JWT admin authentication, Cloudinary media storage, and FastAPI REST endpoints."
+technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "FastAPI", "Python", "MongoDB", "Cloudinary", "TipTap", "Framer Motion"]
+category: "Full-Stack & Web"
+image: "/images/projects/blog.png"  
+github: "https://github.com/ashankavinda/personal-blog"
+demo: "https://concepts-blog.vercel.app/"
 featured: true
 year: "2024"
 order: 2
@@ -14,26 +14,41 @@ order: 2
 
 ## Project Overview
 
-This website serves as my personal developer portfolio and technical workspace. It was engineered to emphasize clean typography, fast performance, generous whitespace, and dynamic content management.
+This application serves as a modern, full-stack personal blogging platform and content management system (CMS). It was engineered to deliver a seamless publishing experience with rich text formatting, media management, dynamic article presentation, and robust administrative oversight.
 
 ## Problem Statement
 
-Many software engineering portfolios rely on bloated templates or generic low-contrast visuals. The objective of this project was to construct a distinct technical workspace that feels like a polished developer tool.
+Traditional blogging setups often rely on rigid third-party CMS platforms or static file generators that lack flexible in-browser rich text editing, real-time media uploading, and custom administrative controls. The goal of this project was to architect a high-performance, self-hosted web system that provides complete ownership over content, media, and user access.
 
 ## Project Goals
 
-- **Performance First**: Static HTML generation using Astro for near-instant page loads.
-- **Zero Hardcoding**: Extensible content collections for projects, experience, and skills.
-- **Selective Interactivity**: Client-side React islands hydrated strictly when needed (Terminal mode, theme switcher, command palette).
-- **Minimal Aesthetic**: Monochrome base palette with a crisp electric emerald accent.
+- **Interactive Content Authoring**: Full WYSIWYG rich text editor with extensive typography, color styling, and media embedding options powered by TipTap.
+- **High-Throughput API**: Microservice architecture driven by Python and FastAPI with asynchronous MongoDB persistence.
+- **Secure Admin Portal**: Protected management workflow enforcing role-based JWT authentication for drafting, publishing, and deleting posts.
+- **Scalable Media Storage**: Direct Cloudinary media integration for automated image upload, thumbnail transformation, and CDN delivery.
+- **Fluid User Interface**: Responsive Next.js 16 frontend with Tailwind CSS v4 styling and micro-interactions powered by Framer Motion.
+
+## System Architecture
+
+The platform is structured into decoupled frontend and backend services:
+
+1. **Frontend**: Next.js 16 App Router with React 19, TypeScript, Tailwind CSS v4, and Framer Motion micro-animations.
+2. **Rich Text Engine**: TipTap WYSIWYG editor configured with custom extensions for fonts, text alignment, headings, links, colors, and inline images.
+3. **Backend Service**: Python FastAPI server providing high-performance RESTful API endpoints for article CRUD operations, authentication, and contact submissions.
+4. **Database & Storage**: MongoDB Atlas cluster managed via PyMongo with Pydantic v2 data verification, paired with Cloudinary API for image asset storage.
+5. **Authentication**: JWT (JSON Web Token) bearer authentication scheme utilizing Passlib with bcrypt password hashing.
 
 ## Key Features
 
-- **Data-Driven Architecture**: Creating a new `.mdx` file automatically publishes dynamic case studies without layout code changes.
-- **Developer Terminal Mode**: Interactive terminal allowing visitors to execute `$ whoami`, `$ skills`, and `$ projects`.
-- **Keyboard Navigation**: Command palette shortcuts (`Cmd + K`) for instant navigation across sections.
+- **Dynamic Public Blog**: Modern responsive grid layout displaying blog articles with search filtering, category tags, and reading time estimates.
+- **TipTap Rich Text Suite**: Comprehensive content creation tools with custom headings, font family options, text align, color palette picker, and inline media embeds.
+- **Protected Admin Dashboard**: Dedicated `/admin` route enabling administrators to manage posts, edit drafts, publish live content, and delete existing entries.
+- **Cloudinary Image Uploads**: Automated image hosting for post cover images and inline article media with CDN speed.
+- **JWT Auth & Admin Onboarding**: Secure authentication system with secret registration capabilities for administrative user setup.
 
 ## Lessons Learned
 
-- Leveraging Astro Content Collections for type-safe static site publishing.
-- Optimizing hydration boundaries with React island components.
+- Integrating TipTap rich text extensions and state handlers within Next.js 16 App Router client components.
+- Designing asynchronous PyMongo queries and FastAPI handlers validated with Pydantic v2 models.
+- Implementing cross-origin JWT bearer authentication and securing admin-only dashboard routes.
+

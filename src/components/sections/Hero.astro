@@ -62,7 +62,7 @@ import { ArrowDown, ArrowRight, Github, Linkedin, Mail, FileText } from 'lucide-
             {siteConfig.name}
           </h1>
           <h2 class="text-base sm:text-lg lg:text-xl font-bold text-slate-200 tracking-tight pt-1">
-            Full-Stack Developer @ <span class="text-blue-400 font-bold">University of Moratuwa</span>
+            3rd Year IT Undergraduate @ <span class="text-blue-400 font-bold">University of Moratuwa</span>
           </h2>
         </div>
 
@@ -100,8 +100,8 @@ import { ArrowDown, ArrowRight, Github, Linkedin, Mail, FileText } from 'lucide-
             {socialLinks.map((social) => (
               <a
                 href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
+                target={social.url.startsWith('http') ? '_blank' : undefined}
+                rel={social.url.startsWith('http') ? 'noopener noreferrer' : undefined}
                 class="w-9 h-9 rounded-xl bg-[#0a0f2b] border border-slate-800 hover:border-blue-500/50 flex items-center justify-center text-slate-300 hover:text-blue-400 transition-all shadow-sm hover:scale-105"
                 aria-label={social.name}
               >

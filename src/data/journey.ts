@@ -10,10 +10,10 @@ export interface JourneyItem {
 export const journeyTimeline: JourneyItem[] = [
 
   {
-    year: "2023 - Present",
+    year: "2024 - Present",
     role: "Bachelor of Science (hons) in Information Technology",
     organization: "University of Moratuwa",
-    description: "Developing strong technical expertise in Information Technology with a focus on AI/ML, secure software development, and modern system architecture.",
+    description: "Building a strong foundation in Information Technology with a focus on software development, Artificial Intelligence, Cloud Solutions, DevOps, and emerging technologies.",
     skills: ["Software Engineering", "Cloud Systems", "AI/ML"],
     status: "in_progress"
   },
