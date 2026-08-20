@@ -1,11 +1,11 @@
 ---
 import Container from '@/components/ui/Container.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
-import Badge from '@/components/ui/Badge.astro';
+import { SkillsCarousel } from '@/components/interactive/SkillsCarousel';
 import { skillCategories } from '@/data/skills';
 ---
 
-<section id="skills" class="scroll-mt-16 border-t border-border py-20 sm:py-28">
+<section id="skills" class="scroll-mt-16 border-t border-border bg-surface py-20 sm:py-28">
   <Container size="full" class="space-y-14">
 
     <SectionHeading
@@ -14,24 +14,7 @@ import { skillCategories } from '@/data/skills';
       description="A structured overview of core programming languages, frameworks, cloud services, and developer tools."
     />
 
-    <div class="divide-y divide-border border-y border-border">
-      {skillCategories.map((category) => (
-        <div class="grid gap-x-10 gap-y-4 py-7 md:grid-cols-[minmax(0,240px)_1fr]">
-          <div>
-            <h3 class="text-lg font-semibold text-foreground">{category.title}</h3>
-            <p class="mt-1 text-sm leading-relaxed text-muted-foreground">
-              {category.description}
-            </p>
-          </div>
-
-          <ul class="flex flex-wrap content-start gap-2">
-            {category.skills.map((skill) => (
-              <li><Badge>{skill}</Badge></li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </div>
+    <SkillsCarousel categories={skillCategories} client:visible />
 
   </Container>
 </section>
