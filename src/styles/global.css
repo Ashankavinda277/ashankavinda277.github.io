@@ -128,10 +128,19 @@
     will-change: opacity, transform;
   }
 
-  .anim [data-reveal='now'] {
-    opacity: 0;
-    transform: translateY(20px) scale(0.98);
-    will-change: opacity, transform;
+  /* Masked type stays fully opaque — the overflow-hidden parent is what
+     conceals it, so it is uncovered rather than faded in. */
+  .anim [data-reveal='mask'] {
+    opacity: 1;
+    transform: translateY(100%);
+    will-change: transform;
+  }
+
+  .anim [data-reveal='rule'] {
+    opacity: 1;
+    transform: scaleX(0);
+    transform-origin: left center;
+    will-change: transform;
   }
 
   .anim [data-reveal='down'] {

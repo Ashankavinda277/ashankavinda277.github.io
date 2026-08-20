@@ -6,12 +6,15 @@ import { animate, inView } from 'motion';
  * command palette) keep using motion/react, where animation follows
  * component state rather than scroll position.
  *
- * Markup opts in with a single attribute:
- *   data-reveal          fade up when scrolled into view
- *   data-reveal="now"    fade up immediately (above the fold)
- *   data-reveal="down"   drop in from above immediately (navbar)
- *   data-reveal="left" / "right" / "zoom"  directional reveals
- *   data-stagger         on a parent: its reveals run as one staggered group
+ * Two independent attributes:
+ *   data-reveal="<type>"  what the motion is    (default "up")
+ *   data-reveal-now       run on load instead of on scroll
+ *   data-stagger          on a parent: its reveals run as one staggered group
+ *
+ * Types: up | down | left | right | zoom | mask | rule
+ *   mask  slides up from inside an overflow-hidden parent — the type itself
+ *         stays opaque and is uncovered rather than faded in.
+ *   rule  a hairline drawing out from its left edge.
  */
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -19,30 +22,45 @@ const DURATION = 0.6;
 const STEP = 0.08;
 const SHIFT = 20;
 
+type Keyframes = {
+  opacity?: number[];
+  y?: (number | string)[];
+  x?: number[];
+  scale?: number[];
+  scaleX?: number[];
+};
+
+function keyframesFor(type: string): Keyframes {
+  switch (type) {
+    // Uncovered, not faded: opacity stays 1 so the letterforms slide up
+    // cleanly behind the mask instead of ghosting through it.
+    case 'mask':
+      return { y: ['100%', '0%'] };
+    case 'rule':
+      return { scaleX: [0, 1] };
+    case 'down':
+      return { opacity: [0, 1], y: [-SHIFT, 0] };
+    case 'left':
+      return { opacity: [0, 1], x: [-24, 0] };
+    case 'right':
+      return { opacity: [0, 1], x: [24, 0] };
+    case 'zoom':
+      return { opacity: [0, 1], scale: [0.94, 1] };
+    default:
+      return { opacity: [0, 1], y: [SHIFT, 0], scale: [0.98, 1] };
+  }
+}
+
 function playGroup(elements: Element[]) {
   if (!elements.length) return;
-  
+
   elements.forEach((el, index) => {
     const type = el.getAttribute('data-reveal') || 'up';
-    let keyframes: { opacity: number[]; y?: number[]; x?: number[]; scale?: number[] } = {
-      opacity: [0, 1],
-    };
+    // Rules read better drawn a touch slower than the type they sit beside.
+    const duration = type === 'rule' ? DURATION * 1.3 : DURATION;
 
-    if (type === 'down') {
-      keyframes.y = [-SHIFT, 0];
-    } else if (type === 'left') {
-      keyframes.x = [-24, 0];
-    } else if (type === 'right') {
-      keyframes.x = [24, 0];
-    } else if (type === 'zoom') {
-      keyframes.scale = [0.94, 1];
-    } else {
-      keyframes.y = [SHIFT, 0];
-      keyframes.scale = [0.98, 1];
-    }
-
-    animate(el, keyframes, {
-      duration: DURATION,
+    animate(el, keyframesFor(type), {
+      duration,
       ease: EASE,
       delay: index * STEP,
     });
@@ -62,14 +80,14 @@ export function initAnimations(): void {
   if (!root.classList.contains('anim')) return;
 
   try {
-    // Above fold reveals
-    playGroup(Array.from(document.querySelectorAll('[data-reveal="now"]')));
-    playGroup(Array.from(document.querySelectorAll('[data-reveal="down"]')));
+    // Above the fold: play in document order so the hero arrives as a sequence.
+    playGroup(Array.from(document.querySelectorAll('[data-reveal-now]')));
 
-    // Group scroll reveals by their nearest [data-stagger] ancestor
+    // Group scroll reveals by their nearest [data-stagger] ancestor so siblings
+    // cascade together instead of each tripping its own observer.
     const groups = new Map<Element, Element[]>();
     document
-      .querySelectorAll('[data-reveal]:not([data-reveal="now"]):not([data-reveal="down"])')
+      .querySelectorAll('[data-reveal]:not([data-reveal-now])')
       .forEach((el) => {
         const key = el.closest('[data-stagger]') ?? el;
         const bucket = groups.get(key);
@@ -86,6 +104,9 @@ export function initAnimations(): void {
           played = true;
           playGroup(elements);
         },
+        // 'some' rather than a ratio: intersectionRatio is visible ÷ total, so
+        // any element taller than the viewport can never reach a threshold and
+        // would stay hidden forever.
         { amount: 'some', margin: '0px 0px -10% 0px' }
       );
     });
