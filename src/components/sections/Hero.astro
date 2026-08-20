@@ -1,170 +1,91 @@
 ---
 import Container from '@/components/ui/Container.astro';
+import Button from '@/components/ui/Button.astro';
 import { siteConfig } from '@/data/site';
 import { socialLinks } from '@/data/social';
-import { ArrowDown, ArrowRight, Github, Linkedin, Mail, FileText } from 'lucide-react';
+import { ArrowRight, Github, Linkedin, Mail, FileText } from 'lucide-react';
 ---
 
-<section class="relative min-h-[calc(100vh-4rem)] flex flex-col justify-between py-8 sm:py-12 overflow-hidden bg-[#040717] border-b border-blue-500/10">
-  
-  <!-- Ambient Electric Blue Flowing Waves & Radial Glows -->
-  <div class="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-blue-600/20 rounded-full blur-[180px] pointer-events-none"></div>
-    <div class="absolute top-1/4 right-10 w-[450px] h-[450px] bg-blue-500/15 rounded-full blur-[150px] pointer-events-none"></div>
+<section class="flex min-h-[calc(100vh-4rem)] flex-col justify-center py-16 sm:py-24">
+  <Container size="full">
+    <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
 
-    <!-- Fluid Glowing Waves background -->
-    <svg class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-50" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M-100 650 C 350 450, 750 850, 1540 350" stroke="url(#hero-wave-1)" stroke-width="3" filter="drop-shadow(0 0 8px rgba(59,130,246,0.5))" />
-      <path d="M-100 450 C 450 250, 850 650, 1540 150" stroke="url(#hero-wave-2)" stroke-width="2" />
-      <path d="M-100 750 C 250 550, 950 800, 1540 450" stroke="url(#hero-wave-1)" stroke-width="1.5" />
-      <path d="M-100 350 C 550 150, 950 450, 1540 250" stroke="url(#hero-wave-2)" stroke-width="2.5" filter="drop-shadow(0 0 12px rgba(59,130,246,0.6))" />
-      <path d="M-100 900 C 400 650, 900 950, 1540 550" stroke="url(#hero-wave-1)" stroke-width="2" />
-      <defs>
-        <linearGradient id="hero-wave-1" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.05" />
-          <stop offset="50%" stop-color="#3b82f6" stop-opacity="0.75" />
-          <stop offset="100%" stop-color="#60a5fa" stop-opacity="0.1" />
-        </linearGradient>
-        <linearGradient id="hero-wave-2" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.05" />
-          <stop offset="45%" stop-color="#3b82f6" stop-opacity="0.85" />
-          <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.05" />
-        </linearGradient>
-      </defs>
-    </svg>
+      <!-- Left Column: Typography & CTAs -->
+      <div class="lg:col-span-7 space-y-6">
 
-    <!-- Glowing Node Dots -->
-    <div class="absolute top-[22%] right-[14%] w-2 h-2 rounded-full bg-blue-400 shadow-[0_0_12px_#3b82f6]"></div>
-    <div class="absolute top-[40%] right-[32%] w-2.5 h-2.5 rounded-full bg-blue-300 shadow-[0_0_14px_#60a5fa]"></div>
-    <div class="absolute bottom-[30%] right-[10%] w-2 h-2 rounded-full bg-blue-400 shadow-[0_0_10px_#3b82f6]"></div>
-    <div class="absolute top-[55%] left-[10%] w-2 h-2 rounded-full bg-blue-400 shadow-[0_0_10px_#3b82f6]"></div>
-  </div>
+        {siteConfig.availability.status && (
+          <p class="inline-flex items-center gap-2 text-sm text-muted-foreground">
+            <span class="h-1.5 w-1.5 rounded-full bg-foreground"></span>
+            <span>{siteConfig.availability.text}</span>
+          </p>
+        )}
 
-  <Container size="full" class="relative z-10 my-auto py-2 sm:py-4">
-    <!-- Balanced Grid Container with Max-Width to eliminate huge empty gaps -->
-    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-      
-      <!-- Left Column: Main Typography & CTA Buttons (7 Cols) -->
-      <div class="lg:col-span-7 space-y-5">
-        
-        <!-- Available Pill Badge -->
-        <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-blue-950/60 border border-blue-500/30 text-blue-300 font-mono text-xs shadow-[0_0_15px_rgba(59,130,246,0.15)]">
-          <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse shadow-[0_0_8px_#3b82f6]"></span>
-          <span>Available for opportunities</span>
-        </div>
-
-        <!-- Main Name Heading -->
-        <div class="space-y-1">
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-none">
-            Hi, I'm
-          </h1>
-          <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight text-blue-400 leading-tight drop-shadow-[0_0_30px_rgba(59,130,246,0.35)]">
+        <div class="space-y-3">
+          <h1 class="text-4xl font-semibold leading-tight tracking-tight text-foreground sm:text-5xl lg:text-6xl">
             {siteConfig.name}
           </h1>
-          <h2 class="text-base sm:text-lg lg:text-xl font-bold text-slate-200 tracking-tight pt-1">
-            3rd Year IT Undergraduate @ <span class="text-blue-400 font-bold">University of Moratuwa</span>
-          </h2>
+          <p class="text-lg text-muted-foreground sm:text-xl">
+            {siteConfig.role} · {siteConfig.affiliation}
+          </p>
         </div>
 
-        <!-- Bio Paragraph -->
-        <p class="text-xs sm:text-sm lg:text-base text-slate-300 leading-relaxed max-w-xl font-normal">
-          {siteConfig.bio} Passionate about building type-safe web applications, scalable AWS cloud infrastructure, and AI-driven solutions.
+        <p class="max-w-xl text-base leading-relaxed text-muted-foreground">
+          {siteConfig.bio}
         </p>
 
-        <!-- Action Buttons -->
-        <div class="flex flex-wrap items-center gap-3 pt-1">
-          <a
-            href="#projects"
-            class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-3 rounded-xl shadow-lg shadow-blue-600/30 flex items-center gap-2 text-xs sm:text-sm tracking-wide transition-all hover:scale-[1.02]"
-          >
+        <div class="flex flex-wrap items-center gap-3 pt-2">
+          <Button href="#projects" variant="primary" size="lg">
             <span>View My Work</span>
             <ArrowRight className="w-4 h-4" />
-          </a>
+          </Button>
 
-          <a
-            href="#contact"
-            class="bg-[#090d24]/90 hover:bg-slate-900 text-slate-200 border border-slate-800 hover:border-slate-700 font-semibold px-6 py-3 rounded-xl text-xs sm:text-sm transition-all shadow-md"
-          >
+          <Button href="#contact" variant="secondary" size="lg">
             <span>Get In Touch</span>
-          </a>
+          </Button>
         </div>
 
         <!-- Social Icons Row -->
-        <div class="flex flex-wrap items-center gap-3 pt-2 font-mono text-xs text-slate-400">
-          <div class="flex items-center gap-2 text-slate-400">
-            <span>Find me on</span>
-            <span class="w-8 h-[1px] bg-slate-700"></span>
-          </div>
-
-          <div class="flex items-center gap-2">
-            {socialLinks.map((social) => (
-              <a
-                href={social.url}
-                target={social.url.startsWith('http') ? '_blank' : undefined}
-                rel={social.url.startsWith('http') ? 'noopener noreferrer' : undefined}
-                class="w-9 h-9 rounded-xl bg-[#0a0f2b] border border-slate-800 hover:border-blue-500/50 flex items-center justify-center text-slate-300 hover:text-blue-400 transition-all shadow-sm hover:scale-105"
-                aria-label={social.name}
-              >
-                {social.iconName === 'github' && <Github className="w-4 h-4" />}
-                {social.iconName === 'linkedin' && <Linkedin className="w-4 h-4" />}
-                {(social.iconName === 'mail' || social.iconName === 'email') && <Mail className="w-4 h-4" />}
-              </a>
-            ))}
-
+        <div class="flex items-center gap-2 pt-2">
+          {socialLinks.map((social) => (
             <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="w-9 h-9 rounded-xl bg-[#0a0f2b] border border-slate-800 hover:border-blue-500/50 flex items-center justify-center text-slate-300 hover:text-blue-400 transition-all shadow-sm hover:scale-105"
-              aria-label="Download Resume"
-              title="Download Resume (PDF)"
+              href={social.url}
+              target={social.url.startsWith('http') ? '_blank' : undefined}
+              rel={social.url.startsWith('http') ? 'noopener noreferrer' : undefined}
+              class="flex h-9 w-9 items-center justify-center rounded-control border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              aria-label={social.name}
             >
-              <FileText className="w-4 h-4" />
+              {social.iconName === 'github' && <Github className="w-4 h-4" />}
+              {social.iconName === 'linkedin' && <Linkedin className="w-4 h-4" />}
+              {(social.iconName === 'mail' || social.iconName === 'email') && <Mail className="w-4 h-4" />}
             </a>
-          </div>
+          ))}
+
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex h-9 w-9 items-center justify-center rounded-control border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            aria-label="Download Resume"
+            title="Download Resume (PDF)"
+          >
+            <FileText className="w-4 h-4" />
+          </a>
         </div>
 
       </div>
 
-      <!-- Right Column: Profile Avatar Frame (5 Cols - Compact & Perfectly Aligned) -->
-      <div class="lg:col-span-5 flex justify-center items-center relative pt-4 lg:pt-0">
-        <div class="relative group">
-          <!-- Radial Ambient Blue Glow behind frame -->
-          <div class="absolute -inset-4 rounded-full bg-blue-500/30 opacity-50 blur-2xl group-hover:opacity-80 transition duration-500"></div>
-
-          <!-- Circular Blue Border Frame -->
-          <div class="relative w-56 h-56 sm:w-72 sm:h-72 lg:w-[300px] lg:h-[300px] xl:w-[330px] xl:h-[330px] rounded-full border-4 border-blue-500 p-2 shadow-[0_0_40px_rgba(59,130,246,0.35)] bg-slate-950/90 backdrop-blur-md">
-            <img
-              src="/images/profile/avatar.jpeg"
-              alt={siteConfig.name}
-              class="w-full h-full object-cover rounded-full filter grayscale contrast-110 group-hover:grayscale-0 transition-all duration-500"
-              onerror="if (this.src.endsWith('.jpeg')) { this.src = '/images/profile/avatar.png'; } else if (this.src.endsWith('.png')) { this.src = '/images/profile/avatar.jpg'; } else { this.onerror = null; this.src = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80'; }"
-            />
-
-            <!-- Status Pill Badge at bottom of circle: ● Open to work -->
-            <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 z-20">
-              <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-950/95 border border-blue-500/50 text-blue-300 font-mono text-[11px] shadow-[0_0_15px_rgba(59,130,246,0.3)] backdrop-blur-md whitespace-nowrap">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]"></span>
-                <span class="font-bold tracking-wide">Open to work</span>
-              </div>
-            </div>
-          </div>
-        </div>
+      <!-- Right Column: Portrait -->
+      <div class="lg:col-span-5 flex justify-center lg:justify-end">
+        <img
+          src="/images/profile/avatar.jpeg"
+          alt={siteConfig.name}
+          width="320"
+          height="320"
+          class="h-56 w-56 rounded-full border border-border object-cover sm:h-72 sm:w-72 lg:h-80 lg:w-80"
+          onerror="if (this.src.endsWith('.jpeg')) { this.src = '/images/profile/avatar.png'; } else if (this.src.endsWith('.png')) { this.src = '/images/profile/avatar.jpg'; } else { this.onerror = null; }"
+        />
       </div>
 
     </div>
   </Container>
-
-  <!-- Scroll Down Indicator (Properly Positioned at Bottom of Viewport) -->
-  <div class="flex justify-center pt-4 pb-2 relative z-10">
-    <a
-      href="#about"
-      class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-950/80 border border-blue-500/25 hover:border-blue-500/60 text-slate-400 hover:text-blue-400 transition-all shadow-md group"
-      aria-label="Scroll down"
-    >
-      <span class="font-mono text-[10px] tracking-[0.2em] font-bold text-slate-300 group-hover:text-blue-400 transition-colors uppercase">SCROLL DOWN</span>
-      <ArrowDown className="w-3.5 h-3.5 text-blue-400 animate-bounce" />
-    </a>
-  </div>
-
 </section>

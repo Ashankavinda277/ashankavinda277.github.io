@@ -1,162 +1,113 @@
 ---
 import Container from '@/components/ui/Container.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
+import Button from '@/components/ui/Button.astro';
 import { journeyTimeline } from '@/data/journey';
-import { Code, Cloud, Cpu, FileText, Clock, Loader2 } from 'lucide-react';
+import { Code, Cloud, Cpu, FileText } from 'lucide-react';
+
+const focusAreas = [
+  {
+    icon: Code,
+    title: 'Full-Stack Development',
+    description:
+      'Type-safe React and Next.js interfaces paired with FastAPI or serverless GraphQL API handlers.',
+  },
+  {
+    icon: Cloud,
+    title: 'AWS Cloud Infrastructure',
+    description:
+      'Amplify Gen 2 serverless platforms, AppSync GraphQL, DynamoDB single-table models, and Cognito auth.',
+  },
+  {
+    icon: Cpu,
+    title: 'Practical AI Integration',
+    description:
+      'Integrating Amazon Bedrock Action Groups, Claude models, and automated reporting workflows into web apps.',
+  },
+];
 ---
 
-<section id="about" class="py-20 lg:py-28 border-b border-blue-500/10 scroll-mt-16 relative bg-[#040717]">
-  <Container size="full" class="space-y-16">
+<section id="about" class="scroll-mt-16 border-t border-border bg-surface py-20 sm:py-28">
+  <Container size="full" class="space-y-14">
 
     <SectionHeading
-      kicker="ABOUT ME"
+      kicker="About"
       title="Get to Know Me"
       description="An undergraduate IT student focused on building clean, type-safe, and scalable web platforms."
-      align="center"
     />
 
-    <!-- Main About Hub Grid (12 Columns: Left Narrative 7 Cols, Right Journey Timeline 5 Cols) -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-      
-      <!-- Left Column: Narrative & Core Philosophy (7 Cols) -->
+    <div class="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-16">
+
+      <!-- Left Column: Narrative -->
       <div class="lg:col-span-7 space-y-6">
-        <div class="space-y-5">
-          <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-100 leading-snug">
-A developer who enjoys turning ideas into real-world solutions          </h3>
+        <h3 class="text-xl font-semibold leading-snug tracking-tight text-foreground sm:text-2xl">
+          A developer who enjoys turning ideas into real-world solutions
+        </h3>
 
-          <p class="text-slate-300 leading-relaxed text-base">
-            I’m a 3rd-year Information Technology undergraduate with a growing passion for software development and building practical solutions to real-world problems. I enjoy turning ideas into working applications, solving problems through logical thinking, and approaching challenges with creativity.
-          </p>
+        <p class="text-base leading-relaxed text-muted-foreground">
+          I'm a 3rd-year Information Technology undergraduate with a growing passion for software
+          development and building practical solutions to real-world problems. I enjoy turning ideas
+          into working applications, solving problems through logical thinking, and approaching
+          challenges with creativity.
+        </p>
 
-          <p class="text-slate-300 leading-relaxed text-base">
-Beyond my academic journey, I’m exploring Artificial Intelligence, Cloud Solutions, DevOps, and emerging technologies to expand my understanding of modern software engineering. I’m always looking for opportunities to experiment, learn something new, and apply what I learn through hands-on projects.          </p>
+        <p class="text-base leading-relaxed text-muted-foreground">
+          Beyond my academic journey, I'm exploring Artificial Intelligence, Cloud Solutions, DevOps,
+          and emerging technologies to expand my understanding of modern software engineering. I'm
+          always looking for opportunities to experiment, learn something new, and apply what I learn
+          through hands-on projects.
+        </p>
 
-          <p class="text-slate-300 leading-relaxed text-base">
-            For me, development is a continuous journey of learning, building, and improving. I believe that every project is an opportunity to solve a problem, gain new knowledge, and become a better developer.
-          </p>
-        </div>
+        <p class="text-base leading-relaxed text-muted-foreground">
+          For me, development is a continuous journey of learning, building, and improving. I believe
+          that every project is an opportunity to solve a problem, gain new knowledge, and become a
+          better developer.
+        </p>
 
-        <div class="pt-4 flex items-center gap-4 border-t border-slate-800">
-          <a
-            href="/resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-3 rounded-xl flex items-center gap-2 text-sm shadow-lg shadow-blue-600/25 transition-all hover:scale-[1.02]"
-          >
+        <div class="border-t border-border pt-6">
+          <Button href="/resume.pdf" target="_blank" variant="secondary" size="md">
             <FileText className="w-4 h-4" />
             <span>Download Resume (PDF)</span>
-          </a>
+          </Button>
         </div>
       </div>
 
-      <!-- Right Column: My Journey Timeline (5 Cols) -->
+      <!-- Right Column: Journey Timeline -->
       <div class="lg:col-span-5 space-y-6">
-        {/* Simple Header with Clock Icon Badge */}
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/30 flex items-center justify-center shadow-[0_0_15px_rgba(59,130,246,0.25)]">
-            <Clock className="w-5 h-5" />
-          </div>
-          <h3 class="text-2xl font-bold text-slate-100 tracking-tight">
-            My Journey
-          </h3>
-        </div>
+        <h3 class="text-xl font-semibold tracking-tight text-foreground">My Journey</h3>
 
-        {/* Clean Timeline Container */}
-        <div class="relative pl-6 border-l-2 border-blue-600/40 space-y-6">
-          {journeyTimeline.map((item) => {
-            const isPending = item.status === 'pending';
-            return (
-              <div class="relative group">
-                {isPending ? (
-                  <>
-                    {/* Timeline Node Icon (Pending Spinner) */}
-                    <div class="absolute -left-[31px] top-4 w-4 h-4 rounded-full bg-slate-950 border-2 border-blue-400 text-blue-400 flex items-center justify-center shadow-[0_0_10px_#3b82f6]">
-                      <Loader2 className="w-2.5 h-2.5 animate-spin text-blue-400" />
-                    </div>
+        <ol class="relative space-y-8 border-l border-border pl-6">
+          {journeyTimeline.map((item) => (
+            <li class="relative">
+              <span
+                class="absolute -left-[27px] top-2 h-2 w-2 rounded-full bg-foreground"
+                aria-hidden="true"
+              ></span>
 
-                    {/* Empty Loading Skeleton Card */}
-                    <div class="p-5 rounded-2xl border border-dashed border-blue-500/30 bg-blue-950/10 shadow-lg space-y-2.5 relative overflow-hidden backdrop-blur-sm">
-                      <div class="flex items-center justify-between">
-                        <span class="text-xs font-mono font-bold text-blue-400 uppercase tracking-wider">
-                          Next Milestone
-                        </span>
-                        <span class="px-2 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-300 text-[10px] font-mono font-semibold animate-pulse">
-                          Pending...
-                        </span>
-                      </div>
-
-                      <div class="space-y-2 pt-1">
-                        <div class="h-4 w-3/4 bg-slate-800/80 rounded animate-pulse"></div>
-                        <div class="h-3 w-full bg-slate-800/40 rounded animate-pulse"></div>
-                      </div>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    {/* Timeline Node Dot (Glowing Blue Ring) */}
-                    <div class="absolute -left-[31px] top-4 w-4 h-4 rounded-full bg-blue-500 border-4 border-slate-950 shadow-[0_0_12px_#3b82f6] group-hover:scale-125 transition-transform duration-200" />
-
-                    {/* Clean Card */}
-                    <div class="p-5 sm:p-6 rounded-2xl bg-[#070b21]/90 border border-slate-800 space-y-2 hover:border-blue-500/40 transition-all duration-300 shadow-xl">
-                      <span class="text-xs font-mono font-bold text-blue-400 block">
-                        {item.year}
-                      </span>
-
-                      <h4 class="text-base sm:text-lg font-bold text-slate-100 leading-snug">
-                        {item.role}
-                      </h4>
-
-                      <p class="text-xs sm:text-sm font-medium text-slate-300">
-                        {item.organization}
-                      </p>
-
-                      <p class="text-xs sm:text-sm text-slate-400 leading-relaxed pt-1">
-                        {item.description}
-                      </p>
-                    </div>
-                  </>
-                )}
-              </div>
-            );
-          })}
-        </div>
+              <p class="text-sm text-muted-foreground">{item.year}</p>
+              <h4 class="mt-1 text-base font-semibold leading-snug text-foreground">
+                {item.role}
+              </h4>
+              <p class="mt-1 text-sm text-muted-foreground">{item.organization}</p>
+              <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {item.description}
+              </p>
+            </li>
+          ))}
+        </ol>
       </div>
 
     </div>
 
-    <!-- Engineering Focus Cards (3 Grid Items) -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      
-      <div class="p-6 rounded-2xl bg-[#070b21]/90 border border-slate-800 hover:border-blue-500/40 transition-all space-y-3">
-        <div class="p-3 rounded-xl bg-blue-500/10 text-blue-400 w-fit border border-blue-500/30">
-          <Code className="w-5 h-5" />
+    <!-- Engineering Focus -->
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+      {focusAreas.map((area) => (
+        <div class="space-y-3 rounded-card border border-border bg-card p-6">
+          <area.icon className="w-5 h-5 text-muted-foreground" />
+          <h4 class="text-lg font-semibold text-foreground">{area.title}</h4>
+          <p class="text-sm leading-relaxed text-muted-foreground">{area.description}</p>
         </div>
-        <h4 class="text-lg font-bold text-slate-100">Full-Stack Development</h4>
-        <p class="text-xs text-slate-400 leading-relaxed">
-          Type-safe React and Next.js interfaces paired with FastAPI or serverless GraphQL API handlers.
-        </p>
-      </div>
-
-      <div class="p-6 rounded-2xl bg-[#070b21]/90 border border-slate-800 hover:border-blue-500/40 transition-all space-y-3">
-        <div class="p-3 rounded-xl bg-blue-500/10 text-blue-400 w-fit border border-blue-500/30">
-          <Cloud className="w-5 h-5" />
-        </div>
-        <h4 class="text-lg font-bold text-slate-100">AWS Cloud Infrastructure</h4>
-        <p class="text-xs text-slate-400 leading-relaxed">
-          Amplify Gen 2 serverless platforms, AppSync GraphQL, DynamoDB single-table models, and Cognito auth.
-        </p>
-      </div>
-
-      <div class="p-6 rounded-2xl bg-[#070b21]/90 border border-slate-800 hover:border-blue-500/40 transition-all space-y-3">
-        <div class="p-3 rounded-xl bg-blue-500/10 text-blue-400 w-fit border border-blue-500/30">
-          <Cpu className="w-5 h-5" />
-        </div>
-        <h4 class="text-lg font-bold text-slate-100">Practical AI Integration</h4>
-        <p class="text-xs text-slate-400 leading-relaxed">
-          Integrating Amazon Bedrock Action Groups, Claude models, and automated reporting workflows into web apps.
-        </p>
-      </div>
-
+      ))}
     </div>
 
   </Container>

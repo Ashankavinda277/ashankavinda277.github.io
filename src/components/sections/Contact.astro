@@ -5,59 +5,41 @@ import { ContactForm } from '@/components/interactive/ContactForm';
 import { socialLinks } from '@/data/social';
 import { siteConfig } from '@/data/site';
 import { Mail, MapPin, CheckCircle2, Github, Linkedin } from 'lucide-react';
+
+const details = [
+  { icon: Mail, label: 'Email', value: siteConfig.email },
+  { icon: MapPin, label: 'Location', value: siteConfig.location },
+  { icon: CheckCircle2, label: 'Status', value: siteConfig.availability.text },
+];
 ---
 
-<section id="contact" class="py-20 lg:py-28 border-b border-blue-500/10 scroll-mt-16 relative bg-[#040717]">
-  <Container size="full" class="space-y-16">
+<section id="contact" class="scroll-mt-16 border-t border-border bg-surface py-20 sm:py-28">
+  <Container size="full" class="space-y-14">
 
     <SectionHeading
-      kicker="GET IN TOUCH"
+      kicker="Contact"
       title="Have an idea?"
       description="Let me know how I can help bring your project to life."
-      align="center"
     />
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start max-w-6xl mx-auto">
-      
-      <!-- Left Stacked Info Cards -->
-      <div class="lg:col-span-5 space-y-4">
-        
-        <!-- Email Info Card -->
-        <div class="p-5 rounded-2xl bg-[#070b21]/90 border border-slate-800 hover:border-blue-500/40 transition-all flex items-center gap-4">
-          <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/25 flex items-center justify-center text-blue-400 shrink-0">
-            <Mail className="w-5 h-5" />
-          </div>
-          <div class="space-y-0.5 font-mono text-xs">
-            <span class="text-slate-400 uppercase tracking-wider text-[10px]">EMAIL</span>
-            <p class="font-bold text-slate-100 text-sm truncate">{siteConfig.email}</p>
-          </div>
-        </div>
+    <div class="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-16">
 
-        <!-- Location Info Card -->
-        <div class="p-5 rounded-2xl bg-[#070b21]/90 border border-slate-800 hover:border-blue-500/40 transition-all flex items-center gap-4">
-          <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/25 flex items-center justify-center text-blue-400 shrink-0">
-            <MapPin className="w-5 h-5" />
-          </div>
-          <div class="space-y-0.5 font-mono text-xs">
-            <span class="text-slate-400 uppercase tracking-wider text-[10px]">LOCATION</span>
-            <p class="font-bold text-slate-100 text-sm">{siteConfig.location}</p>
-          </div>
-        </div>
+      <!-- Left: Contact details -->
+      <div class="lg:col-span-5 space-y-8">
+        <dl class="divide-y divide-border border-y border-border">
+          {details.map((detail) => (
+            <div class="flex items-center gap-4 py-4">
+              <detail.icon className="w-4 h-4 shrink-0 text-muted-foreground" />
+              <div class="min-w-0">
+                <dt class="text-sm text-muted-foreground">{detail.label}</dt>
+                <dd class="truncate text-sm font-medium text-foreground">{detail.value}</dd>
+              </div>
+            </div>
+          ))}
+        </dl>
 
-        <!-- Status Info Card -->
-        <div class="p-5 rounded-2xl bg-[#070b21]/90 border border-slate-800 hover:border-blue-500/40 transition-all flex items-center gap-4">
-          <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/25 flex items-center justify-center text-blue-400 shrink-0">
-            <CheckCircle2 className="w-5 h-5" />
-          </div>
-          <div class="space-y-0.5 font-mono text-xs">
-            <span class="text-slate-400 uppercase tracking-wider text-[10px]">STATUS</span>
-            <p class="font-bold text-blue-400 text-sm">Available for opportunities</p>
-          </div>
-        </div>
-
-        <!-- Social Icons Row -->
-        <div class="pt-4 space-y-2 font-mono text-xs">
-          <span class="text-slate-400 uppercase tracking-wider text-[10px] block">FIND ME ON</span>
+        <div class="space-y-3">
+          <p class="text-sm text-muted-foreground">Find me on</p>
           <div class="flex items-center gap-2">
             {socialLinks.map((social) => (
               <a
@@ -65,22 +47,21 @@ import { Mail, MapPin, CheckCircle2, Github, Linkedin } from 'lucide-react';
                 target={social.url.startsWith('http') ? '_blank' : undefined}
                 rel={social.url.startsWith('http') ? 'noopener noreferrer' : undefined}
                 aria-label={social.name}
-                class="p-3 rounded-xl border border-slate-800 bg-[#070b21]/90 hover:border-blue-500/50 hover:bg-blue-500/10 text-slate-300 hover:text-blue-400 transition-all duration-200 flex-1 flex items-center justify-center gap-2"
+                class="inline-flex flex-1 items-center justify-center gap-2 rounded-control border border-border bg-card px-3 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
               >
                 {social.iconName === 'github' && <Github className="w-4 h-4" />}
                 {social.iconName === 'linkedin' && <Linkedin className="w-4 h-4" />}
                 {(social.iconName === 'mail' || social.iconName === 'email') && <Mail className="w-4 h-4" />}
-                <span class="font-medium text-xs hidden sm:inline">{social.name}</span>
+                <span class="hidden sm:inline">{social.name}</span>
               </a>
             ))}
           </div>
         </div>
-
       </div>
 
-      <!-- Right Interactive Form Card -->
+      <!-- Right: Form -->
       <div class="lg:col-span-7">
-        <div class="rounded-3xl bg-[#070b21]/90 border border-slate-800 p-6 sm:p-8 shadow-xl">
+        <div class="rounded-card border border-border bg-card p-6 sm:p-8">
           <ContactForm client:visible />
         </div>
       </div>

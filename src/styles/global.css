@@ -15,7 +15,9 @@
     --card-foreground: 240 6% 10%;
     --foreground: 240 6% 10%;
     --muted: 240 5% 96%;
-    --muted-foreground: 240 4% 46%;
+    /* zinc-600, not zinc-500: at 46% lightness this only reaches 4.43:1 on
+       --muted, below AA. 34% holds 7.01:1 against the worst surface. */
+    --muted-foreground: 240 5% 34%;
     --border: 240 6% 90%;
     --input: 240 5% 84%;
     --ring: 240 6% 10%;

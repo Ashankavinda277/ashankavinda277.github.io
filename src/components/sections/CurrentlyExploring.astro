@@ -1,20 +1,41 @@
 ---
 import Container from '@/components/ui/Container.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
-import { ExploringInteractive } from '@/components/interactive/ExploringInteractive';
+import Badge from '@/components/ui/Badge.astro';
+import { explorationTopics } from '@/data/exploring';
 ---
 
-<section id="exploring" class="py-20 lg:py-28 border-b border-blue-500/10 scroll-mt-16 bg-[#040717]">
-  <Container size="full" class="space-y-16">
+<section id="exploring" class="scroll-mt-16 border-t border-border bg-surface py-20 sm:py-28">
+  <Container size="full" class="space-y-14">
 
     <SectionHeading
-      kicker="Continuous Learning"
-      title="Currently Exploring"
-      description="Domains and concepts I am actively researching, experimenting with, and building real projects around."
-      align="center"
+      kicker="Currently Exploring"
+      title="What I'm Learning"
+      description="Areas I'm actively studying and building with, beyond coursework."
     />
 
-    <ExploringInteractive client:visible />
+    <ol class="divide-y divide-border border-y border-border">
+      {explorationTopics.map((topic) => (
+        <li class="py-7">
+          <p class="text-sm text-muted-foreground">{topic.category}</p>
+          <h3 class="mt-1 text-lg font-semibold text-foreground">{topic.title}</h3>
+
+          <p class="mt-2 max-w-2xl text-base leading-relaxed text-muted-foreground">
+            {topic.description}
+          </p>
+
+          <ul class="mt-4 flex flex-wrap gap-2">
+            {topic.technologies.map((tech) => (
+              <li><Badge variant="outline">{tech}</Badge></li>
+            ))}
+          </ul>
+
+          <p class="mt-4 border-l border-border pl-4 text-sm leading-relaxed text-muted-foreground">
+            {topic.keyOutcome}
+          </p>
+        </li>
+      ))}
+    </ol>
 
   </Container>
 </section>

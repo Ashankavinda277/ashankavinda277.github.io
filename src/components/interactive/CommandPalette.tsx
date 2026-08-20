@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { Search, Command, ArrowRight, X } from 'lucide-react';
 import { socialLinks } from '@/data/social';
+import { openMailCompose } from '@/lib/openMail';
 
 interface CommandItem {
   id: string;
@@ -16,7 +17,6 @@ const COMMAND_ITEMS: CommandItem[] = [
   { id: 'about', label: 'About', category: 'Navigation', href: '/#about' },
   { id: 'work', label: 'Work', category: 'Navigation', href: '/#projects' },
   { id: 'articles', label: 'Articles', category: 'Navigation', href: '/#articles' },
-  { id: 'journey', label: 'Journey', category: 'Navigation', href: '/#journey' },
   { id: 'skills', label: 'Skills', category: 'Navigation', href: '/#skills' },
   { id: 'contact', label: 'Contact', category: 'Navigation', href: '/#contact' },
   { id: 'all-projects', label: 'All Projects', category: 'Navigation', href: '/projects' },
@@ -75,15 +75,7 @@ export function CommandPalette() {
   const handleSelect = (item: CommandItem) => {
     setIsOpen(false);
     if (item.href.startsWith('mailto:')) {
-      const isMobile = /Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent
-      );
-      if (isMobile) {
-        window.location.href = item.href;
-      } else {
-        const email = item.href.replace('mailto:', '').split('?')[0] ?? '';
-        window.open(`https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(email)}`, '_blank');
-      }
+      openMailCompose(item.href);
     } else if (item.external) {
       window.open(item.href, '_blank', 'noopener,noreferrer');
     } else {
@@ -112,7 +104,7 @@ export function CommandPalette() {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 bg-background/80 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-start justify-center px-4 pt-16 sm:pt-24 bg-background/80 backdrop-blur-sm">
           {/* Overlay backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -128,11 +120,11 @@ export function CommandPalette() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.96, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="relative w-full max-w-xl rounded-xl border border-border/80 bg-card shadow-2xl overflow-hidden z-10 font-sans"
+            className="relative z-10 w-full max-w-xl overflow-hidden rounded-card border border-border bg-card font-sans shadow-overlay"
             onKeyDown={handleKeyDown}
           >
             {/* Input Search Header */}
-            <div className="flex items-center gap-3 px-4 py-3 border-b border-border/50 bg-muted/20">
+            <div className="flex items-center gap-3 border-b border-border px-4 py-3">
               <Search className="w-4 h-4 text-muted-foreground shrink-0" />
               <input
                 ref={inputRef}
@@ -140,11 +132,11 @@ export function CommandPalette() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Type a command or search..."
-                className="flex-1 bg-transparent text-foreground placeholder:text-muted-foreground/60 text-sm focus:outline-none"
+                className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
               />
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-1 rounded text-muted-foreground hover:text-foreground cursor-pointer"
+                className="rounded-control p-1 text-muted-foreground hover:text-foreground cursor-pointer"
                 aria-label="Close command palette"
               >
                 <X className="w-4 h-4" />
@@ -161,19 +153,19 @@ export function CommandPalette() {
                       key={item.id}
                       onClick={() => handleSelect(item)}
                       onMouseEnter={() => setSelectedIndex(idx)}
-                      className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-mono transition-all text-left cursor-pointer ${
+                      className={`flex w-full cursor-pointer items-center justify-between rounded-control px-3 py-2.5 text-left text-sm transition-colors ${
                         isSelected
-                          ? 'bg-accent-muted text-accent border border-accent/20'
-                          : 'text-muted-foreground hover:text-foreground hover:bg-muted/40'
+                          ? 'bg-muted text-foreground'
+                          : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                       }`}
                     >
                       <div className="flex items-center gap-2">
-                        <span className="font-semibold text-foreground">{item.label}</span>
-                        <span className="text-[10px] text-muted-foreground bg-muted px-1.5 py-0.5 rounded">
+                        <span className="font-medium text-foreground">{item.label}</span>
+                        <span className="text-xs text-muted-foreground">
                           {item.category}
                         </span>
                       </div>
-                      <div className="flex items-center gap-1 text-[11px] text-muted-foreground">
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground">
                         {item.external ? <span>External</span> : <span>Jump to</span>}
                         <ArrowRight className="w-3 h-3" />
                       </div>
@@ -181,25 +173,25 @@ export function CommandPalette() {
                   );
                 })
               ) : (
-                <div className="p-6 text-center text-xs font-mono text-muted-foreground">
+                <div className="p-6 text-center text-sm text-muted-foreground">
                   No matching commands found.
                 </div>
               )}
             </div>
 
             {/* Keyboard Footer */}
-            <div className="flex items-center justify-between px-4 py-2 bg-muted/30 border-t border-border/40 text-[10px] font-mono text-muted-foreground">
+            <div className="flex items-center justify-between border-t border-border px-4 py-2 text-xs text-muted-foreground">
               <div className="flex items-center gap-3">
                 <span className="flex items-center gap-1">
-                  <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border/50">↑↓</kbd>
+                  <kbd className="rounded-control border border-border bg-muted px-1.5 py-0.5">↑↓</kbd>
                   <span>navigate</span>
                 </span>
                 <span className="flex items-center gap-1">
-                  <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border/50">↵</kbd>
+                  <kbd className="rounded-control border border-border bg-muted px-1.5 py-0.5">↵</kbd>
                   <span>select</span>
                 </span>
                 <span className="flex items-center gap-1">
-                  <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border/50">esc</kbd>
+                  <kbd className="rounded-control border border-border bg-muted px-1.5 py-0.5">esc</kbd>
                   <span>close</span>
                 </span>
               </div>

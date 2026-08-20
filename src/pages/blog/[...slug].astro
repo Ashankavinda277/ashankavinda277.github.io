@@ -3,6 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Navbar from '@/components/layout/Navbar.astro';
 import Footer from '@/components/layout/Footer.astro';
 import Container from '@/components/ui/Container.astro';
+import Badge from '@/components/ui/Badge.astro';
 import { getCollection, render } from 'astro:content';
 import { ArrowLeft, Calendar, Clock, User } from 'lucide-react';
 
@@ -33,16 +34,16 @@ const formattedDate = new Date(post.data.pubDate).toLocaleDateString('en-US', {
       <!-- Back Link -->
       <a
         href="/blog"
-        class="inline-flex items-center gap-2 text-xs font-mono text-muted-foreground hover:text-blue-400 transition-colors"
+        class="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
       >
         <ArrowLeft className="w-4 h-4" />
         <span>Back to all articles</span>
       </a>
 
       <!-- Header Information Card -->
-      <header class="p-8 rounded-2xl border border-blue-900/40 bg-card/80 shadow-xl space-y-6">
-        <div class="flex flex-wrap items-center gap-4 text-xs font-mono text-muted-foreground">
-          <div class="flex items-center gap-1.5 text-blue-400">
+      <header class="space-y-6 rounded-card border border-border bg-card p-8">
+        <div class="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+          <div class="flex items-center gap-1.5">
             <Calendar className="w-4 h-4" />
             <span>{formattedDate}</span>
           </div>
@@ -58,7 +59,7 @@ const formattedDate = new Date(post.data.pubDate).toLocaleDateString('en-US', {
           </div>
         </div>
 
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground leading-[1.25]">
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-foreground leading-tight">
           {post.data.title}
         </h1>
 
@@ -66,17 +67,15 @@ const formattedDate = new Date(post.data.pubDate).toLocaleDateString('en-US', {
           {post.data.description}
         </p>
 
-        <div class="flex flex-wrap gap-2 pt-2 border-t border-border/30">
+        <div class="flex flex-wrap gap-2 border-t border-border pt-4">
           {post.data.tags.map((tag) => (
-            <span class="text-xs font-mono px-3 py-1 rounded-md bg-blue-950/40 text-blue-300 border border-blue-900/40">
-              #{tag}
-            </span>
+            <Badge variant="outline">{tag}</Badge>
           ))}
         </div>
       </header>
 
       <!-- MDX Article Body -->
-      <article class="p-8 sm:p-12 rounded-2xl border border-blue-900/40 bg-card/60 shadow-xl prose prose-invert max-w-none prose-headings:text-foreground prose-headings:font-bold prose-p:text-muted-foreground prose-p:leading-relaxed prose-code:text-blue-300 prose-pre:bg-slate-950 prose-pre:border prose-pre:border-blue-900/40 prose-a:text-blue-400">
+      <article class="prose prose-portfolio max-w-none rounded-card border border-border bg-card p-8 sm:p-12">
         <Content />
       </article>
 
