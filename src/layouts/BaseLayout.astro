@@ -102,6 +102,17 @@ const personSchema = {
         // when motion is reduced, which keeps that content plainly visible.
         if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
           document.documentElement.classList.add('anim');
+
+          // Failsafe: this class hides content until the animation module
+          // reveals it, so if that module never runs — bundle 404, parse
+          // error, blocked script — the page would stay blank. By load, every
+          // deferred module has run, so an unset flag means it failed and the
+          // gate must come off.
+          window.addEventListener('load', function () {
+            if (!window.__animReady) {
+              document.documentElement.classList.remove('anim');
+            }
+          });
         }
       })();
     </script>
