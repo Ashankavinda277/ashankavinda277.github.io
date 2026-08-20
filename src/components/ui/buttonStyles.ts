@@ -9,7 +9,7 @@ const variants: Record<ButtonVariant, string> = {
   primary: 'bg-accent text-accent-foreground hover:bg-accent/90',
   secondary: 'border border-border bg-transparent text-foreground hover:bg-muted',
   ghost: 'bg-transparent text-muted-foreground hover:bg-muted hover:text-foreground',
-  link: 'bg-transparent text-foreground underline underline-offset-4 decoration-border hover:decoration-foreground',
+  link: 'bg-transparent text-link underline underline-offset-4 decoration-link/40 hover:decoration-link',
 };
 
 const sizes: Record<ButtonSize, string> = {

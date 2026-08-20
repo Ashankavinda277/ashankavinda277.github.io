@@ -41,7 +41,7 @@ import { NavbarInteractive } from './NavbarInteractive';
   function markActive(links: NodeListOf<Element>, activeHref: string | null) {
     links.forEach((link) => {
       const isActive = link.getAttribute('href') === activeHref;
-      link.classList.toggle('text-foreground', isActive);
+      link.classList.toggle('text-link', isActive);
       link.classList.toggle('font-medium', isActive);
       link.classList.toggle('text-muted-foreground', !isActive);
     });

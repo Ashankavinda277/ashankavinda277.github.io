@@ -88,7 +88,7 @@ export function ProjectCard({
         <div className="z-20 flex items-center justify-between border-t border-border pt-4 text-sm">
           <a
             href={`/projects/${slug}`}
-            className="link-underline inline-flex items-center gap-1 font-medium text-foreground"
+            className="link-underline inline-flex items-center gap-1 font-medium text-link"
           >
             <span>View Details</span>
             <ArrowUpRight className="h-3.5 w-3.5" />

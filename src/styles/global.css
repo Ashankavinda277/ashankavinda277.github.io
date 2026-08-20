@@ -21,8 +21,12 @@
     --border: 240 6% 90%;
     --input: 240 5% 84%;
     --ring: 240 6% 10%;
-    --accent: 240 6% 10%;
-    --accent-foreground: 0 0% 98%;
+    /* The single accent. --accent fills the primary button; --link is one
+       step darker because #2563EB is only 5.17:1 on white, which is fine for
+       a button but leaves no margin for body-size link text. */
+    --accent: 221 83% 53%;
+    --accent-foreground: 0 0% 100%;
+    --link: 224 76% 48%;
     --destructive: 0 74% 42%;
     --destructive-foreground: 0 0% 98%;
   }
@@ -38,8 +42,10 @@
     --border: 240 4% 16%;
     --input: 240 4% 22%;
     --ring: 0 0% 98%;
-    --accent: 0 0% 98%;
-    --accent-foreground: 240 6% 10%;
+    /* Lighter on dark: the light-mode blues are far too dark to read here. */
+    --accent: 213 94% 68%;
+    --accent-foreground: 240 10% 4%;
+    --link: 213 94% 68%;
     --destructive: 0 91% 71%;
     --destructive-foreground: 240 6% 10%;
   }
@@ -165,7 +171,7 @@
     --tw-prose-body: hsl(var(--muted-foreground));
     --tw-prose-headings: hsl(var(--foreground));
     --tw-prose-lead: hsl(var(--muted-foreground));
-    --tw-prose-links: hsl(var(--foreground));
+    --tw-prose-links: hsl(var(--link));
     --tw-prose-bold: hsl(var(--foreground));
     --tw-prose-counters: hsl(var(--muted-foreground));
     --tw-prose-bullets: hsl(var(--border));

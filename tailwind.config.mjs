@@ -25,6 +25,7 @@ export default {
           DEFAULT: c('--accent'),
           foreground: c('--accent-foreground'),
         },
+        link: c('--link'),
         destructive: {
           DEFAULT: c('--destructive'),
           foreground: c('--destructive-foreground'),
