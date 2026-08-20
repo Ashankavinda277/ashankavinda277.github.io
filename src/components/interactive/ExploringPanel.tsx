@@ -9,14 +9,22 @@ interface ExploringPanelProps {
 }
 
 /** Body of one topic. Rendered in the desktop side panel and in the mobile accordion. */
-function TopicDetail({ topic }: { topic: ExplorationTopic }) {
+function TopicDetail({ topic, centered = false }: { topic: ExplorationTopic; centered?: boolean }) {
   return (
     <>
-      <p className="max-w-2xl text-base leading-relaxed text-muted-foreground">
+      <p
+        className={`max-w-2xl text-base leading-relaxed text-muted-foreground ${
+          centered ? 'mx-auto text-center' : ''
+        }`}
+      >
         {topic.description}
       </p>
 
-      <ul className="mt-5 flex flex-wrap gap-2">
+      <ul
+        className={`mt-5 flex max-w-2xl flex-wrap gap-2 ${
+          centered ? 'mx-auto justify-center' : ''
+        }`}
+      >
         {topic.technologies.map((tech) => (
           <li key={tech}>
             <span className={badgeClass({ variant: 'outline' })}>{tech}</span>
@@ -24,9 +32,15 @@ function TopicDetail({ topic }: { topic: ExplorationTopic }) {
         ))}
       </ul>
 
-      <p className="mt-5 border-l border-border pl-4 text-sm leading-relaxed text-muted-foreground">
-        {topic.keyOutcome}
-      </p>
+      {centered ? (
+        <p className="mx-auto mt-5 max-w-xl border-t border-border pt-4 text-center text-sm leading-relaxed text-muted-foreground">
+          {topic.keyOutcome}
+        </p>
+      ) : (
+        <p className="mt-5 border-l border-border pl-4 text-sm leading-relaxed text-muted-foreground">
+          {topic.keyOutcome}
+        </p>
+      )}
     </>
   );
 }
@@ -160,13 +174,13 @@ export function ExploringPanel({ topics }: ExploringPanelProps) {
             className="focus-visible:outline-none"
           >
             {/* Keyed so switching topics remounts and replays the enter transition. */}
-            <motion.div key={active.id} {...enter}>
+            <motion.div key={active.id} {...enter} className="text-center">
               <p className="text-sm text-muted-foreground">{active.category}</p>
               <h3 className="mt-1 text-xl font-semibold tracking-tight text-foreground">
                 {active.title}
               </h3>
               <div className="mt-4">
-                <TopicDetail topic={active} />
+                <TopicDetail topic={active} centered />
               </div>
             </motion.div>
           </div>
