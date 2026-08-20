@@ -109,7 +109,7 @@ export function SkillsCarousel({ categories }: SkillsCarouselProps) {
                 inert={isOff}
                 aria-current={isActive || undefined}
                 aria-label={isActive ? undefined : `Show ${category.title} skills`}
-                className={`absolute inset-0 flex flex-col rounded-card border bg-card p-6 text-left transition-colors sm:p-8 ${
+                className={`absolute inset-0 flex flex-col rounded-card border bg-surface p-6 text-left transition-colors sm:p-8 ${
                   isActive
                     ? 'cursor-default border-foreground/20'
                     : isOff
@@ -144,7 +144,7 @@ export function SkillsCarousel({ categories }: SkillsCarouselProps) {
 
                 <motion.span
                   aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 z-10 rounded-card bg-surface"
+                  className="pointer-events-none absolute inset-0 z-10 rounded-card bg-background"
                   initial={{ opacity: SCRIM[slot] }}
                   animate={{ opacity: SCRIM[slot] }}
                   transition={transition}

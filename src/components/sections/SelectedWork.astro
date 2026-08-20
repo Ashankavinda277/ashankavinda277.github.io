@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Container from '@/components/ui/Container.astro';
-import SectionHeading from '@/components/ui/SectionHeading.astro';
+import SectionMarker from '@/components/ui/SectionMarker.astro';
 import Button from '@/components/ui/Button.astro';
 import { ProjectCard } from '@/components/projects/ProjectCard';
 import { ArrowRight } from 'lucide-react';
@@ -13,20 +13,22 @@ const featuredProjects = allProjects
   .sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
 ---
 
-<section id="projects" class="scroll-mt-16 border-t border-border py-20 sm:py-28">
-  <Container size="full" class="space-y-14">
+<section id="projects" class="scroll-mt-16 py-24 sm:py-32">
+  <Container size="full" class="space-y-12">
 
-    <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-      <SectionHeading
-        kicker="Work"
-        title="Selected Work"
-        description="A selection of recent applications built with modern frontend, backend, and cloud architectures."
-      />
+    <SectionMarker number="02" label="Selected Work" />
 
-      <Button href="/projects" variant="secondary" size="sm" class="shrink-0">
-        <span>View All Projects</span>
-        <ArrowRight className="w-4 h-4" />
-      </Button>
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end">
+      <h2 class="text-2xl font-semibold leading-snug tracking-tight text-foreground sm:text-3xl lg:col-span-8">
+        Applications built with modern frontend, backend, and cloud architectures.
+      </h2>
+
+      <div class="lg:col-span-4 lg:justify-self-end">
+        <Button href="/projects" variant="secondary" size="sm">
+          <span>View All Projects</span>
+          <ArrowRight className="w-4 h-4" />
+        </Button>
+      </div>
     </div>
 
     <!-- Rendered without a client directive: static HTML, zero JS shipped. -->

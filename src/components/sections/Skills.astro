@@ -1,18 +1,18 @@
 ---
 import Container from '@/components/ui/Container.astro';
-import SectionHeading from '@/components/ui/SectionHeading.astro';
+import SectionMarker from '@/components/ui/SectionMarker.astro';
 import { SkillsCarousel } from '@/components/interactive/SkillsCarousel';
 import { skillCategories } from '@/data/skills';
 ---
 
-<section id="skills" class="scroll-mt-16 border-t border-border bg-surface py-20 sm:py-28">
-  <Container size="full" class="space-y-14">
+<section id="skills" class="scroll-mt-16 py-24 sm:py-32">
+  <Container size="full" class="space-y-12">
 
-    <SectionHeading
-      kicker="Stack"
-      title="Skills & Technologies"
-      description="A structured overview of core programming languages, frameworks, cloud services, and developer tools."
-    />
+    <SectionMarker number="03" label="Skills" />
+
+    <h2 class="max-w-3xl text-2xl font-semibold leading-snug tracking-tight text-foreground sm:text-3xl">
+      Core languages, frameworks, cloud services, and developer tools.
+    </h2>
 
     <SkillsCarousel categories={skillCategories} client:visible />
 

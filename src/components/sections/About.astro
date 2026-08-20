@@ -1,6 +1,6 @@
 ---
 import Container from '@/components/ui/Container.astro';
-import SectionHeading from '@/components/ui/SectionHeading.astro';
+import SectionMarker from '@/components/ui/SectionMarker.astro';
 import Button from '@/components/ui/Button.astro';
 import { journeyTimeline } from '@/data/journey';
 import { Code, Cloud, Cpu, FileText } from 'lucide-react';
@@ -27,22 +27,18 @@ const focusAreas = [
 ];
 ---
 
-<section id="about" class="scroll-mt-16 border-t border-border bg-surface py-20 sm:py-28">
-  <Container size="full" class="space-y-14">
+<section id="about" class="scroll-mt-16 py-24 sm:py-32">
+  <Container size="full" class="space-y-12">
 
-    <SectionHeading
-      kicker="About"
-      title="Get to Know Me"
-      description="An undergraduate IT student focused on building clean, type-safe, and scalable web platforms."
-    />
+    <SectionMarker number="01" label="About" />
 
     <div class="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-16">
 
       <!-- Left Column: Narrative -->
       <div class="lg:col-span-7 space-y-6">
-        <h3 class="text-xl font-semibold leading-snug tracking-tight text-foreground sm:text-2xl">
+        <h2 class="text-2xl font-semibold leading-snug tracking-tight text-foreground sm:text-3xl">
           A developer who enjoys turning ideas into real-world solutions
-        </h3>
+        </h2>
 
         <p class="text-base leading-relaxed text-muted-foreground">
           I'm a 3rd-year Information Technology undergraduate with a growing passion for software

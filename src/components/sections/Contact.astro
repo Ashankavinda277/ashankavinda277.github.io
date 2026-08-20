@@ -1,6 +1,6 @@
 ---
 import Container from '@/components/ui/Container.astro';
-import SectionHeading from '@/components/ui/SectionHeading.astro';
+import SectionMarker from '@/components/ui/SectionMarker.astro';
 import { ContactForm } from '@/components/interactive/ContactForm';
 import { socialLinks } from '@/data/social';
 import { siteConfig } from '@/data/site';
@@ -13,14 +13,14 @@ const details = [
 ];
 ---
 
-<section id="contact" class="scroll-mt-16 border-t border-border py-20 sm:py-28">
-  <Container size="full" class="space-y-14">
+<section id="contact" class="scroll-mt-16 py-24 sm:py-32">
+  <Container size="full" class="space-y-12">
 
-    <SectionHeading
-      kicker="Contact"
-      title="Have an idea?"
-      description="Let me know how I can help bring your project to life."
-    />
+    <SectionMarker number="06" label="Contact" />
+
+    <h2 class="max-w-3xl text-2xl font-semibold leading-snug tracking-tight text-foreground sm:text-3xl">
+      Have an idea? Let me know how I can help bring your project to life.
+    </h2>
 
     <div class="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-16">
 

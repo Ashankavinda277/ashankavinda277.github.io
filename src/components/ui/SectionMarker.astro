@@ -1,0 +1,22 @@
+---
+/**
+ * Editorial section rule: `01  ABOUT ─────────────`.
+ *
+ * The tracked small-caps label is a deliberate typographic device here and the
+ * only place the site uses uppercase — it is what carries the Swiss/editorial
+ * read. Do not spread it to nav, badges or buttons.
+ */
+interface Props {
+  number: string;
+  label: string;
+  class?: string;
+}
+
+const { number, label, class: className = '' } = Astro.props;
+---
+
+<div class={`flex items-center gap-4 ${className}`}>
+  <span class="text-sm tabular-nums text-muted-foreground">{number}</span>
+  <span class="text-sm uppercase tracking-wider text-foreground">{label}</span>
+  <span class="h-px flex-1 bg-border" aria-hidden="true"></span>
+</div>

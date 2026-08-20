@@ -1,18 +1,18 @@
 ---
 import Container from '@/components/ui/Container.astro';
-import SectionHeading from '@/components/ui/SectionHeading.astro';
+import SectionMarker from '@/components/ui/SectionMarker.astro';
 import { ExploringPanel } from '@/components/interactive/ExploringPanel';
 import { explorationTopics } from '@/data/exploring';
 ---
 
-<section id="exploring" class="scroll-mt-16 border-t border-border bg-surface py-20 sm:py-28">
-  <Container size="full" class="space-y-14">
+<section id="exploring" class="scroll-mt-16 py-24 sm:py-32">
+  <Container size="full" class="space-y-12">
 
-    <SectionHeading
-      kicker="Currently Exploring"
-      title="What I'm Learning"
-      description="Areas I'm actively studying and building with, beyond coursework."
-    />
+    <SectionMarker number="05" label="Exploring" />
+
+    <h2 class="max-w-3xl text-2xl font-semibold leading-snug tracking-tight text-foreground sm:text-3xl">
+      Areas I'm actively studying and building with, beyond coursework.
+    </h2>
 
     <ExploringPanel topics={explorationTopics} client:visible />
 
