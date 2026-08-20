@@ -1,7 +1,7 @@
 ---
 import Container from '@/components/ui/Container.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
-import Badge from '@/components/ui/Badge.astro';
+import { ExploringPanel } from '@/components/interactive/ExploringPanel';
 import { explorationTopics } from '@/data/exploring';
 ---
 
@@ -14,28 +14,7 @@ import { explorationTopics } from '@/data/exploring';
       description="Areas I'm actively studying and building with, beyond coursework."
     />
 
-    <ol class="divide-y divide-border border-y border-border">
-      {explorationTopics.map((topic) => (
-        <li class="py-7">
-          <p class="text-sm text-muted-foreground">{topic.category}</p>
-          <h3 class="mt-1 text-lg font-semibold text-foreground">{topic.title}</h3>
-
-          <p class="mt-2 max-w-2xl text-base leading-relaxed text-muted-foreground">
-            {topic.description}
-          </p>
-
-          <ul class="mt-4 flex flex-wrap gap-2">
-            {topic.technologies.map((tech) => (
-              <li><Badge variant="outline">{tech}</Badge></li>
-            ))}
-          </ul>
-
-          <p class="mt-4 border-l border-border pl-4 text-sm leading-relaxed text-muted-foreground">
-            {topic.keyOutcome}
-          </p>
-        </li>
-      ))}
-    </ol>
+    <ExploringPanel topics={explorationTopics} client:visible />
 
   </Container>
 </section>
