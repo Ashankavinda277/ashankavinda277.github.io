@@ -98,9 +98,9 @@ const focusAreas = [
     <!-- Engineering Focus -->
     <div data-stagger class="grid grid-cols-1 gap-6 md:grid-cols-3">
       {focusAreas.map((area) => (
-        <div data-reveal class="space-y-3 rounded-card border border-border bg-card p-6">
-          <area.icon className="w-5 h-5 text-muted-foreground" />
-          <h4 class="text-lg font-semibold text-foreground">{area.title}</h4>
+        <div data-reveal class="group space-y-3 rounded-card border border-border bg-card p-6 transition-all duration-300 ease-out hover:-translate-y-1.5 hover:border-accent/40 hover:shadow-xl hover:shadow-accent/5 dark:hover:shadow-accent/10">
+          <area.icon className="w-5 h-5 text-muted-foreground transition-all duration-300 group-hover:scale-110 group-hover:text-foreground" />
+          <h4 class="text-lg font-semibold text-foreground transition-colors duration-200 group-hover:text-foreground">{area.title}</h4>
           <p class="text-sm leading-relaxed text-muted-foreground">{area.description}</p>
         </div>
       ))}

@@ -1,4 +1,4 @@
-import { animate, inView, stagger } from 'motion';
+import { animate, inView } from 'motion';
 
 /**
  * Page-level reveals, driven by Motion One's vanilla API so they cost no
@@ -10,32 +10,43 @@ import { animate, inView, stagger } from 'motion';
  *   data-reveal          fade up when scrolled into view
  *   data-reveal="now"    fade up immediately (above the fold)
  *   data-reveal="down"   drop in from above immediately (navbar)
+ *   data-reveal="left" / "right" / "zoom"  directional reveals
  *   data-stagger         on a parent: its reveals run as one staggered group
  */
 
-const EASE: [number, number, number, number] = [0.25, 1, 0.5, 1];
-const DURATION = 0.5;
-const STEP = 0.07;
-const SHIFT = 12;
+const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+const DURATION = 0.6;
+const STEP = 0.08;
+const SHIFT = 20;
 
-/**
- * Keyframes are given explicitly as [from, to] rather than animating toward a
- * single target. Motion would otherwise have to read the start value back out
- * of the CSS `transform: translateY(...)` the stylesheet sets, and animating
- * *to* `transform: 'none'` is not interpolatable at all — which silently
- * leaves the element at opacity 0.
- */
-function play(elements: Element[], fromY: number = SHIFT) {
+function playGroup(elements: Element[]) {
   if (!elements.length) return;
-  animate(
-    elements,
-    { opacity: [0, 1], y: [fromY, 0] },
-    {
+  
+  elements.forEach((el, index) => {
+    const type = el.getAttribute('data-reveal') || 'up';
+    let keyframes: { opacity: number[]; y?: number[]; x?: number[]; scale?: number[] } = {
+      opacity: [0, 1],
+    };
+
+    if (type === 'down') {
+      keyframes.y = [-SHIFT, 0];
+    } else if (type === 'left') {
+      keyframes.x = [-24, 0];
+    } else if (type === 'right') {
+      keyframes.x = [24, 0];
+    } else if (type === 'zoom') {
+      keyframes.scale = [0.94, 1];
+    } else {
+      keyframes.y = [SHIFT, 0];
+      keyframes.scale = [0.98, 1];
+    }
+
+    animate(el, keyframes, {
       duration: DURATION,
       ease: EASE,
-      delay: elements.length > 1 ? stagger(STEP) : 0,
-    }
-  );
+      delay: index * STEP,
+    });
+  });
 }
 
 declare global {
@@ -51,13 +62,11 @@ export function initAnimations(): void {
   if (!root.classList.contains('anim')) return;
 
   try {
-    // Split by direction: "down" enters from above (the navbar), the rest rise.
-    play(Array.from(document.querySelectorAll('[data-reveal="now"]')), SHIFT);
-    play(Array.from(document.querySelectorAll('[data-reveal="down"]')), -SHIFT);
+    // Above fold reveals
+    playGroup(Array.from(document.querySelectorAll('[data-reveal="now"]')));
+    playGroup(Array.from(document.querySelectorAll('[data-reveal="down"]')));
 
-    // Group scroll reveals by their nearest [data-stagger] ancestor so siblings
-    // (project cards, spec columns) animate as one sequence rather than
-    // independently as each crosses the threshold.
+    // Group scroll reveals by their nearest [data-stagger] ancestor
     const groups = new Map<Element, Element[]>();
     document
       .querySelectorAll('[data-reveal]:not([data-reveal="now"]):not([data-reveal="down"])')
@@ -75,20 +84,14 @@ export function initAnimations(): void {
         () => {
           if (played) return;
           played = true;
-          play(elements);
+          playGroup(elements);
         },
-        // 'some' rather than a ratio: intersectionRatio is visible ÷ total, so
-        // any element taller than the viewport can never reach a threshold and
-        // would stay hidden forever. The negative bottom margin is what delays
-        // the trigger until the element is properly on screen.
-        { amount: 'some', margin: '0px 0px -12% 0px' }
+        { amount: 'some', margin: '0px 0px -10% 0px' }
       );
     });
 
-    // Tells the failsafe in BaseLayout that the gate is being handled.
     window.__animReady = true;
   } catch (err) {
-    // Never leave the page hidden behind a broken animation.
     root.classList.remove('anim');
     console.error('[animations] disabled after failure:', err);
   }

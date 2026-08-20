@@ -35,13 +35,13 @@ export function ProjectCard({
   const overflowCount = technologies.length - visibleTech.length;
 
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-card border border-border bg-card transition-colors hover:border-foreground/20">
+    <article className="group relative flex flex-col overflow-hidden rounded-card border border-border bg-card transition-all duration-300 ease-out hover:-translate-y-1.5 hover:border-accent/40 hover:shadow-xl hover:shadow-accent/5 dark:hover:shadow-accent/10">
       <div className="relative h-48 w-full overflow-hidden border-b border-border bg-muted sm:h-52">
         {image ? (
           <img
             src={image}
             alt={title}
-            className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-102"
+            className="h-full w-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105"
             loading="lazy"
           />
         ) : (
@@ -59,7 +59,7 @@ export function ProjectCard({
             <span>{year}</span>
           </div>
 
-          <h3 className="text-lg font-semibold tracking-tight text-foreground">
+          <h3 className="text-lg font-semibold tracking-tight text-foreground transition-colors duration-200 group-hover:text-foreground">
             <a href={`/projects/${slug}`} className="focus:outline-none">
               {/* Stretches the link over the whole card without nesting anchors. */}
               <span className="absolute inset-0 z-10" aria-hidden="true" />
@@ -91,7 +91,7 @@ export function ProjectCard({
             className="link-underline inline-flex items-center gap-1 font-medium text-link"
           >
             <span>View Details</span>
-            <ArrowUpRight className="h-3.5 w-3.5" />
+            <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
 
           <div className="flex items-center gap-2">
