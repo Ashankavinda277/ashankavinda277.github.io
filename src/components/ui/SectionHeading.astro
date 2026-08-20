@@ -7,38 +7,20 @@ interface Props {
   align?: 'left' | 'center';
 }
 
-const { kicker, title, description, class: className = '', align = 'center' } = Astro.props;
-
-// Highlight last word in title with blue gradient
-const words = title.trim().split(' ');
-const mainWords = words.slice(0, -1).join(' ');
-const lastWord = words.length > 1 ? words[words.length - 1] : '';
+const { kicker, title, description, class: className = '', align = 'left' } = Astro.props;
 
 const alignClasses = align === 'center' ? 'text-center items-center' : 'text-left items-start';
 ---
 
-<div class={`flex flex-col ${alignClasses} space-y-3 ${className}`}>
-  {kicker && (
-    <span class="text-xs font-mono font-bold tracking-widest text-blue-400 uppercase">
-      {kicker}
-    </span>
+<div class={`flex flex-col ${alignClasses} gap-3 ${className}`}>
+  {kicker && <span class="text-sm font-medium text-muted-foreground">{kicker}</span>}
 
-  )}
-
-  <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-100">
-    {mainWords && `${mainWords} `}
-    {lastWord && (
-      <span class="text-blue-400 drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]">
-        {lastWord}
-      </span>
-    )}
+  <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight text-foreground">
+    {title}
   </h2>
 
-  <!-- Accent Horizontal Underline Bar -->
-  <div class="w-14 h-1 bg-blue-500 rounded-full my-1 shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
-
   {description && (
-    <p class="text-sm sm:text-base text-slate-400 max-w-2xl leading-relaxed">
+    <p class="max-w-2xl text-base leading-relaxed text-muted-foreground">
       {description}
     </p>
   )}

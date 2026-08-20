@@ -1,3 +1,8 @@
+import typography from '@tailwindcss/typography';
+
+/** Wraps a token so Tailwind can compose opacity modifiers onto it. */
+const c = (v) => `hsl(var(${v}) / <alpha-value>)`;
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
@@ -5,24 +10,35 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: 'var(--background)',
-        foreground: 'var(--foreground)',
+        background: c('--background'),
+        surface: c('--surface'),
+        foreground: c('--foreground'),
         muted: {
-          DEFAULT: 'var(--muted)',
-          foreground: 'var(--muted-foreground)',
-        },
-        accent: {
-          DEFAULT: 'var(--accent)',
-          foreground: 'var(--accent-foreground)',
-          muted: 'var(--accent-muted)',
+          DEFAULT: c('--muted'),
+          foreground: c('--muted-foreground'),
         },
         card: {
-          DEFAULT: 'var(--card)',
-          foreground: 'var(--card-foreground)',
+          DEFAULT: c('--card'),
+          foreground: c('--card-foreground'),
         },
-        border: 'var(--border)',
-        input: 'var(--input)',
-        ring: 'var(--ring)',
+        accent: {
+          DEFAULT: c('--accent'),
+          foreground: c('--accent-foreground'),
+        },
+        destructive: {
+          DEFAULT: c('--destructive'),
+          foreground: c('--destructive-foreground'),
+        },
+        border: c('--border'),
+        input: c('--input'),
+        ring: c('--ring'),
+      },
+      borderRadius: {
+        control: '8px',
+        card: '12px',
+      },
+      boxShadow: {
+        overlay: '0 16px 48px -12px hsl(240 6% 10% / 0.18)',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
@@ -30,5 +46,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [typography],
 };

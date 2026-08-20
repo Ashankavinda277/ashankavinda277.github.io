@@ -1,48 +1,34 @@
-import { useState, useEffect } from 'react';
 import { Sun, Moon } from 'lucide-react';
 
+/**
+ * Astro renders this at build time, so it cannot know the visitor's theme.
+ * Rather than gating on a `mounted` flag — which flashes a skeleton on every
+ * load — both icons are rendered and the `dark:` variant picks one. That is
+ * correct at first paint with no JS and no hydration mismatch.
+ */
 export function ThemeToggle() {
-  const [isDark, setIsDark] = useState<boolean>(true);
-  const [mounted, setMounted] = useState<boolean>(false);
-
-  useEffect(() => {
-    setMounted(true);
-    const hasDarkClass = document.documentElement.classList.contains('dark');
-    setIsDark(hasDarkClass);
-  }, []);
-
   const toggleTheme = () => {
-    const nextDark = !isDark;
-    setIsDark(nextDark);
-
-    if (nextDark) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
+    const root = document.documentElement;
+    const nextDark = !root.classList.contains('dark');
+    root.classList.toggle('dark', nextDark);
+    root.style.colorScheme = nextDark ? 'dark' : 'light';
+    try {
+      localStorage.setItem('theme', nextDark ? 'dark' : 'light');
+    } catch {
+      /* storage unavailable (private mode) — the toggle still applies visually */
     }
   };
-
-  if (!mounted) {
-    return (
-      <div className="w-9 h-9 rounded-lg border border-border/50 bg-muted/40 animate-pulse" />
-    );
-  }
 
   return (
     <button
       type="button"
       onClick={toggleTheme}
-      className="w-9 h-9 flex items-center justify-center rounded-lg border border-border/60 bg-muted/30 hover:bg-muted/80 text-muted-foreground hover:text-foreground transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer"
-      aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
-      title={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
+      className="inline-flex h-9 w-9 items-center justify-center rounded-control border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer"
+      aria-label="Toggle color theme"
+      title="Toggle color theme"
     >
-      {isDark ? (
-        <Sun className="w-4 h-4 text-amber-400 transition-transform duration-200 hover:rotate-45" />
-      ) : (
-        <Moon className="w-4 h-4 text-slate-700 transition-transform duration-200 hover:-rotate-12" />
-      )}
+      <Sun className="hidden h-4 w-4 dark:block" />
+      <Moon className="h-4 w-4 dark:hidden" />
     </button>
   );
 }

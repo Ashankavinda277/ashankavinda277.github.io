@@ -11,25 +11,23 @@ const sortedPosts = allPosts.sort((a, b) => new Date(b.data.pubDate).getTime() -
 const displayPosts = sortedPosts.slice(0, 3);
 ---
 
-<section id="articles" class="py-20 lg:py-28 border-b border-border/40 scroll-mt-16 relative">
-  <Container size="full" class="space-y-16">
+<section id="articles" class="scroll-mt-16 border-t border-border py-20 sm:py-28">
+  <Container size="full" class="space-y-14">
 
-    <div class="flex flex-col items-center text-center space-y-4">
+    <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
       <SectionHeading
-        kicker="WRITINGS & THOUGHTS"
+        kicker="Writing"
         title="Featured Articles"
-        description="Insights on software engineering, cloud architectures, and full-stack development published on Medium."
-        align="center"
+        description="Notes on software engineering, cloud architecture, and full-stack development, published on Medium."
       />
 
-      <Button href="https://medium.com/@ashankavinda" target="_blank" rel="noopener noreferrer" variant="outline" size="sm" class="font-mono text-xs border-blue-900/50 hover:border-blue-500/50 hover:bg-blue-500/10">
+      <Button href="https://medium.com/@ashankavinda" target="_blank" rel="noopener noreferrer" variant="secondary" size="sm" class="shrink-0">
         <span>View Medium Profile</span>
-        <ExternalLink className="w-3.5 h-3.5 ml-1" />
+        <ExternalLink className="w-3.5 h-3.5" />
       </Button>
     </div>
 
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {displayPosts.map((post) => (
         <BlogCard
           title={post.data.title}

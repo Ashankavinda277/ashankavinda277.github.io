@@ -5,18 +5,16 @@ import { navItems } from '@/data/navigation';
 import { NavbarInteractive } from './NavbarInteractive';
 ---
 
-<header class="sticky top-0 z-50 w-full backdrop-blur-xl bg-[#040717]/80 border-b border-blue-500/10 transition-colors duration-200">
+<header class="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-xl">
   <Container size="full" class="h-16 flex items-center justify-between">
 
-
-    <!-- Brand Logo / Name -->
+    <!-- Brand -->
     <a
       href="/"
-      class="group font-sans font-bold text-xl tracking-tight flex items-center gap-0.5 text-slate-100 hover:text-white transition-colors"
+      class="text-base font-semibold tracking-tight text-foreground transition-colors hover:text-foreground/80"
       aria-label={`${siteConfig.name} - Home`}
     >
-      <span class="font-extrabold text-slate-100 text-xl tracking-tight">Ashan</span>
-      <span class="font-black text-blue-400 text-xl">.K</span>
+      {siteConfig.name}
     </a>
 
     <!-- Desktop Navigation Items -->
@@ -24,7 +22,7 @@ import { NavbarInteractive } from './NavbarInteractive';
       {navItems.map((item) => (
         <a
           href={item.href}
-          class="desktop-nav-link text-xs font-mono tracking-wider transition-all relative py-1 hover:text-blue-400 text-slate-400"
+          class="desktop-nav-link py-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
           {item.label}
         </a>
@@ -36,84 +34,56 @@ import { NavbarInteractive } from './NavbarInteractive';
   </Container>
 </header>
 
-<script is:inline>
+<script>
+  function markActive(links: NodeListOf<Element>, activeHref: string | null) {
+    links.forEach((link) => {
+      const isActive = link.getAttribute('href') === activeHref;
+      link.classList.toggle('text-foreground', isActive);
+      link.classList.toggle('font-medium', isActive);
+      link.classList.toggle('text-muted-foreground', !isActive);
+    });
+  }
+
   function setupActiveNav() {
     const navLinks = document.querySelectorAll('.desktop-nav-link');
     if (!navLinks.length) return;
 
-    const pathname = window.location.pathname;
-    const isProjectsPage = pathname.startsWith('/projects');
-    const isBlogPage = pathname.startsWith('/blog');
+    // Sub-pages have no scrollable sections; highlight by pathname instead.
+    const { pathname } = window.location;
+    if (pathname.startsWith('/projects')) return markActive(navLinks, '/#projects');
+    if (pathname.startsWith('/blog')) return markActive(navLinks, '/#articles');
 
-    if (isProjectsPage) {
-      navLinks.forEach(link => {
-        const href = link.getAttribute('href');
-        if (href === '/#projects' || href === '/projects' || href === '#projects') {
-          link.classList.add('text-blue-400', 'font-semibold');
-          link.classList.remove('text-slate-400');
-        } else {
-          link.classList.remove('text-blue-400', 'font-semibold');
-          link.classList.add('text-slate-400');
-        }
-      });
-      return;
-    }
-
-    if (isBlogPage) {
-      navLinks.forEach(link => {
-        const href = link.getAttribute('href');
-        if (href === '/#articles' || href === '/blog' || href === '#articles') {
-          link.classList.add('text-blue-400', 'font-semibold');
-          link.classList.remove('text-slate-400');
-        } else {
-          link.classList.remove('text-blue-400', 'font-semibold');
-          link.classList.add('text-slate-400');
-        }
-      });
-      return;
-    }
-
-    const sectionElements = [];
-    navLinks.forEach(link => {
+    // Map each in-page nav target to its section element.
+    const sections = new Map<Element, string>();
+    navLinks.forEach((link) => {
       const href = link.getAttribute('href');
-      if (href) {
-        const hashIndex = href.indexOf('#');
-        if (hashIndex !== -1) {
-          const hash = href.slice(hashIndex);
-          const target = document.querySelector(hash);
-          if (target) sectionElements.push({ href, hash, el: target });
-        }
-      }
+      const hashIndex = href?.indexOf('#') ?? -1;
+      if (!href || hashIndex === -1) return;
+      const target = document.querySelector(href.slice(hashIndex));
+      if (target) sections.set(target, href);
     });
+    if (!sections.size) return;
 
-    function updateActiveNav() {
-      const scrollPos = window.scrollY + 180;
-      let currentHref = '/';
-
-      if (window.scrollY > 100) {
-        sectionElements.forEach(item => {
-          if (item.el.offsetTop <= scrollPos) {
-            currentHref = item.href;
-          }
+    // offsetTop drifts because sections sit inside a flex <main>, so observe
+    // instead: a band across the viewport middle decides what counts as active.
+    const visible = new Set<Element>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) visible.add(entry.target);
+          else visible.delete(entry.target);
         });
-      }
 
-      navLinks.forEach(link => {
-        const href = link.getAttribute('href');
-        if (href === currentHref) {
-          link.classList.add('text-blue-400', 'font-semibold');
-          link.classList.remove('text-slate-400');
-        } else {
-          link.classList.remove('text-blue-400', 'font-semibold');
-          link.classList.add('text-slate-400');
-        }
-      });
-    }
+        // With several sections in the band, prefer the topmost.
+        const current = [...sections.keys()].find((el) => visible.has(el));
+        markActive(navLinks, current ? (sections.get(current) ?? null) : null);
+      },
+      { rootMargin: '-45% 0px -50% 0px' }
+    );
 
-    window.addEventListener('scroll', updateActiveNav, { passive: true });
-    updateActiveNav();
+    sections.forEach((_href, el) => observer.observe(el));
   }
 
-  document.addEventListener('DOMContentLoaded', setupActiveNav);
+  setupActiveNav();
   document.addEventListener('astro:page-load', setupActiveNav);
 </script>

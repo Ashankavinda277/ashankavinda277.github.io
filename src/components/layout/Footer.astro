@@ -5,17 +5,16 @@ import { socialLinks } from '@/data/social';
 import { Mail } from 'lucide-react';
 ---
 
-<footer class="border-t border-blue-500/10 py-12 bg-[#030612] mt-auto">
+<footer class="mt-auto border-t border-border bg-surface py-12">
   <Container size="full" class="flex flex-col md:flex-row items-center justify-between gap-6">
 
     <!-- Brand Tagline -->
     <div class="space-y-1 text-center md:text-left">
-      <p class="font-mono font-bold text-sm tracking-tight text-slate-100 flex items-center justify-center md:justify-start gap-2">
-        <span class="w-2 h-2 rounded-full bg-blue-400 inline-block shadow-[0_0_8px_#3b82f6]"></span>
+      <p class="text-sm font-semibold tracking-tight text-foreground">
         {siteConfig.name}
       </p>
-      <p class="text-xs font-mono text-slate-400">
-        {siteConfig.role} — Developer Workspace
+      <p class="text-sm text-muted-foreground">
+        {siteConfig.role}
       </p>
     </div>
 
@@ -26,7 +25,7 @@ import { Mail } from 'lucide-react';
           href={link.url}
           target={link.url.startsWith('http') ? '_blank' : '_self'}
           rel={link.url.startsWith('http') ? 'noopener noreferrer' : undefined}
-          class="w-9 h-9 flex items-center justify-center rounded-xl border border-slate-800 bg-[#070b21]/90 hover:border-blue-500/50 hover:text-blue-400 text-slate-400 transition-all duration-200"
+          class="flex h-9 w-9 items-center justify-center rounded-control border border-border bg-card text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           aria-label={link.name}
           title={link.name}
         >
@@ -46,7 +45,7 @@ import { Mail } from 'lucide-react';
     </div>
 
     <!-- Copyright -->
-    <p class="text-xs font-mono text-slate-400 text-center md:text-right">
+    <p class="text-sm text-muted-foreground text-center md:text-right">
       © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
     </p>
   </Container>

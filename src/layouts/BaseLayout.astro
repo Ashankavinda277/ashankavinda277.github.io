@@ -41,7 +41,7 @@ const personSchema = {
 ---
 
 <!DOCTYPE html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -81,55 +81,33 @@ const personSchema = {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
 
-    <!-- Flash of Unstyled Theme (FOUC) Prevention Script -->
+    <!-- Applies the stored theme before first paint. Light is the default, so
+         it is the absence of a class; only an explicit toggle persists a choice. -->
     <script is:inline>
-      const theme = (() => {
-        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-          return localStorage.getItem('theme');
-        }
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          return 'dark';
-        }
-        return 'dark';
+      (function () {
+        var stored = null;
+        try {
+          stored = localStorage.getItem('theme');
+        } catch (e) {}
+        var theme = stored === 'dark' || stored === 'light' ? stored : 'light';
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+        document.documentElement.style.colorScheme = theme;
       })();
-
-      if (theme === 'light') {
-        document.documentElement.classList.remove('dark');
-      } else {
-        document.documentElement.classList.add('dark');
-      }
-      window.localStorage.setItem('theme', theme);
     </script>
   </head>
-  <!-- Reliable mailto handling: OS mail-app associations are often unset, -->
-  <!-- so desktop opens Gmail compose directly instead of relying on them. -->
-  <script is:inline>
-    (function () {
-      function isMobile() {
-        return /Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(
-          navigator.userAgent
-        );
-      }
-      document.addEventListener('click', function (e) {
-        const link = e.target.closest('a[href^="mailto:"]');
-        if (!link || isMobile()) return;
-        e.preventDefault();
-        const email = link.href.replace('mailto:', '').split('?')[0];
-        window.open(
-          'https://mail.google.com/mail/?view=cm&to=' + encodeURIComponent(email),
-          '_blank'
-        );
-      });
-    })();
-  </script>
   <body class="min-h-screen bg-background text-foreground antialiased selection:bg-accent selection:text-accent-foreground flex flex-col font-sans">
     <slot />
 
     <!-- Global Client Islands -->
     <CommandPalette client:idle />
+
+    <script>
+      import { installMailtoInterceptor } from '@/lib/openMail';
+      installMailtoInterceptor();
+    </script>
   </body>
 </html>

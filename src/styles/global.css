@@ -3,40 +3,43 @@
 @tailwind utilities;
 
 @layer base {
+  /*
+   * Neutral ramp expressed as HSL channel triplets so Tailwind's
+   * <alpha-value> works (bg-card/90, border-border/60, ...).
+   * Hue is held at 240 with <=6% saturation: a cool neutral, not a hue.
+   */
   :root {
-    --background: #040717;
-    --foreground: #f8fafc;
-    --muted: #0a0f2b;
-    --muted-foreground: #94a3b8;
-    --card: #070b21;
-    --card-foreground: #f8fafc;
-    --border: rgba(59, 130, 246, 0.15);
-    --input: rgba(59, 130, 246, 0.2);
-    --ring: #3b82f6;
-
-    --accent-cyan: #3b82f6;
-    --accent-violet: #60a5fa;
-    --accent: #3b82f6;
-    --accent-foreground: #040717;
-    --accent-muted: rgba(59, 130, 246, 0.12);
+    --background: 0 0% 100%;
+    --surface: 240 5% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 6% 10%;
+    --foreground: 240 6% 10%;
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 4% 46%;
+    --border: 240 6% 90%;
+    --input: 240 5% 84%;
+    --ring: 240 6% 10%;
+    --accent: 240 6% 10%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 74% 42%;
+    --destructive-foreground: 0 0% 98%;
   }
 
   .dark {
-    --background: #040717;
-    --foreground: #f8fafc;
-    --muted: #0a0f2b;
-    --muted-foreground: #94a3b8;
-    --card: #070b21;
-    --card-foreground: #f8fafc;
-    --border: rgba(59, 130, 246, 0.15);
-    --input: rgba(59, 130, 246, 0.2);
-    --ring: #3b82f6;
-
-    --accent-cyan: #3b82f6;
-    --accent-violet: #60a5fa;
-    --accent: #3b82f6;
-    --accent-foreground: #040717;
-    --accent-muted: rgba(59, 130, 246, 0.12);
+    --background: 240 10% 4%;
+    --surface: 240 6% 7%;
+    --card: 240 6% 8%;
+    --card-foreground: 0 0% 98%;
+    --foreground: 0 0% 98%;
+    --muted: 240 4% 16%;
+    --muted-foreground: 240 5% 65%;
+    --border: 240 4% 16%;
+    --input: 240 4% 22%;
+    --ring: 0 0% 98%;
+    --accent: 0 0% 98%;
+    --accent-foreground: 240 6% 10%;
+    --destructive: 0 91% 71%;
+    --destructive-foreground: 240 6% 10%;
   }
 
   * {
@@ -44,24 +47,23 @@
   }
 
   html {
-    color-scheme: dark;
+    color-scheme: light;
     scroll-behavior: smooth;
   }
 
+  html.dark {
+    color-scheme: dark;
+  }
+
   body {
-    background-color: var(--background);
-    color: var(--foreground);
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     min-height: 100vh;
     overflow-x: hidden;
-  }
-
-  ::selection {
-    background-color: rgba(59, 130, 246, 0.35);
-    color: #ffffff;
   }
 
   /* Typography Defaults */
@@ -71,14 +73,9 @@
   h4,
   h5,
   h6 {
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: -0.025em;
-    color: var(--foreground);
-  }
-
-  .font-display {
-    font-weight: 800;
-    letter-spacing: -0.035em;
+    color: hsl(var(--foreground));
   }
 
   code,
@@ -89,7 +86,7 @@
 
   /* Focus styling */
   :focus-visible {
-    outline: 2px solid var(--ring);
+    outline: 2px solid hsl(var(--ring));
     outline-offset: 2px;
   }
 
@@ -100,85 +97,62 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: var(--background);
+    background: hsl(var(--background));
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #111827;
+    background: hsl(var(--input));
     border-radius: 3px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #3b82f6;
+    background: hsl(var(--muted-foreground));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /*
+   * Drives @tailwindcss/typography from the theme tokens so long-form content
+   * follows light/dark automatically. Used by project case studies and blog posts.
+   */
+  .prose-portfolio {
+    --tw-prose-body: hsl(var(--muted-foreground));
+    --tw-prose-headings: hsl(var(--foreground));
+    --tw-prose-lead: hsl(var(--muted-foreground));
+    --tw-prose-links: hsl(var(--foreground));
+    --tw-prose-bold: hsl(var(--foreground));
+    --tw-prose-counters: hsl(var(--muted-foreground));
+    --tw-prose-bullets: hsl(var(--border));
+    --tw-prose-hr: hsl(var(--border));
+    --tw-prose-quotes: hsl(var(--foreground));
+    --tw-prose-quote-borders: hsl(var(--border));
+    --tw-prose-captions: hsl(var(--muted-foreground));
+    --tw-prose-code: hsl(var(--foreground));
+    --tw-prose-pre-code: hsl(var(--foreground));
+    --tw-prose-pre-bg: hsl(var(--muted));
+    --tw-prose-th-borders: hsl(var(--border));
+    --tw-prose-td-borders: hsl(var(--border));
   }
 }
 
 @layer utilities {
-
-  /* Subtle grid background */
-  .bg-cyber-network {
-    background-color: #040717;
-    background-image:
-      radial-gradient(circle at 50% 30%, rgba(59, 130, 246, 0.06) 0%, transparent 60%),
-      radial-gradient(circle at 85% 70%, rgba(96, 165, 250, 0.04) 0%, transparent 50%);
-  }
-
   .bg-grid-pattern {
-    background-image: radial-gradient(rgba(59, 130, 246, 0.12) 1px, transparent 1px);
+    background-image: radial-gradient(hsl(var(--border)) 1px, transparent 1px);
     background-size: 32px 32px;
-  }
-
-  /* Blue accent text gradient */
-  .text-gradient-cyan-purple {
-    background: linear-gradient(135deg, #ffffff 0%, #3b82f6 50%, #60a5fa 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .text-gradient-cyan {
-    background: linear-gradient(135deg, #ffffff 0%, #3b82f6 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  /* Primary blue button */
-  .btn-cyber-primary {
-    background: #3b82f6;
-    color: #ffffff;
-    box-shadow: 0 0 20px -3px rgba(59, 130, 246, 0.4);
-    transition: all 0.25s ease-in-out;
-  }
-
-  .btn-cyber-primary:hover {
-    background: #2563eb;
-    box-shadow: 0 0 30px 2px rgba(59, 130, 246, 0.55);
-    transform: translateY(-2px);
-  }
-
-  .btn-cyber-outline {
-    background: rgba(7, 11, 33, 0.8);
-    border: 1px solid rgba(148, 163, 184, 0.2);
-    color: #e2e8f0;
-    transition: all 0.25s ease-in-out;
-  }
-
-  .btn-cyber-outline:hover {
-    border-color: rgba(59, 130, 246, 0.5);
-    background: rgba(59, 130, 246, 0.08);
-    box-shadow: 0 0 15px -3px rgba(59, 130, 246, 0.25);
-    transform: translateY(-2px);
-  }
-
-  /* Glass card */
-  .cyber-glass-card {
-    background: rgba(7, 11, 33, 0.85);
-    backdrop-filter: blur(16px);
-    border: 1px solid rgba(148, 163, 184, 0.15);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-  }
-
-  .cyber-glass-card:hover {
-    border-color: rgba(59, 130, 246, 0.35);
-    box-shadow: 0 0 25px -5px rgba(59, 130, 246, 0.15);
   }
 }
