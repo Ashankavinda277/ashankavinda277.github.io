@@ -77,7 +77,11 @@ export function initAnimations(): void {
           played = true;
           play(elements);
         },
-        { amount: 0.15 }
+        // 'some' rather than a ratio: intersectionRatio is visible ÷ total, so
+        // any element taller than the viewport can never reach a threshold and
+        // would stay hidden forever. The negative bottom margin is what delays
+        // the trigger until the element is properly on screen.
+        { amount: 'some', margin: '0px 0px -12% 0px' }
       );
     });
 

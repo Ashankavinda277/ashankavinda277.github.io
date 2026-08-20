@@ -6,7 +6,7 @@ import { explorationTopics } from '@/data/exploring';
 ---
 
 <section id="exploring" class="scroll-mt-16 py-24 sm:py-32">
-  <Container size="full" class="space-y-12" data-stagger>
+  <Container size="full" class="space-y-12">
 
     <SectionMarker number="05" label="Exploring" data-reveal />
 
@@ -14,7 +14,9 @@ import { explorationTopics } from '@/data/exploring';
       Areas I'm actively studying and building with, beyond coursework.
     </h2>
 
-    <ExploringPanel topics={explorationTopics} client:visible />
+    <div data-reveal>
+      <ExploringPanel topics={explorationTopics} client:visible />
+    </div>
 
   </Container>
 </section>

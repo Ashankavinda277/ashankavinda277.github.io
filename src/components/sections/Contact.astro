@@ -14,7 +14,7 @@ const details = [
 ---
 
 <section id="contact" class="scroll-mt-16 py-24 sm:py-32">
-  <Container size="full" class="space-y-12" data-stagger>
+  <Container size="full" class="space-y-12">
 
     <SectionMarker number="06" label="Contact" data-reveal />
 
@@ -22,10 +22,10 @@ const details = [
       Have an idea? Let me know how I can help bring your project to life.
     </h2>
 
-    <div data-reveal class="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-16">
+    <div data-stagger class="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-16">
 
       <!-- Left: Contact details -->
-      <div class="lg:col-span-5 space-y-8">
+      <div data-reveal class="lg:col-span-5 space-y-8">
         <dl class="divide-y divide-border border-y border-border">
           {details.map((detail) => (
             <div class="flex items-center gap-4 py-4">
@@ -60,7 +60,7 @@ const details = [
       </div>
 
       <!-- Right: Form -->
-      <div class="lg:col-span-7">
+      <div data-reveal class="lg:col-span-7">
         <div class="rounded-card border border-border bg-card p-6 sm:p-8">
           <ContactForm client:visible />
         </div>

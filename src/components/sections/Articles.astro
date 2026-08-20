@@ -12,7 +12,7 @@ const displayPosts = sortedPosts.slice(0, 3);
 ---
 
 <section id="articles" class="scroll-mt-16 py-24 sm:py-32">
-  <Container size="full" class="space-y-12" data-stagger>
+  <Container size="full" class="space-y-12">
 
     <SectionMarker number="04" label="Writing" data-reveal />
 
@@ -29,8 +29,9 @@ const displayPosts = sortedPosts.slice(0, 3);
       </div>
     </div>
 
-    <div data-reveal class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div data-stagger class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {displayPosts.map((post) => (
+        <div data-reveal>
         <BlogCard
           title={post.data.title}
           description={post.data.description}
@@ -43,6 +44,7 @@ const displayPosts = sortedPosts.slice(0, 3);
           image={post.data.image}
           icon={post.data.icon}
         />
+        </div>
       ))}
     </div>
   </Container>

@@ -14,7 +14,7 @@ const featuredProjects = allProjects
 ---
 
 <section id="projects" class="scroll-mt-16 py-24 sm:py-32">
-  <Container size="full" class="space-y-12" data-stagger>
+  <Container size="full" class="space-y-12">
 
     <SectionMarker number="02" label="Selected Work" data-reveal />
 
@@ -33,8 +33,9 @@ const featuredProjects = allProjects
 
     <!-- Rendered without a client directive: static HTML, zero JS shipped. -->
     {featuredProjects.length > 0 ? (
-      <div data-reveal class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div data-stagger class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {featuredProjects.map((project) => (
+          <div data-reveal>
           <ProjectCard
             title={project.data.title}
             description={project.data.description}
@@ -47,6 +48,7 @@ const featuredProjects = allProjects
             github={project.data.github}
             demo={project.data.demo}
           />
+          </div>
         ))}
       </div>
     ) : (

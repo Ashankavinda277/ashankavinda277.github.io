@@ -6,7 +6,7 @@ import { skillCategories } from '@/data/skills';
 ---
 
 <section id="skills" class="scroll-mt-16 py-24 sm:py-32">
-  <Container size="full" class="space-y-12" data-stagger>
+  <Container size="full" class="space-y-12">
 
     <SectionMarker number="03" label="Skills" data-reveal />
 
@@ -14,7 +14,9 @@ import { skillCategories } from '@/data/skills';
       Core languages, frameworks, cloud services, and developer tools.
     </h2>
 
-    <SkillsCarousel categories={skillCategories} client:visible />
+    <div data-reveal>
+      <SkillsCarousel categories={skillCategories} client:visible />
+    </div>
 
   </Container>
 </section>
