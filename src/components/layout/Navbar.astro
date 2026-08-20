@@ -5,7 +5,10 @@ import { navItems } from '@/data/navigation';
 import { NavbarInteractive } from './NavbarInteractive';
 ---
 
-<header class="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-xl">
+<header
+  data-reveal="down"
+  class="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-xl"
+>
   <Container size="full" class="h-16 flex items-center justify-between">
 
     <!-- Brand -->
@@ -22,7 +25,7 @@ import { NavbarInteractive } from './NavbarInteractive';
       {navItems.map((item) => (
         <a
           href={item.href}
-          class="desktop-nav-link py-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+          class="desktop-nav-link link-underline py-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
           {item.label}
         </a>

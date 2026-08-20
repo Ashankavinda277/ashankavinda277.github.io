@@ -43,7 +43,7 @@ const FallbackIcon = icons[icon as keyof typeof icons] ?? BookOpen;
       <img
         src={image}
         alt=""
-        class="h-full w-full object-cover object-top"
+        class="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-102"
         loading="lazy"
       />
     ) : (

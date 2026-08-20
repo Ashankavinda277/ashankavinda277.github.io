@@ -10,12 +10,13 @@ interface Props {
   number: string;
   label: string;
   class?: string;
+  [key: string]: any;
 }
 
-const { number, label, class: className = '' } = Astro.props;
+const { number, label, class: className = '', ...rest } = Astro.props;
 ---
 
-<div class={`flex items-center gap-4 ${className}`}>
+<div class={`flex items-center gap-4 ${className}`} {...rest}>
   <span class="text-sm tabular-nums text-muted-foreground">{number}</span>
   <span class="text-sm uppercase tracking-wider text-foreground">{label}</span>
   <span class="h-px flex-1 bg-border" aria-hidden="true"></span>

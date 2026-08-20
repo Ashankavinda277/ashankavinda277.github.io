@@ -12,11 +12,11 @@ const displayPosts = sortedPosts.slice(0, 3);
 ---
 
 <section id="articles" class="scroll-mt-16 py-24 sm:py-32">
-  <Container size="full" class="space-y-12">
+  <Container size="full" class="space-y-12" data-stagger>
 
-    <SectionMarker number="04" label="Writing" />
+    <SectionMarker number="04" label="Writing" data-reveal />
 
-    <div class="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end">
+    <div data-reveal class="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end">
       <h2 class="text-2xl font-semibold leading-snug tracking-tight text-foreground sm:text-3xl lg:col-span-8">
         Notes on software engineering, cloud architecture, and full-stack development.
       </h2>
@@ -29,7 +29,7 @@ const displayPosts = sortedPosts.slice(0, 3);
       </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div data-reveal class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {displayPosts.map((post) => (
         <BlogCard
           title={post.data.title}

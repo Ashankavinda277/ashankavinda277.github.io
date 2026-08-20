@@ -16,7 +16,7 @@ const meta = [
   <Container size="full">
 
     <!-- Top meta line -->
-    <div class="flex items-center gap-4 border-b border-border pb-5">
+    <div data-reveal="now" class="flex items-center gap-4 border-b border-border pb-5">
       <span class="text-sm text-muted-foreground">Portfolio</span>
       <span class="h-px flex-1 bg-border" aria-hidden="true"></span>
       {siteConfig.availability.status && (
@@ -29,7 +29,7 @@ const meta = [
 
     <!-- Display type + portrait -->
     <div class="grid grid-cols-1 items-end gap-10 pt-12 lg:grid-cols-12 lg:gap-12 lg:pt-16">
-      <div class="lg:col-span-8">
+      <div data-reveal="now" class="lg:col-span-8">
         <h1 class="text-5xl font-semibold leading-[0.95] tracking-tighter text-foreground sm:text-6xl lg:text-7xl xl:text-8xl">
           {siteConfig.name}
         </h1>
@@ -38,20 +38,20 @@ const meta = [
         </p>
       </div>
 
-      <div class="lg:col-span-4 lg:justify-self-end">
+      <div data-reveal="now" class="lg:col-span-4 lg:justify-self-end">
         <img
           src="/images/profile/avatar.jpeg"
           alt={siteConfig.name}
           width="320"
           height="384"
-          class="h-64 w-52 rounded-card border border-border object-cover object-top sm:h-80 sm:w-64"
+          class="h-64 w-52 rounded-card border border-border object-cover object-top transition-transform duration-500 hover:scale-102 sm:h-80 sm:w-64"
           onerror="if (this.src.endsWith('.jpeg')) { this.src = '/images/profile/avatar.png'; } else if (this.src.endsWith('.png')) { this.src = '/images/profile/avatar.jpg'; } else { this.onerror = null; }"
         />
       </div>
     </div>
 
     <!-- Spec sheet -->
-    <dl class="mt-12 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-border pt-6 sm:grid-cols-4 lg:mt-16">
+    <dl data-reveal="now" class="mt-12 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-border pt-6 sm:grid-cols-4 lg:mt-16">
       {meta.map((item) => (
         <div>
           <dt class="text-sm uppercase tracking-wider text-muted-foreground">{item.label}</dt>
@@ -89,7 +89,7 @@ const meta = [
     </dl>
 
     <!-- Bio + CTAs -->
-    <div class="mt-12 grid grid-cols-1 gap-8 border-t border-border pt-8 lg:grid-cols-12">
+    <div data-reveal="now" class="mt-12 grid grid-cols-1 gap-8 border-t border-border pt-8 lg:grid-cols-12">
       <p class="max-w-2xl text-base leading-relaxed text-muted-foreground lg:col-span-7">
         {siteConfig.bio}
       </p>

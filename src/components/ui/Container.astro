@@ -2,9 +2,10 @@
 interface Props {
   class?: string;
   size?: 'sm' | 'md' | 'lg' | 'full' | 'wide';
+  [key: string]: any;
 }
 
-const { class: className = '', size = 'full' } = Astro.props;
+const { class: className = '', size = 'full', ...rest } = Astro.props;
 
 
 const sizes = {
@@ -17,6 +18,6 @@ const sizes = {
 
 ---
 
-<div class={`w-full mx-auto px-5 sm:px-6 lg:px-8 ${sizes[size]} ${className}`}>
+<div class={`w-full mx-auto px-5 sm:px-6 lg:px-8 ${sizes[size]} ${className}`} {...rest}>
   <slot />
 </div>

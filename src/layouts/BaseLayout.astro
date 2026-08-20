@@ -96,6 +96,13 @@ const personSchema = {
         var theme = stored === 'dark' || stored === 'light' ? stored : 'light';
         document.documentElement.classList.toggle('dark', theme === 'dark');
         document.documentElement.style.colorScheme = theme;
+
+        // Gates the reveal animations' hidden starting state. Set here, before
+        // paint, so animated elements never flash in first. Left off entirely
+        // when motion is reduced, which keeps that content plainly visible.
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          document.documentElement.classList.add('anim');
+        }
       })();
     </script>
   </head>
@@ -107,7 +114,10 @@ const personSchema = {
 
     <script>
       import { installMailtoInterceptor } from '@/lib/openMail';
+      import { initAnimations } from '@/lib/animations';
+
       installMailtoInterceptor();
+      initAnimations();
     </script>
   </body>
 </html>

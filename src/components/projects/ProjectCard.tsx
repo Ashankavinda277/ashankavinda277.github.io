@@ -41,7 +41,7 @@ export function ProjectCard({
           <img
             src={image}
             alt={title}
-            className="h-full w-full object-cover object-top"
+            className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-102"
             loading="lazy"
           />
         ) : (
@@ -88,7 +88,7 @@ export function ProjectCard({
         <div className="z-20 flex items-center justify-between border-t border-border pt-4 text-sm">
           <a
             href={`/projects/${slug}`}
-            className="inline-flex items-center gap-1 font-medium text-foreground hover:underline underline-offset-4"
+            className="link-underline inline-flex items-center gap-1 font-medium text-foreground"
           >
             <span>View Details</span>
             <ArrowUpRight className="h-3.5 w-3.5" />

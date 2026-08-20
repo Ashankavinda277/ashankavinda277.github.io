@@ -111,6 +111,20 @@
     background: hsl(var(--muted-foreground));
   }
 
+  /*
+   * Reveal-on-scroll starting state. Scoped to .anim, which an inline script
+   * adds only when JS runs and motion is allowed — so with JS disabled or
+   * reduced motion on, content is simply visible and never stuck hidden.
+   */
+  .anim [data-reveal] {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  .anim [data-reveal='down'] {
+    transform: translateY(-12px);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
@@ -128,6 +142,21 @@
 }
 
 @layer components {
+  /* Underline that wipes out from the left on hover, drawn with a background
+     so it never affects layout. */
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    transition: background-size 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .link-underline:hover,
+  .link-underline:focus-visible {
+    background-size: 100% 1px;
+  }
+
   /*
    * Drives @tailwindcss/typography from the theme tokens so long-form content
    * follows light/dark automatically. Used by project case studies and blog posts.

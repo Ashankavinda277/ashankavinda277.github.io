@@ -40,6 +40,9 @@ export default {
       boxShadow: {
         overlay: '0 16px 48px -12px hsl(240 6% 10% / 0.18)',
       },
+      scale: {
+        102: '1.02',
+      },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
