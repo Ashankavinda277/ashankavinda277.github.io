@@ -35,7 +35,7 @@ export function ProjectCard({
   const overflowCount = technologies.length - visibleTech.length;
 
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-card border border-border bg-card transition-all duration-300 ease-out hover:-translate-y-1.5 hover:border-accent/40 hover:shadow-xl hover:shadow-accent/5 dark:hover:shadow-accent/10">
+    <article className="group relative flex flex-col overflow-hidden rounded-card border border-border bg-card shadow-card transition-all duration-300 ease-out hover:-translate-y-1.5 hover:border-border-hover hover:shadow-card-lg">
       <div className="relative h-48 w-full overflow-hidden border-b border-border bg-muted sm:h-52">
         {image ? (
           <img

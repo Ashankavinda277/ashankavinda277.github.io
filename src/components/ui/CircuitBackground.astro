@@ -1,0 +1,145 @@
+---
+/**
+ * Circuit-trace backdrop with sparks that run along the traces.
+ *
+ * Two layers: a tiled SVG pattern of static traces and solder nodes, and a
+ * handful of gradient "sparks" that travel across it. The sparks animate on
+ * transform/opacity only, so they are GPU-composited and never trigger
+ * layout — the whole effect costs no JS and no network requests.
+ *
+ * Purely decorative: aria-hidden, pointer-events-none, and frozen by the
+ * sitewide prefers-reduced-motion rule.
+ */
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+
+// Pattern ids are document-global: two instances on one page would both
+// resolve to whichever pattern rendered first, so each gets its own.
+const uid = Math.random().toString(36).slice(2, 9);
+---
+
+<div
+  class={`circuit-bg pointer-events-none absolute inset-0 overflow-hidden ${className}`}
+  aria-hidden="true"
+>
+  <svg class="circuit-traces h-full w-full" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <pattern id={`circuit-${uid}`} width="220" height="220" patternUnits="userSpaceOnUse">
+        <path
+          d="M0 44 H78 V0 M78 44 V104 H220 M144 220 V158 H64 V220 M220 132 H178 V220 M0 176 H36"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1"
+        />
+        <circle cx="78" cy="44" r="2.5" fill="currentColor" />
+        <circle cx="78" cy="104" r="2.5" fill="currentColor" />
+        <circle cx="144" cy="158" r="2.5" fill="currentColor" />
+        <circle cx="178" cy="132" r="2.5" fill="currentColor" />
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill={`url(#circuit-${uid})`} />
+  </svg>
+
+  <span class="spark spark-h" style="top: 20%; animation-duration: 6.5s; animation-delay: -0.5s;"></span>
+  <span class="spark spark-h" style="top: 47%; animation-duration: 8.5s; animation-delay: -4s;"></span>
+  <span class="spark spark-h" style="top: 74%; animation-duration: 7.2s; animation-delay: -2.5s;"></span>
+  <span class="spark spark-v" style="left: 22%; animation-duration: 7.8s; animation-delay: -1.5s;"></span>
+  <span class="spark spark-v" style="left: 63%; animation-duration: 9.4s; animation-delay: -5s;"></span>
+  <span class="spark spark-v" style="left: 86%; animation-duration: 6.8s; animation-delay: -3.2s;"></span>
+</div>
+
+<style>
+  .circuit-traces {
+    /*
+     * One property themes every trace and node, via currentColor. --accent
+     * inverts with the palette, so the traces are drawn in white on the dark
+     * theme and near-black on the light one from this single declaration;
+     * --ambient supplies the light-mode restraint that used to require a
+     * separate .dark rule.
+     */
+    color: hsl(var(--accent) / calc(var(--ambient) * 0.14));
+  }
+
+  .spark {
+    position: absolute;
+    border-radius: 9999px;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    will-change: transform;
+  }
+
+  .spark-h {
+    left: 0;
+    height: 1.5px;
+    width: 170px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      hsl(var(--accent) / calc(var(--ambient) * 0.55)) 55%,
+      hsl(var(--accent) / calc(var(--ambient) * 0.95)) 100%
+    );
+    animation-name: spark-run-h;
+  }
+
+  .spark-v {
+    top: 0;
+    width: 1.5px;
+    height: 130px;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      hsl(var(--accent) / calc(var(--ambient) * 0.55)) 55%,
+      hsl(var(--accent) / calc(var(--ambient) * 0.95)) 100%
+    );
+    animation-name: spark-run-v;
+  }
+
+  /* The glow stays dark-mode only. A halo is light bleeding past its source,
+     which has no meaning when the source is near-black — on the light theme
+     it renders as a grey smudge trailing the spark. Light mode relies on the
+     trace itself, which is already high-contrast there. */
+  :global(.dark) .spark {
+    filter: drop-shadow(0 0 6px hsl(var(--accent) / 0.75));
+  }
+
+  /* Travel is expressed in viewport units because a transform percentage
+     resolves against the element's own box, not its container. */
+  @keyframes spark-run-h {
+    0% {
+      transform: translateX(-180px);
+      opacity: 0;
+    }
+    8%,
+    92% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(100vw);
+      opacity: 0;
+    }
+  }
+
+  @keyframes spark-run-v {
+    0% {
+      transform: translateY(-140px);
+      opacity: 0;
+    }
+    8%,
+    92% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh);
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .spark {
+      display: none;
+    }
+  }
+</style>

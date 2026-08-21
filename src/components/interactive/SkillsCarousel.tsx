@@ -223,8 +223,8 @@ export function SkillsCarousel({ categories }: SkillsCarouselProps) {
               whileTap={{ scale: 0.96 }}
               className={`rounded-full px-4 py-1.5 text-xs font-medium transition-all duration-300 ${
                 isActive
-                  ? 'bg-foreground text-background shadow-md'
-                  : 'border border-border bg-card text-muted-foreground hover:border-foreground/30 hover:text-foreground'
+                  ? 'border border-transparent bg-accent text-accent-foreground shadow-card'
+                  : 'border border-border bg-card text-muted-foreground hover:border-border-hover hover:text-foreground'
               }`}
             >
               {cat.title}
@@ -263,10 +263,10 @@ export function SkillsCarousel({ categories }: SkillsCarouselProps) {
                 aria-label={isActive ? undefined : `Show ${category.title} skills`}
                 className={`absolute inset-0 flex flex-col rounded-card border bg-card p-6 text-left transition-shadow sm:p-8 ${
                   isActive
-                    ? 'cursor-default border-accent/40 shadow-2xl shadow-accent/10 dark:shadow-accent/20'
+                    ? 'cursor-default border-border-hover shadow-card-lg'
                     : isOff
                       ? 'pointer-events-none border-border'
-                      : 'cursor-pointer border-border hover:border-foreground/30 hover:shadow-lg'
+                      : 'cursor-pointer border-border shadow-card hover:border-border-hover'
                 }`}
               >
                 <span className="flex min-h-0 flex-1 flex-col" aria-hidden={!isActive || undefined}>
@@ -302,7 +302,12 @@ export function SkillsCarousel({ categories }: SkillsCarouselProps) {
                 {/* Depth scrim overlay for side cards */}
                 <motion.span
                   aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 z-10 rounded-card bg-background"
+                  /* bg-surface, not bg-background: side cards recede by
+                     converging toward the colour of the section they sit in,
+                     and the Skills section is bg-surface. Tinting toward
+                     --background instead left the scrim slightly off, so the
+                     peeks read as dimmed rather than distant. */
+                  className="pointer-events-none absolute inset-0 z-10 rounded-card bg-surface"
                   initial={{ opacity: SCRIM[slot] }}
                   animate={{ opacity: SCRIM[slot] }}
                   transition={transition}

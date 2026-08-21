@@ -1,6 +1,8 @@
 ---
 import Container from '@/components/ui/Container.astro';
 import Button from '@/components/ui/Button.astro';
+import AmbientGlow from '@/components/ui/AmbientGlow.astro';
+import CircuitBackground from '@/components/ui/CircuitBackground.astro';
 import { siteConfig } from '@/data/site';
 import { socialLinks } from '@/data/social';
 import { ArrowRight, Github, Linkedin, Mail, FileText } from 'lucide-react';
@@ -10,10 +12,28 @@ const meta = [
   { label: 'Education', value: 'University of Moratuwa' },
   { label: 'Focus', value: 'Cloud · AI · Web' },
 ];
+
+// "Full-Stack Developer" -> full-strength first word, dimmed remainder. The
+// two-tone heading survives the move to monochrome by inverting which half
+// it emphasises: with no accent hue to colour the lead word, the contrast
+// comes from the *rest* of the phrase dropping to --muted-foreground.
+// Splitting on the first space keeps this generic if the role text changes.
+const [roleLead, ...roleRestWords] = siteConfig.role.split(' ');
+const roleRest = roleRestWords.join(' ');
+
+// Short phrases the hero subtitle types out and deletes on a loop.
+const taglines = [
+  'Building scalable web apps',
+  'Cloud-native solutions on AWS',
+  'Turning ideas into software',
+];
 ---
 
-<section class="flex min-h-[calc(100vh-4rem)] flex-col justify-center py-16 sm:py-20">
-  <Container size="full">
+<section class="relative flex min-h-[calc(100vh-4rem)] flex-col justify-center py-16 sm:py-20">
+  <AmbientGlow />
+  <CircuitBackground />
+
+  <Container size="full" class="relative">
 
     <!-- Top meta line -->
     <div data-reveal data-reveal-now class="flex items-center gap-4 border-b border-border pb-5">
@@ -34,10 +54,17 @@ const meta = [
             <span data-reveal="mask" data-reveal-now class="block">{siteConfig.name}</span>
           </span>
         </h1>
-        <p class="mt-3 text-3xl font-semibold leading-[1.05] tracking-tight text-muted-foreground sm:text-4xl lg:text-5xl xl:text-6xl">
+        <p class="mt-3 text-3xl font-semibold leading-[1.05] tracking-tight sm:text-4xl lg:text-5xl xl:text-6xl">
           <span class="block overflow-hidden pb-[0.12em]">
-            <span data-reveal="mask" data-reveal-now class="block">{siteConfig.role}</span>
+            <span data-reveal="mask" data-reveal-now class="block">
+              <span class="text-foreground">{roleLead}</span>{roleRest && <span class="text-muted-foreground"> {roleRest}</span>}
+            </span>
           </span>
+        </p>
+
+        <p data-reveal data-reveal-now class="mt-4 text-lg text-muted-foreground sm:text-xl">
+          <span id="hero-typewriter" aria-hidden="true"></span><span class="typewriter-cursor" aria-hidden="true">|</span>
+          <span class="sr-only">{taglines[0]}</span>
         </p>
       </div>
 
@@ -110,3 +137,63 @@ const meta = [
 
   </Container>
 </section>
+
+<style>
+  .typewriter-cursor {
+    color: hsl(var(--foreground));
+    animation: typewriter-blink 1s steps(1) infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .typewriter-cursor {
+      animation: none;
+    }
+  }
+
+  @keyframes typewriter-blink {
+    0%,
+    50% {
+      opacity: 1;
+    }
+    50.01%,
+    100% {
+      opacity: 0;
+    }
+  }
+</style>
+
+<script define:vars={{ taglines }}>
+  const target = document.getElementById('hero-typewriter');
+  if (target) {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (reduceMotion || !taglines.length) {
+      target.textContent = taglines[0] ?? '';
+    } else {
+      let phraseIndex = 0;
+      let charIndex = 0;
+      let deleting = false;
+
+      const tick = () => {
+        const phrase = taglines[phraseIndex % taglines.length];
+        charIndex += deleting ? -1 : 1;
+        target.textContent = phrase.slice(0, charIndex);
+
+        let delay = deleting ? 18 : 32;
+
+        if (!deleting && charIndex === phrase.length) {
+          deleting = true;
+          delay = 900;
+        } else if (deleting && charIndex === 0) {
+          deleting = false;
+          phraseIndex += 1;
+          delay = 200;
+        }
+
+        setTimeout(tick, delay);
+      };
+
+      tick();
+    }
+  }
+</script>

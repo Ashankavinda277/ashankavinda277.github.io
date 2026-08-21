@@ -33,7 +33,10 @@ function TopicDetail({ topic, centered = false }: { topic: ExplorationTopic; cen
       </ul>
 
       {centered ? (
-        <p className="mx-auto mt-5 max-w-xl border-t border-border pt-4 text-center text-sm leading-relaxed text-muted-foreground">
+        /* mt-auto, not mt-5: in the desktop card this pins the outcome to the
+           bottom edge so a short topic fills the card the tall tab rail sets,
+           instead of leaving a void beneath it. */
+        <p className="mx-auto mt-auto max-w-xl border-t border-border pt-6 text-center text-sm leading-relaxed text-muted-foreground">
           {topic.keyOutcome}
         </p>
       ) : (
@@ -94,15 +97,19 @@ export function ExploringPanel({ topics }: ExploringPanelProps) {
                   className="flex w-full cursor-pointer items-center justify-between gap-4 py-5 text-left"
                 >
                   <span className="min-w-0">
-                    <span className="block text-sm text-muted-foreground">{topic.category}</span>
+                    <span
+                      className={`block text-sm ${isOpen ? 'text-foreground' : 'text-muted-foreground'}`}
+                    >
+                      {topic.category}
+                    </span>
                     <span className="mt-1 block text-base font-semibold text-foreground">
                       {topic.title}
                     </span>
                   </span>
                   <ChevronDown
                     aria-hidden="true"
-                    className={`h-4 w-4 shrink-0 text-muted-foreground transition-transform ${
-                      isOpen ? 'rotate-180' : ''
+                    className={`h-4 w-4 shrink-0 transition-transform duration-200 ${
+                      isOpen ? 'rotate-180 text-foreground' : 'text-muted-foreground'
                     }`}
                   />
                 </button>
@@ -148,17 +155,25 @@ export function ExploringPanel({ topics }: ExploringPanelProps) {
                 aria-controls="exploring-tabpanel"
                 tabIndex={isActive ? 0 : -1}
                 onClick={() => setActiveIndex(idx)}
-                className={`-ml-px cursor-pointer border-l py-3 pl-5 text-left transition-colors ${
+                className={`-ml-px flex cursor-pointer items-baseline gap-3 border-l py-3.5 pl-5 pr-3 text-left transition-all duration-200 ${
                   isActive
-                    ? 'border-foreground text-foreground'
-                    : 'border-transparent text-muted-foreground hover:border-border hover:text-foreground'
+                    ? 'border-foreground bg-accent/[0.06] text-foreground'
+                    : 'border-transparent text-muted-foreground hover:border-border hover:bg-muted/40 hover:text-foreground'
                 }`}
               >
-                <span className="block text-xs text-muted-foreground">{topic.category}</span>
                 <span
-                  className={`mt-0.5 block text-sm ${isActive ? 'font-medium' : ''}`}
+                  aria-hidden="true"
+                  className={`shrink-0 text-xs tabular-nums ${
+                    isActive ? 'text-foreground' : 'text-muted-foreground'
+                  }`}
                 >
-                  {topic.title}
+                  {String(idx + 1).padStart(2, '0')}
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-xs text-muted-foreground">{topic.category}</span>
+                  <span className={`mt-0.5 block text-sm ${isActive ? 'font-medium' : ''}`}>
+                    {topic.title}
+                  </span>
                 </span>
               </button>
             );
@@ -173,13 +188,19 @@ export function ExploringPanel({ topics }: ExploringPanelProps) {
             tabIndex={0}
             className="focus-visible:outline-none"
           >
-            {/* Keyed so switching topics remounts and replays the enter transition. */}
-            <motion.div key={active.id} {...enter} className="text-center">
-              <p className="text-sm text-muted-foreground">{active.category}</p>
-              <h3 className="mt-1 text-xl font-semibold tracking-tight text-foreground">
+            {/* Keyed so switching topics remounts and replays the enter transition.
+                h-full + flex-col lets the detail fill the height the tab rail
+                sets, which is what closes the empty gap under short topics. */}
+            <motion.div
+              key={active.id}
+              {...enter}
+              className="flex h-full flex-col rounded-card border border-border bg-card p-8 text-center shadow-card lg:p-10"
+            >
+              <p className="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">{active.category}</p>
+              <h3 className="mt-1.5 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
                 {active.title}
               </h3>
-              <div className="mt-4">
+              <div className="mt-5 flex flex-1 flex-col">
                 <TopicDetail topic={active} centered />
               </div>
             </motion.div>

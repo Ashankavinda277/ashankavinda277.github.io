@@ -27,7 +27,7 @@ const focusAreas = [
 ];
 ---
 
-<section id="about" class="scroll-mt-16 py-24 sm:py-32">
+<section id="about" class="scroll-mt-16 bg-surface py-24 sm:py-32">
   <Container size="full" class="space-y-12">
 
     <SectionMarker number="01" label="About" />
@@ -61,8 +61,14 @@ const focusAreas = [
         </p>
 
         <div class="border-t border-border pt-6">
-          <Button href="/resume.pdf" target="_blank" variant="secondary" size="md">
-            <FileText className="w-4 h-4" />
+          <Button
+            href="/resume.pdf"
+            target="_blank"
+            variant="primary"
+            size="lg"
+            class="btn-glow group"
+          >
+            <FileText className="w-4 h-4 transition-transform duration-300 group-hover:-translate-y-0.5" />
             <span>Download Resume (PDF)</span>
           </Button>
         </div>
@@ -98,8 +104,10 @@ const focusAreas = [
     <!-- Engineering Focus -->
     <div data-stagger class="grid grid-cols-1 gap-6 md:grid-cols-3">
       {focusAreas.map((area) => (
-        <div data-reveal class="group space-y-3 rounded-card border border-border bg-card p-6 transition-all duration-300 ease-out hover:-translate-y-1.5 hover:border-accent/40 hover:shadow-xl hover:shadow-accent/5 dark:hover:shadow-accent/10">
-          <area.icon className="w-5 h-5 text-muted-foreground transition-all duration-300 group-hover:scale-110 group-hover:text-foreground" />
+        <div data-reveal class="card-tinted group space-y-3 rounded-card border border-border bg-card p-6 shadow-card transition-all duration-300 ease-out hover:-translate-y-1.5 hover:border-border-hover hover:shadow-card-lg">
+          <span class="inline-flex h-9 w-9 items-center justify-center rounded-control bg-muted text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
+            <area.icon className="w-5 h-5" />
+          </span>
           <h4 class="text-lg font-semibold text-foreground transition-colors duration-200 group-hover:text-foreground">{area.title}</h4>
           <p class="text-sm leading-relaxed text-muted-foreground">{area.description}</p>
         </div>

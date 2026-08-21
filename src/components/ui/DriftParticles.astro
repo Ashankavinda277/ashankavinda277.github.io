@@ -1,0 +1,155 @@
+---
+/**
+ * Cinematic drifting-particle background for the hero. Built from blurred
+ * radial-gradient circles animated with CSS transforms (opacity/transform
+ * only, GPU-composited) instead of a looping video file — same slow,
+ * expensive-feeling flow, no decode or bandwidth cost. Purely decorative:
+ * aria-hidden, no layout impact, frozen under prefers-reduced-motion.
+ *
+ * Tuned to actually read at a glance: v1 used 3 motes drifting ~4% over
+ * 45-60s, which was too subtle to notice at normal viewing distance. This
+ * version uses more particles, a bigger travel distance, and a faster
+ * loop (14-22s) while staying slow enough to read as "drift," not "float
+ * around" — the amplitude and duration are the two knobs to tune further.
+ */
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<div class={`pointer-events-none absolute inset-0 overflow-hidden ${className}`} aria-hidden="true">
+  <span class="mote mote-a"></span>
+  <span class="mote mote-b"></span>
+  <span class="mote mote-c"></span>
+  <span class="mote mote-d"></span>
+  <span class="mote mote-e"></span>
+</div>
+
+<style>
+  .mote {
+    position: absolute;
+    border-radius: 9999px;
+    background: radial-gradient(
+      circle at 32% 28%,
+      hsl(var(--accent) / calc(var(--ambient) * 0.65)),
+      hsl(var(--accent) / calc(var(--ambient) * 0.18)) 45%,
+      transparent 72%
+    );
+    animation: mote-drift ease-in-out infinite;
+    will-change: transform;
+  }
+
+  /* Alternate motes borrow --accent-2 so the drift is two values deep rather
+     than one flat colour repeated five times. Both tokens are now neutrals,
+     so this is a lightness variation instead of the old two-tone blend — and
+     because both invert with the theme, the rule no longer needs to be
+     scoped to .dark. */
+  .mote-b,
+  .mote-d {
+    background: radial-gradient(
+      circle at 32% 28%,
+      hsl(var(--accent-2) / calc(var(--ambient) * 0.6)),
+      hsl(var(--accent-2) / calc(var(--ambient) * 0.15)) 45%,
+      transparent 72%
+    );
+  }
+
+  .mote-a {
+    top: 10%;
+    left: 62%;
+    width: 12rem;
+    height: 12rem;
+    filter: blur(18px);
+    animation-name: mote-drift-a;
+    animation-duration: 19s;
+  }
+
+  .mote-b {
+    top: 54%;
+    left: 4%;
+    width: 8rem;
+    height: 8rem;
+    filter: blur(13px);
+    animation-name: mote-drift-b;
+    animation-duration: 22s;
+    animation-delay: -6s;
+  }
+
+  .mote-c {
+    top: 24%;
+    left: 36%;
+    width: 5.5rem;
+    height: 5.5rem;
+    filter: blur(9px);
+    animation-name: mote-drift-a;
+    animation-duration: 16s;
+    animation-delay: -10s;
+  }
+
+  .mote-d {
+    top: 70%;
+    left: 48%;
+    width: 6.5rem;
+    height: 6.5rem;
+    filter: blur(11px);
+    animation-name: mote-drift-b;
+    animation-duration: 20s;
+    animation-delay: -3s;
+  }
+
+  .mote-e {
+    top: 4%;
+    left: 20%;
+    width: 4rem;
+    height: 4rem;
+    filter: blur(7px);
+    animation-name: mote-drift-a;
+    animation-duration: 14s;
+    animation-delay: -8s;
+  }
+
+  /* Two paths, mirrored, so particles don't all drift in visual lockstep. */
+  @keyframes mote-drift-a {
+    0% {
+      transform: translate(0, 0) scale(1);
+    }
+    25% {
+      transform: translate(6%, -12%) scale(1.12);
+    }
+    50% {
+      transform: translate(-8%, 6%) scale(0.92);
+    }
+    75% {
+      transform: translate(-4%, -8%) scale(1.06);
+    }
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+  }
+
+  @keyframes mote-drift-b {
+    0% {
+      transform: translate(0, 0) scale(1);
+    }
+    25% {
+      transform: translate(-7%, 10%) scale(0.9);
+    }
+    50% {
+      transform: translate(9%, -5%) scale(1.1);
+    }
+    75% {
+      transform: translate(4%, 9%) scale(0.95);
+    }
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mote {
+      animation: none;
+    }
+  }
+</style>

@@ -85,15 +85,16 @@ const personSchema = {
       rel="stylesheet"
     />
 
-    <!-- Applies the stored theme before first paint. Light is the default, so
-         it is the absence of a class; only an explicit toggle persists a choice. -->
+    <!-- Applies the stored theme before first paint. Dark is the default, so
+         a first-time visitor with no stored preference gets the .dark class
+         applied here; only an explicit toggle persists a choice. -->
     <script is:inline>
       (function () {
         var stored = null;
         try {
           stored = localStorage.getItem('theme');
         } catch (e) {}
-        var theme = stored === 'dark' || stored === 'light' ? stored : 'light';
+        var theme = stored === 'dark' || stored === 'light' ? stored : 'dark';
         document.documentElement.classList.toggle('dark', theme === 'dark');
         document.documentElement.style.colorScheme = theme;
 

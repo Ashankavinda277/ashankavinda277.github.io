@@ -6,6 +6,10 @@
  * only place the site uses uppercase — it is what carries the Swiss/editorial
  * read. Do not spread it to nav, badges or buttons.
  *
+ * Set in the mono face since the palette went monochrome: with no accent hue
+ * left to mark a label as metadata, the typeface has to do it. SectionHeading's
+ * kicker uses the same treatment one step dimmer, so the two stay one device.
+ *
  * Owns its own reveal: number and label rise, then the hairline draws out to
  * the right margin. Callers should not pass data-reveal.
  */
@@ -20,7 +24,7 @@ const { number, label, class: className = '', ...rest } = Astro.props;
 ---
 
 <div class={`flex items-center gap-4 ${className}`} data-stagger {...rest}>
-  <span data-reveal class="text-sm tabular-nums text-muted-foreground">{number}</span>
-  <span data-reveal class="text-sm uppercase tracking-wider text-foreground">{label}</span>
+  <span data-reveal class="font-mono text-xs tabular-nums text-muted-foreground">{number}</span>
+  <span data-reveal class="font-mono text-xs uppercase tracking-[0.08em] text-foreground">{label}</span>
   <span data-reveal="rule" class="h-px flex-1 bg-border" aria-hidden="true"></span>
 </div>

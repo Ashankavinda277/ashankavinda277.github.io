@@ -47,6 +47,13 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
         ))}
       </div>
 
+      {/*
+        No data-reveal here: the category filter re-renders this grid on the
+        client, and the sitewide reveal system only scans the DOM once at
+        load. A card mounted after that scan would inherit the CSS's
+        opacity:0 starting state with nothing left to animate it in — a
+        pile-of-invisible-cards bug, not a decoration.
+      */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {filteredProjects.map((project) => (
           <ProjectCard key={project.slug} {...project} />

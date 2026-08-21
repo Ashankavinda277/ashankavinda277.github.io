@@ -59,11 +59,18 @@ function playGroup(elements: Element[]) {
     // Rules read better drawn a touch slower than the type they sit beside.
     const duration = type === 'rule' ? DURATION * 1.3 : DURATION;
 
-    animate(el, keyframesFor(type), {
-      duration,
-      ease: EASE,
-      delay: index * STEP,
-    });
+    // Scoped per element: one malformed target must not throw past this
+    // forEach and reach initAnimations' outer catch, which would strip
+    // .anim and silently disable every reveal left on the page.
+    try {
+      animate(el, keyframesFor(type), {
+        duration,
+        ease: EASE,
+        delay: index * STEP,
+      });
+    } catch (err) {
+      console.error('[animations] failed to animate element, skipping it:', el, err);
+    }
   });
 }
 

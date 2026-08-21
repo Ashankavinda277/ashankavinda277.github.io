@@ -5,6 +5,7 @@ import Navbar from '@/components/layout/Navbar.astro';
 import Footer from '@/components/layout/Footer.astro';
 import Container from '@/components/ui/Container.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
+import AmbientGlow from '@/components/ui/AmbientGlow.astro';
 import { ProjectsGrid } from '@/components/projects/ProjectsGrid';
 import { ArrowLeft } from 'lucide-react';
 
@@ -32,14 +33,15 @@ const projectItems = allProjects
 >
   <Navbar />
 
-  <main class="flex-1 py-12 sm:py-20">
-    <Container size="full" class="space-y-12">
+  <main class="relative flex-1 py-12 sm:py-20">
+    <AmbientGlow />
+    <Container size="full" class="relative space-y-12">
 
       <!-- Back to Home Return Link -->
-      <div class="flex items-center">
+      <div data-reveal data-reveal-now class="flex items-center">
         <a
           href="/#projects"
-          class="inline-flex items-center gap-2 rounded-control border border-border px-4 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground group"
+          class="inline-flex items-center gap-2 rounded-control border border-border px-4 py-2 text-sm text-muted-foreground transition-all duration-300 hover:border-border-hover hover:bg-muted hover:text-foreground group"
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           <span>Back to Home</span>

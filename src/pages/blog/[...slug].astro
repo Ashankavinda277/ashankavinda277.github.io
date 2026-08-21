@@ -4,6 +4,7 @@ import Navbar from '@/components/layout/Navbar.astro';
 import Footer from '@/components/layout/Footer.astro';
 import Container from '@/components/ui/Container.astro';
 import Badge from '@/components/ui/Badge.astro';
+import AmbientGlow from '@/components/ui/AmbientGlow.astro';
 import { getCollection, render } from 'astro:content';
 import { ArrowLeft, Calendar, Clock, User } from 'lucide-react';
 
@@ -28,20 +29,23 @@ const formattedDate = new Date(post.data.pubDate).toLocaleDateString('en-US', {
 <BaseLayout title={`${post.data.title} — Ashan Kavinda`} description={post.data.description}>
   <Navbar />
 
-  <main class="flex-1 py-16 sm:py-24 bg-grid-pattern">
-    <Container size="md" class="space-y-10">
-      
+  <main class="relative flex-1 py-16 sm:py-24 bg-grid-pattern">
+    <AmbientGlow />
+    <Container size="md" class="relative space-y-10">
+
       <!-- Back Link -->
       <a
+        data-reveal
+        data-reveal-now
         href="/blog"
-        class="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+        class="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
       >
-        <ArrowLeft className="w-4 h-4" />
+        <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
         <span>Back to all articles</span>
       </a>
 
       <!-- Header Information Card -->
-      <header class="space-y-6 rounded-card border border-border bg-card p-8">
+      <header data-reveal class="space-y-6 rounded-card border border-border bg-card p-8 shadow-overlay">
         <div class="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
           <div class="flex items-center gap-1.5">
             <Calendar className="w-4 h-4" />
@@ -75,7 +79,7 @@ const formattedDate = new Date(post.data.pubDate).toLocaleDateString('en-US', {
       </header>
 
       <!-- MDX Article Body -->
-      <article class="prose prose-portfolio max-w-none rounded-card border border-border bg-card p-8 sm:p-12">
+      <article data-reveal class="prose prose-portfolio max-w-none rounded-card border border-border bg-card p-8 sm:p-12">
         <Content />
       </article>
 

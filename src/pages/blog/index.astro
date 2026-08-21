@@ -4,6 +4,7 @@ import Navbar from '@/components/layout/Navbar.astro';
 import Footer from '@/components/layout/Footer.astro';
 import Container from '@/components/ui/Container.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
+import AmbientGlow from '@/components/ui/AmbientGlow.astro';
 import BlogCard from '@/components/blog/BlogCard.astro';
 import { getCollection } from 'astro:content';
 
@@ -16,8 +17,9 @@ const sortedPosts = allPosts.sort(
 <BaseLayout title="Medium Articles — Ashan Kavinda" description="Technical articles and software engineering notes by Ashan Kavinda published on Medium.">
   <Navbar />
   
-  <main class="flex-1 py-16 sm:py-24 bg-grid-pattern">
-    <Container size="full" class="space-y-16">
+  <main class="relative flex-1 py-16 sm:py-24 bg-grid-pattern">
+    <AmbientGlow />
+    <Container size="full" class="relative space-y-16">
 
       <SectionHeading
         kicker="MEDIUM WRITINGS"
@@ -26,20 +28,22 @@ const sortedPosts = allPosts.sort(
         align="center"
       />
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto">
+      <div data-stagger class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto">
         {sortedPosts.map((post) => (
-          <BlogCard
-            title={post.data.title}
-            description={post.data.description}
-            pubDate={post.data.pubDate}
-            readTime={post.data.readTime}
-            tags={post.data.tags}
-            mediumUrl={post.data.mediumUrl}
-            slug={post.id.replace(/\.mdx?$/, '')}
-            featured={post.data.featured}
-            image={post.data.image}
-            icon={post.data.icon}
-          />
+          <div data-reveal>
+            <BlogCard
+              title={post.data.title}
+              description={post.data.description}
+              pubDate={post.data.pubDate}
+              readTime={post.data.readTime}
+              tags={post.data.tags}
+              mediumUrl={post.data.mediumUrl}
+              slug={post.id.replace(/\.mdx?$/, '')}
+              featured={post.data.featured}
+              image={post.data.image}
+              icon={post.data.icon}
+            />
+          </div>
         ))}
       </div>
     </Container>

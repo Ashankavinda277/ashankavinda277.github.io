@@ -153,10 +153,10 @@ export function CommandPalette() {
                       key={item.id}
                       onClick={() => handleSelect(item)}
                       onMouseEnter={() => setSelectedIndex(idx)}
-                      className={`flex w-full cursor-pointer items-center justify-between rounded-control px-3 py-2.5 text-left text-sm transition-colors ${
+                      className={`flex w-full cursor-pointer items-center justify-between rounded-control border-l-2 px-3 py-2.5 text-left text-sm transition-colors duration-200 ${
                         isSelected
-                          ? 'bg-muted text-foreground'
-                          : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                          ? 'border-border-hover bg-accent/[0.07] text-foreground'
+                          : 'border-transparent text-muted-foreground hover:bg-muted hover:text-foreground'
                       }`}
                     >
                       <div className="flex items-center gap-2">

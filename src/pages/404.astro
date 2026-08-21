@@ -4,24 +4,33 @@ import Navbar from '@/components/layout/Navbar.astro';
 import Footer from '@/components/layout/Footer.astro';
 import Container from '@/components/ui/Container.astro';
 import Button from '@/components/ui/Button.astro';
+import AmbientGlow from '@/components/ui/AmbientGlow.astro';
 import { Home, ArrowLeft } from 'lucide-react';
 ---
 
 <BaseLayout title="404 — Page Not Found | Ashan Kavinda">
   <Navbar />
-  <main class="flex-1 flex items-center justify-center py-24 sm:py-32">
-    <Container size="md" class="text-center space-y-8">
-      <div class="space-y-3 max-w-lg mx-auto">
-        <p class="text-sm text-muted-foreground">404 — no route matched</p>
-        <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight text-foreground">
+  <main class="relative flex flex-1 items-center justify-center overflow-hidden py-24 sm:py-32">
+    <AmbientGlow />
+    <span
+      class="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 select-none text-center text-[13rem] font-semibold leading-none tracking-tighter text-foreground/[0.04] sm:text-[20rem]"
+      aria-hidden="true"
+    >
+      404
+    </span>
+
+    <Container size="md" class="relative space-y-8 text-center">
+      <div data-stagger class="mx-auto max-w-lg space-y-3">
+        <p data-reveal data-reveal-now class="text-sm text-muted-foreground">404 — no route matched</p>
+        <h1 data-reveal data-reveal-now class="text-3xl sm:text-4xl font-semibold tracking-tight text-foreground">
           Page Not Found
         </h1>
-        <p class="text-base text-muted-foreground">
+        <p data-reveal data-reveal-now class="text-base text-muted-foreground">
           The URL you are looking for doesn't exist or has been moved.
         </p>
       </div>
 
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+      <div data-reveal data-reveal-now class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
         <Button href="/" variant="primary" size="md">
           <Home className="w-4 h-4" />
           <span>Return Home</span>

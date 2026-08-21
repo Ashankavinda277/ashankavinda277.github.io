@@ -4,50 +4,134 @@
 
 @layer base {
   /*
-   * Neutral ramp expressed as HSL channel triplets so Tailwind's
-   * <alpha-value> works (bg-card/90, border-border/60, ...).
-   * Hue is held at 240 with <=6% saturation: a cool neutral, not a hue.
+   * Monochrome mirror. There is no brand hue anywhere in this system: the
+   * palette is a single neutral ramp at zero saturation, and the two themes
+   * are inversions of each other rather than two derived tints. Dark is the
+   * origin (near-black #070707 -> #1a1a1a); light is its mirror image
+   * (near-white #f5f5f5 -> #ffffff) with the poles swapped.
+   *
+   * Because hue carries no meaning here, emphasis is spent elsewhere:
+   *   - --accent IS the foreground colour, so a "filled" control is simply
+   *     the page inverted (black-on-white / white-on-black).
+   *   - Separation comes from the four-step border ramp, not from tint. A
+   *     card's hover state brightens its border toward --border-hover
+   *     instead of washing in colour.
+   *   - Small metadata leans on the mono typeface and letter-spacing for
+   *     the emphasis a colour would otherwise provide.
+   *
+   * Still expressed as HSL channel triplets so Tailwind's <alpha-value>
+   * composes (bg-card/90, border-border/60, ...). Saturation is a literal 0%
+   * in every token — if a value ever needs a hue, it does not belong here.
    */
   :root {
-    --background: 0 0% 100%;
-    --surface: 240 5% 98%;
+    /*
+     * Light: the mirror. Elevation climbs toward white, the opposite
+     * direction from dark mode, so a card is the lightest plane on the page:
+     *   background 96% -> surface 93% -> card 100%
+     * --surface sits *below* the page background rather than above it, which
+     * is what lets a white card read as lifted without needing a heavy
+     * shadow to sell it.
+     */
+    --background: 0 0% 96%;
+    --surface: 0 0% 93%;
     --card: 0 0% 100%;
-    --card-foreground: 240 6% 10%;
-    --foreground: 240 6% 10%;
-    --muted: 240 5% 96%;
-    /* zinc-600, not zinc-500: at 46% lightness this only reaches 4.43:1 on
-       --muted, below AA. 34% holds 7.01:1 against the worst surface. */
-    --muted-foreground: 240 5% 34%;
-    --border: 240 6% 90%;
-    --input: 240 5% 84%;
-    --ring: 240 6% 10%;
-    /* The single accent. --accent fills the primary button; --link is one
-       step darker because #2563EB is only 5.17:1 on white, which is fine for
-       a button but leaves no margin for body-size link text. */
-    --accent: 221 83% 53%;
+    --card-foreground: 0 0% 7%;
+    --foreground: 0 0% 7%;
+    --muted: 0 0% 93%;
+    /*
+     * 42%, not the reference's 45%. The darkest surface muted text ever
+     * lands on is --surface at 93%, where 45% measures 4.09:1 — under AA.
+     * 42% holds 4.59:1 there and 5.32:1 on a white card.
+     */
+    --muted-foreground: 0 0% 42%;
+    /*
+     * Four-step border ramp, the load-bearing structure of a hueless design.
+     * subtle: dividers inside a surface; border: the default 1px edge;
+     * hover: what an interactive edge brightens to; input: form controls and
+     * anything that must read as an affordance at rest.
+     */
+    --border-subtle: 0 0% 90%;
+    --border: 0 0% 83%;
+    --border-hover: 0 0% 64%;
+    --input: 0 0% 64%;
+    --ring: 0 0% 7%;
+    /*
+     * The accent is the foreground. bg-accent/text-accent-foreground
+     * therefore renders as the page inverted, which is exactly what the
+     * primary button should be in a monochrome system.
+     */
+    --accent: 0 0% 7%;
     --accent-foreground: 0 0% 100%;
-    --link: 224 76% 48%;
+    --link: 0 0% 7%;
+    /* Second stop for gradients and alternating decorative elements. Kept
+       defined in both themes: an undefined token makes
+       hsl(var(--accent-2) / <alpha>) invalid, and the utility then silently
+       does nothing rather than failing loudly. */
+    --accent-2: 0 0% 25%;
+    /*
+     * Alpha multiplier for the decorative ambient layers (glow blobs, drift
+     * motes, circuit traces). Light mode paints those in near-black, which
+     * turns into a visible grey smudge at the alpha dark mode can afford —
+     * so light gets roughly a third of the strength.
+     */
+    --ambient: 0.35;
+    /* Destructive keeps its hue on purpose. Red here is functional, not
+       decorative: it is the one signal that must not depend on the reader
+       parsing a lightness step, so it is exempt from the zero-saturation
+       rule. */
     --destructive: 0 74% 42%;
     --destructive-foreground: 0 0% 98%;
+    /* Pure black, no tint — a tinted shadow would smuggle a hue back into a
+       system whose whole premise is that there isn't one. */
+    --shadow-color: 0 0% 0%;
+    /* The per-theme difference now lives in --shadow-strength, which the
+       shadow utilities multiply their alphas by: light needs very little,
+       because a black shadow on a near-white page reads as dirt long
+       before it reads as depth. */
+    --shadow-strength: 0.6;
   }
 
   .dark {
-    --background: 240 10% 4%;
-    --surface: 240 6% 7%;
-    --card: 240 6% 8%;
-    --card-foreground: 0 0% 98%;
-    --foreground: 0 0% 98%;
-    --muted: 240 4% 16%;
-    --muted-foreground: 240 5% 65%;
-    --border: 240 4% 16%;
-    --input: 240 4% 22%;
-    --ring: 0 0% 98%;
-    /* Lighter on dark: the light-mode blues are far too dark to read here. */
-    --accent: 213 94% 68%;
-    --accent-foreground: 240 10% 4%;
-    --link: 213 94% 68%;
+    /*
+     * Dark: the origin. Elevation climbs away from black, so each plane
+     * catches slightly more light than the one beneath it:
+     *   background 3% -> card 7% -> surface 9% -> muted 10%
+     * The steps are deliberately small. On a near-black page the border is
+     * what separates a card, not the fill — a lightness jump big enough to
+     * separate on its own would grey out the whole page.
+     */
+    --background: 0 0% 3%;
+    --surface: 0 0% 9%;
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 96%;
+    --foreground: 0 0% 96%;
+    --muted: 0 0% 10%;
+    /* 64% clears AA on every dark plane, including the lightest one
+       (--muted at 10%, where it measures 6.90:1). */
+    --muted-foreground: 0 0% 64%;
+    --border-subtle: 0 0% 10%;
+    --border: 0 0% 13%;
+    --border-hover: 0 0% 22%;
+    --input: 0 0% 20%;
+    --ring: 0 0% 96%;
+    /* Mirrored: the accent is still the foreground, so the same
+       bg-accent/text-accent-foreground pairing flips to white-on-black
+       without any component needing a dark: variant. */
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 3%;
+    --link: 0 0% 96%;
+    --accent-2: 0 0% 83%;
+    /* Full strength: white ambience on a near-black page reads as light
+       rather than dirt, so it can carry the alpha light mode cannot. */
+    --ambient: 1;
     --destructive: 0 91% 71%;
-    --destructive-foreground: 240 6% 10%;
+    --destructive-foreground: 0 0% 10%;
+    /* Same pure black, but the shadow utilities lean on it harder here — a
+       shadow only reads on a dark page if it out-darkens the page. */
+    --shadow-color: 0 0% 0%;
+    /* Leaned on far harder than light mode: the page is already at 3%, so
+       a shadow has to be close to opaque before it separates anything. */
+    --shadow-strength: 2.5;
   }
 
   * {
@@ -72,6 +156,13 @@
     text-rendering: optimizeLegibility;
     min-height: 100vh;
     overflow-x: hidden;
+    /*
+     * The switch itself is part of the design: with the two themes being
+     * inversions of one another, an instant swap reads as a flash. Only the
+     * three colour properties are transitioned - never `all`, which would
+     * also animate layout on every repaint.
+     */
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
   }
 
   /* Typography Defaults */
@@ -184,6 +275,62 @@
 }
 
 @layer components {
+  /*
+   * Card that separates by plane, not by tint. With no hue available, the
+   * cue is a faint corner sheen drawn in the foreground colour: it lightens
+   * a dark card and darkens a light one, so the same rule reads correctly in
+   * both themes without a dark: variant. Hover deepens the sheen slightly;
+   * the real hover signal is the border brightening to --border-hover, set
+   * by the consuming component.
+   */
+  .card-tinted {
+    background-image: linear-gradient(
+      to bottom right,
+      hsl(var(--card)) 0%,
+      hsl(var(--card)) 55%,
+      hsl(var(--foreground) / 0.04) 100%
+    );
+  }
+
+  .card-tinted:hover {
+    background-image: linear-gradient(
+      to bottom right,
+      hsl(var(--card)) 0%,
+      hsl(var(--card)) 45%,
+      hsl(var(--foreground) / 0.07) 100%
+    );
+  }
+
+  /*
+   * Emphasis for the single highest-priority CTA. A coloured halo is not
+   * available here, and a pulsing black one on a near-white page reads as a
+   * throbbing shadow rather than emphasis - so the cue is elevation instead:
+   * a resting drop shadow that deepens and lifts on hover. Dark mode leans
+   * on a faint light rim as well, since a shadow alone barely registers
+   * against a near-black page.
+   */
+  .btn-glow {
+    box-shadow: 0 4px 14px -4px hsl(var(--shadow-color) / 0.35);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .btn-glow:hover {
+    box-shadow: 0 8px 24px -6px hsl(var(--shadow-color) / 0.45);
+    transform: translateY(-2px);
+  }
+
+  .dark .btn-glow {
+    box-shadow:
+      0 0 0 1px hsl(var(--foreground) / 0.12),
+      0 4px 18px -4px hsl(var(--shadow-color) / 0.8);
+  }
+
+  .dark .btn-glow:hover {
+    box-shadow:
+      0 0 0 1px hsl(var(--foreground) / 0.22),
+      0 10px 28px -6px hsl(var(--shadow-color) / 0.9);
+  }
+
   /* Underline that wipes out from the left on hover, drawn with a background
      so it never affects layout. */
   .link-underline {

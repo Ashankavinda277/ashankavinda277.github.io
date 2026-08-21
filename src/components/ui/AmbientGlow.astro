@@ -1,0 +1,42 @@
+---
+/**
+ * Decorative page-top glow, shared by every page so sub-pages get the same
+ * depth the home hero has. Purely decorative — aria-hidden, no layout impact.
+ * Place as the first child of a `relative` ancestor; it clips its own blobs
+ * so the ancestor doesn't need overflow-hidden.
+ *
+ * Under the monochrome palette this is light in dark mode and shadow in light
+ * mode: --accent inverts with the theme, so one rule paints a white bloom on
+ * a near-black page and a soft grey pool on a near-white one. The catch is
+ * that those two are not equally forgiving — a blurred near-black blob on a
+ * 96% page turns into a visible smudge at the alpha the white bloom needs.
+ * That asymmetry is what --ambient encodes, so both blobs scale from a single
+ * token instead of each carrying its own dark: override.
+ */
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<div class={`pointer-events-none absolute inset-x-0 top-0 h-[40rem] overflow-hidden ${className}`} aria-hidden="true">
+  <div class="glow-blob glow-primary absolute -top-40 right-0 h-[36rem] w-[36rem] rounded-full blur-[120px] animate-glow-breathe"></div>
+  <div class="glow-blob glow-secondary absolute -bottom-40 left-0 h-[30rem] w-[30rem] rounded-full blur-[120px] animate-glow-breathe [animation-delay:-4s]"></div>
+</div>
+
+<style>
+  .glow-primary {
+    background-color: hsl(var(--accent) / calc(var(--ambient) * 0.1));
+  }
+
+  /*
+   * The second blob used to be dark-mode only, because a second navy pool on
+   * a light page read as dirt. With --ambient holding light mode down it can
+   * run in both themes, which keeps the composition diagonally balanced
+   * rather than lopsided on light.
+   */
+  .glow-secondary {
+    background-color: hsl(var(--accent-2) / calc(var(--ambient) * 0.1));
+  }
+</style>
