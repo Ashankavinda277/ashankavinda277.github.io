@@ -1,0 +1,68 @@
+---
+title: "PTS — Society Project & Performance Management Platform"
+description: "A full-stack project management system for university societies featuring per-project role-based access control, contribution analytics, deadline notifications, and a trilingual interface."
+shortDescription: "Full-stack society management portal with hierarchical project structures, per-project RBAC, performance analytics, deadline notifications, and English/Sinhala/Tamil support."
+technologies: ["React", "Node.js", "Express", "MongoDB", "Mongoose", "JWT", "SCSS", "i18next"]
+category: "Full-Stack & Web"
+image: "/images/projects/pts.png"
+github: "https://github.com/ThulaniThehara/Performance-Tracking-System-Frontend"
+featured: true
+year: "2026"
+order: 2
+---
+
+## Project Overview
+
+PTS (Performance Tracking System) is a full-stack web application built to manage university society projects and measure member contribution. It models the real organizational hierarchy — projects containing committees, committees containing members, tasks assigned to individuals — and layers role-specific dashboards, contribution analytics, and deadline notifications on top of it.
+
+## Problem Statement
+
+University societies typically coordinate projects through spreadsheets, group chats, and informal follow-ups. Contribution becomes impossible to measure objectively, deadlines have to be chased manually, and no institutional record survives the term. Committee structures compound the problem: a chairperson may oversee several committees, each with its own lead and members, and none of that hierarchy exists in any shared system. The goal was a single platform where project structure, task ownership, and performance data live together and stay accurate without manual upkeep.
+
+## Project Goals
+
+- **Hierarchical Project Structure**: Model projects, committees, memberships, and tasks using real database relationships rather than loose text matching.
+- **Per-Project Access Control**: Support four roles (Admin, Chairperson, Committee Head, Member) whose capabilities differ *per project*, enforced server-side rather than merely hidden in the UI.
+- **Self-Maintaining Deadline Tracking**: Derive overdue and upcoming-deadline state at read time instead of storing it, eliminating the scheduled jobs otherwise needed to keep task status truthful.
+- **Objective Contribution Analytics**: Compute member performance scores and project health from real task completion data, weighted by on-time versus late delivery.
+- **Multilingual Accessibility**: Deliver the full interface in English, Sinhala, and Tamil to serve the entire student body.
+
+## System Architecture
+
+The platform is split into decoupled frontend and backend services communicating over a REST API:
+
+1. **Frontend**: React 19 with Vite, React Router for role-gated routing, and SCSS built on a centralized design-token system for consistent theming across ~22 pages.
+2. **Backend & API**: Node.js with Express 5, layered as Routes → Middleware → Controllers → Models, plus a dedicated service layer for cross-cutting concerns such as notification dispatch. Exposes 84 REST endpoints.
+3. **Database**: MongoDB Atlas via Mongoose, spanning 12 collections with ObjectId references, compound indexes on hot read paths, and aggregation pipelines powering analytics.
+4. **Authorization**: A two-tier middleware design — the first tier verifies the JWT and loads the live user record, the second resolves the caller's role within a specific project into a declarative capability set that route guards check against.
+5. **Authentication & i18n**: JWT bearer tokens with bcrypt hashing and an invite-based onboarding flow using single-use expiring tokens, paired with react-i18next serving three locale bundles of roughly 950 keys each.
+
+## Key Features
+
+- **Project & Committee Management**: Chairpersons create committees, assign members, and promote committee leads. Deleting a committee reassigns its members and tasks rather than orphaning active work.
+- **Permission-Aware Task Tracking**: A chairperson may edit any task on their project, a committee lead may act within their own committee, and a member may only update tasks assigned to them — evaluated per task, not per route.
+- **Deadline & Assignment Notifications**: Members are alerted to task assignments, completions, and approaching or missed deadlines, with overdue tasks escalating to the responsible chairperson and to administrators.
+- **Contribution Analytics**: Aggregation-driven KPI cards and scorecards showing project progress, task velocity, and member performance weighted by on-time completion, filterable by month, quarter, or year.
+- **Society Calendar**: A shared calendar of events, meetings, special tasks, and deadlines with month-view indicators and automatic inclusion of project deadlines.
+- **Secure Invite Onboarding**: Administrators issue set-password links where only the SHA-256 hash of each token is stored, so a database leak cannot yield working links.
+
+## Challenges & Solutions
+
+### Read State for Derived Notifications
+* **Challenge**: Deadline reminders were computed live from task due dates rather than stored, which kept them accurate when a deadline changed — but left nowhere to record that a user had already seen one. Dismissed reminders reappeared unread on every poll.
+* **Solution**: Introduced a lightweight dismissal record keyed on recipient, task, and reminder kind. The reminder itself stays derived, while only the acknowledgement is persisted — so dismissing a "due soon" alert still allows the later "overdue" alert to surface.
+
+### Permissions That Vary Per Project
+* **Challenge**: A user's authority is not global. The same person may chair one project, lead a committee in another, and be an ordinary member in a third, so a single role claim on the session token could not express what they were allowed to do.
+* **Solution**: Built a middleware layer that resolves the caller's membership for the requested project and translates it into a capability object, letting routes declare intent (`requirePerm('canManageCommittees')`) instead of re-deriving role logic. Non-members receive 404 rather than 403 so the endpoint cannot be used to enumerate projects.
+
+### Choosing a Delivery Mechanism for Notifications
+* **Challenge**: Notification delivery appeared to call for WebSockets, but the codebase had no real-time infrastructure and the alerts were low-frequency and one-directional.
+* **Solution**: Evaluated WebSockets, Server-Sent Events, and interval polling against actual update frequency and payload size, and chose polling — avoiding persistent-connection management for a latency requirement measured in seconds rather than milliseconds.
+
+## Lessons Learned
+
+- Designing permission systems where the API is the source of truth: the frontend decides what to *draw*, the middleware decides what is *allowed*.
+- Preferring derived state over stored state, and recognizing the trade-off it introduces — accuracy comes free, but any acknowledgement state must then be modelled explicitly.
+- Evaluating delivery mechanisms against real requirements instead of reaching for the most sophisticated option available.
+- Structuring Mongoose model registration on a shared database handle, where inconsistent handles or filename casing surface as `populate()` failures far from their root cause.

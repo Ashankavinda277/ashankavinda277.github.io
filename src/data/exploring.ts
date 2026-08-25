@@ -37,26 +37,6 @@ export const explorationTopics: ExplorationTopic[] = [
       'Automating build, test, and release workflows with multi-environment deployment target safety.',
   },
   {
-    id: 'distributed-systems',
-    title: 'Distributed Systems & Microservices',
-    category: 'Architecture',
-    description:
-      'Exploring consensus algorithms, message queues, state synchronization, and low-latency API transport protocols.',
-    technologies: ['RabbitMQ / SQS', 'gRPC & Protocol Buffers', 'Redis Caching', 'Event Sourcing'],
-    keyOutcome:
-      'Understanding high-throughput event processing and fault-tolerant distributed data storage.',
-  },
-  {
-    id: 'cybersecurity',
-    title: 'Cybersecurity & Ethical Hacking',
-    category: 'Security Engineering',
-    description:
-      'Practical security research, vulnerability assessment, penetration testing techniques, and OWASP Top 10 defense.',
-    technologies: ['Kali Linux', 'Wireshark', 'Burp Suite', 'Web Security Auditing', 'Identity & Auth Hardening'],
-    keyOutcome:
-      'Diploma qualification in Cyber Security & Ethical Hacking applied to secure web application design.',
-  },
-  {
     id: 'edge-computing',
     title: 'Hardware & Embedded IoT Systems',
     category: 'Hardware Systems',

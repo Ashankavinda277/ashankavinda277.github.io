@@ -4,12 +4,12 @@ description: "A fast, modern, content-driven blogging application and CMS engine
 shortDescription: "Modern content platform featuring TipTap rich-text editing, JWT admin authentication, Cloudinary media storage, and FastAPI REST endpoints."
 technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "FastAPI", "Python", "MongoDB", "Cloudinary", "TipTap", "Framer Motion"]
 category: "Full-Stack & Web"
-image: "/images/projects/blog.png"  
+image: "/images/projects/blog.png"
 github: "https://github.com/ashankavinda/personal-blog"
 demo: "https://concepts-blog.vercel.app/"
 featured: true
-year: "2024"
-order: 2
+year: "2026"
+order: 3
 ---
 
 ## Project Overview
@@ -46,9 +46,22 @@ The platform is structured into decoupled frontend and backend services:
 - **Cloudinary Image Uploads**: Automated image hosting for post cover images and inline article media with CDN speed.
 - **JWT Auth & Admin Onboarding**: Secure authentication system with secret registration capabilities for administrative user setup.
 
+## Challenges & Solutions
+
+### Rich-Text Editor Hydration Across Server Boundaries
+* **Challenge**: TipTap builds a live ProseMirror instance directly against the DOM, so rendering the editor inside the Next.js 16 App Router produced hydration mismatches between the server-rendered markup and the client-mounted editor.
+* **Solution**: Isolated the editor behind a dedicated client boundary with deferred initial rendering, so the surrounding dashboard stays server-rendered while the editor and its extension set instantiate only after mount.
+
+### Cross-Origin Authentication Between Next.js and FastAPI
+* **Challenge**: The frontend and the Python API are deployed as separate services on different origins, so bearer-token requests triggered CORS preflight failures and silent authentication drops on protected admin routes.
+* **Solution**: Configured an explicit FastAPI CORS allowlist for the frontend origin and centralized all API access in a single fetch wrapper that attaches the JWT, normalizes error shapes, and redirects to login on a `401`.
+
+### Protecting Media Upload Credentials
+* **Challenge**: Uploading straight from the browser to Cloudinary is the fastest path, but it exposes API credentials to anyone who opens the network tab.
+* **Solution**: Routed every upload through an authenticated FastAPI endpoint that streams the file to Cloudinary server-side and returns only the resulting CDN URL, keeping secrets confined to the backend environment.
+
 ## Lessons Learned
 
 - Integrating TipTap rich text extensions and state handlers within Next.js 16 App Router client components.
 - Designing asynchronous PyMongo queries and FastAPI handlers validated with Pydantic v2 models.
 - Implementing cross-origin JWT bearer authentication and securing admin-only dashboard routes.
-
