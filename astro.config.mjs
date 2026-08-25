@@ -5,7 +5,7 @@ import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://ashankavinda277.github.io',
+  site: 'https://www.ashankavinda.me',
   integrations: [
     react(),
     mdx(),
@@ -15,4 +15,3 @@ export default defineConfig({
     sitemap(),
   ],
 });
-
