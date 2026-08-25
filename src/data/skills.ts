@@ -6,28 +6,33 @@ export interface SkillCategory {
 
 export const skillCategories: SkillCategory[] = [
   {
+    title: 'Languages',
+    description: 'Core languages I work in day to day, with a strong bias toward type safety.',
+    skills: ['TypeScript', 'JavaScript', 'Python', 'Java', 'C', ],
+  },
+  {
     title: 'Frontend',
     description: 'Building responsive, modern user interfaces with type safety and optimized render cycles.',
-    skills: ['React', 'Next.js', 'TypeScript', 'JavaScript', 'HTML', 'CSS', 'Tailwind CSS'],
+    skills: ['React', 'Next.js', 'Astro', 'HTML', 'CSS', 'Tailwind CSS'],
   },
   {
     title: 'Backend',
     description: 'Engineering robust server-side APIs, microservices, and asynchronous data pipelines.',
-    skills: ['Python', 'FastAPI', 'REST APIs', 'GraphQL'],
+    skills: ['Node.js', 'Express.js', 'FastAPI', 'REST APIs', 'GraphQL'],
   },
   {
     title: 'Cloud & Serverless',
-    description: 'Leveraging cloud platforms and serverless architectures for scalable infrastructure.',
-    skills: ['AWS', 'AWS Amplify', 'AWS AppSync', 'DynamoDB', 'Cognito', 'Amazon Bedrock'],
+    description: 'Leveraging AWS and serverless architectures for scalable, event-driven infrastructure.',
+    skills: ['AWS', 'Lambda', 'AppSync', 'Amplify', 'Cognito', 'SQS', 'SES', 'Bedrock', 'Vercel'],
   },
   {
     title: 'Database',
-    description: 'Designing single-table and relational document stores for fast query throughput.',
-    skills: ['DynamoDB', 'MongoDB'],
+    description: 'Modeling data across single-table NoSQL and relational schemas for fast query throughput.',
+    skills: ['DynamoDB', 'PostgreSQL', 'MySQL', 'MongoDB'],
   },
   {
-    title: 'Tools & DevOps',
-    description: 'Version control workflows, containerization, and automated developer tooling.',
-    skills: ['Git', 'GitHub', 'Docker'],
+    title: 'Tools & Design',
+    description: 'Version control workflows, containerization, and design-to-code handoff.',
+    skills: ['Git', 'Docker', 'vitest','Figma'],
   },
-];
+]

@@ -1,37 +1,45 @@
 ---
 title: "Smart Shooting Gallery"
-description: "An interactive IoT target tracking & shooting gallery application built with Python, FastAPI, and WebSocket real-time updates."
-shortDescription: "Interactive hardware-connected target tracking platform with real-time score analytics and FastAPI backend."
-technologies: ["Python", "FastAPI", "React", "TypeScript", "REST APIs", "Docker"]
-category: "Full-Stack & Systems"
-image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80"
-github: "https://github.com/ashankavinda/smart-shooting-gallery"
+description: "An interactive IoT shooting gallery connecting physical targets with a real-time web platform for automated hit detection, scoring, and player analytics."
+shortDescription: "Hardware-integrated shooting gallery with React, Node.js, WebSockets, MongoDB, and ESP8266 real-time communication."
+technologies: ["JavaScript", "React", "Node.js", "Express", "MongoDB", "WebSockets", "styled-components", "Arduino", "ESP8266", "NodeMCU"]
+category: "Full-Stack & IoT Systems"
+github: "https://github.com/Ashankavinda277/3rd-game-version"
 featured: false
 year: "2024"
-order: 5
+order: 6
+image: "/images/projects/shooting.png"
+icon : "gun"
 ---
 
 ## Project Overview
 
-Smart Shooting Gallery is an interactive hardware-integrated software system built to calculate hit accuracy, target reaction times, and real-time leaderboard statistics.
+Smart Shooting Gallery is a full-stack IoT game platform that connects physical shooting targets with a web application in real time. The system combines React, Node.js, Express, MongoDB, Arduino, and ESP8266/NodeMCU hardware to detect target hits, calculate scores, and track player performance.
 
 ## Problem Statement
 
-Traditional target shooting setups lack precise microsecond timing metrics and automated score calculation. This project bridges hardware sensors with a high-performance web dashboard.
+Traditional shooting gallery systems often rely on isolated hardware and manual score tracking, making it difficult to provide real-time feedback, competitive rankings, and detailed player statistics. This project bridges physical target hardware with a modern web platform to automate hit detection, scoring, and game management.
 
 ## Project Goals
 
-- **Microsecond Latency**: Fast event processing powered by Python and FastAPI backend services.
-- **Real-Time Feed**: Live WebSocket score streaming directly to connected web clients.
-- **Docker Containerization**: Portable multi-container setup for easy hardware deployment.
+- **Real-Time Communication**: Synchronize physical target events with the web application using WebSockets.
+- **Automated Scoring**: Process target hits and update player scores in real time.
+- **Competitive Gameplay**: Support multiple game modes, difficulty levels, and leaderboard rankings.
+- **Player Analytics**: Track scores, progress, and performance statistics.
+- **Modular Architecture**: Separate frontend, backend, database, and hardware components for easier maintenance and extension.
 
 ## Key Features
 
-- **Automated Score Calculations**: Real-time hit detection algorithm with precision feedback.
-- **Interactive Leaderboard**: Live updating participant dashboard.
-- **Docker Ready**: Isolated execution environment using Docker Compose.
+- **Real-Time Hit Detection**: Physical target events are transmitted through ESP8266/NodeMCU and processed using WebSocket communication.
+- **Authentication System**: User registration and login functionality for managing player accounts.
+- **Multiple Game Modes**: Configurable gameplay modes with different difficulty levels.
+- **Score Tracking & Leaderboards**: Automated scoring with competitive player rankings.
+- **Player Statistics**: Track gameplay progress and performance over time.
+- **Hardware Integration**: Arduino and ESP8266/NodeMCU components connect physical targets to the web application.
 
 ## Lessons Learned
 
-- Implementing WebSocket streaming with FastAPI for low-latency client communication.
-- Structuring modular Python services with Docker container deployment.
+- Designing reliable real-time communication between physical hardware and web clients.
+- Integrating embedded systems with a full-stack web application.
+- Structuring a modular architecture across frontend, backend, database, and hardware layers.
+- Implementing real-time game logic, automated scoring, and leaderboard systems.

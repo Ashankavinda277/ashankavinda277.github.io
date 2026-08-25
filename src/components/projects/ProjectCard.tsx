@@ -1,5 +1,6 @@
 import { ArrowUpRight, ExternalLink, Github } from 'lucide-react';
 import { badgeClass } from '../ui/badgeStyles';
+import { normalizeRepos, type GithubField } from '@/lib/repos';
 
 export interface ProjectCardProps {
   title: string;
@@ -10,7 +11,7 @@ export interface ProjectCardProps {
   year: string | number;
   slug: string;
   image?: string | undefined;
-  github?: string | undefined;
+  github?: GithubField;
   demo?: string | undefined;
 }
 
@@ -33,6 +34,15 @@ export function ProjectCard({
   const summary = shortDescription || description;
   const visibleTech = technologies.slice(0, 4);
   const overflowCount = technologies.length - visibleTech.length;
+
+  /*
+   * One repo keeps the original bare icon in the footer row. Several get a
+   * labelled row of their own underneath, because two identical Octocats
+   * side by side tell the reader nothing about which is which.
+   */
+  const repos = normalizeRepos(github);
+  const singleRepo = repos.length === 1 ? repos[0] : undefined;
+  const labelledRepos = repos.length > 1 ? repos : [];
 
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-card border border-border bg-card shadow-card transition-all duration-300 ease-out hover:-translate-y-1.5 hover:border-border-hover hover:shadow-card-lg">
@@ -85,41 +95,61 @@ export function ProjectCard({
           )}
         </div>
 
-        <div className="z-20 flex items-center justify-between border-t border-border pt-4 text-sm">
-          <a
-            href={`/projects/${slug}`}
-            className="link-underline inline-flex items-center gap-1 font-medium text-link"
-          >
-            <span>View Details</span>
-            <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </a>
+        <div className="z-20 space-y-3 border-t border-border pt-4 text-sm">
+          <div className="flex items-center justify-between">
+            <a
+              href={`/projects/${slug}`}
+              className="link-underline inline-flex items-center gap-1 font-medium text-link"
+            >
+              <span>View Details</span>
+              <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
 
-          <div className="flex items-center gap-2">
-            {github && (
-              <a
-                href={github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-control border border-border p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-                title="GitHub Repository"
-                aria-label={`${title} — GitHub repository`}
-              >
-                <Github className="h-3.5 w-3.5" />
-              </a>
-            )}
-            {demo && (
-              <a
-                href={demo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-control border border-border p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-                title="Live Demo"
-                aria-label={`${title} — live demo`}
-              >
-                <ExternalLink className="h-3.5 w-3.5" />
-              </a>
-            )}
+            <div className="flex items-center gap-2">
+              {singleRepo && (
+                <a
+                  href={singleRepo.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-control border border-border p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                  title="GitHub Repository"
+                  aria-label={`${title} — GitHub repository`}
+                >
+                  <Github className="h-3.5 w-3.5" />
+                </a>
+              )}
+              {demo && (
+                <a
+                  href={demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-control border border-border p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                  title="Live Demo"
+                  aria-label={`${title} — live demo`}
+                >
+                  <ExternalLink className="h-3.5 w-3.5" />
+                </a>
+              )}
+            </div>
           </div>
+
+          {labelledRepos.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {labelledRepos.map((repo) => (
+                <a
+                  key={repo.url}
+                  href={repo.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-control border border-border px-2 py-1 text-xs text-muted-foreground transition-colors hover:border-border-hover hover:bg-muted hover:text-foreground"
+                  aria-label={`${title} — ${repo.label} repository`}
+                >
+                  <Github className="h-3 w-3 shrink-0" />
+                  <span>{repo.label}</span>
+                </a>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </article>

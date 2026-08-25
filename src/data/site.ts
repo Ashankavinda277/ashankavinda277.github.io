@@ -28,6 +28,6 @@ export const siteConfig: SiteConfig = {
   email: "ashankavinda277@gmail.com",
   availability: {
     status: true,
-    text: "Available for new projects",
+    text: "Available for new opportunities",
   },
 };

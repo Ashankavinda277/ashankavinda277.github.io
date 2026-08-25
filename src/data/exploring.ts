@@ -42,7 +42,7 @@ export const explorationTopics: ExplorationTopic[] = [
     category: 'Hardware Systems',
     description:
       'Building micro-controller based software integrated solutions using Raspberry Pi, ESP32, and custom sensors.',
-    technologies: ['Raspberry Pi 4', 'ESP32 Microcontrollers', 'RFID Sensors', 'Python Edge Scripts', 'RGB LED Panels'],
+    technologies: ['Arduino', 'ESP32 Microcontrollers', 'BPW34', 'FSR', 'RGB LED Panels'],
     keyOutcome:
       'Engineered physical hardware-connected smart target gallery & interactive card game hardware systems.',
   },

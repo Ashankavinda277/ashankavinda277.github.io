@@ -1,0 +1,76 @@
+---
+title: "CakeShop — Full-Stack E-Commerce Bakery Platform"
+description: "A modern full-stack e-commerce application for a bakery business featuring product catalog management, promotional offers engine, cart & checkout flow, Kanban-style order management, and Cloudinary-powered media delivery."
+shortDescription: "Full-stack bakery e-commerce platform with product catalog, promotional offers, cart & checkout, Kanban order tracking, and Cloudinary image management."
+technologies: ["React", "Vite", "Express.js", "MongoDB", "Cloudinary", "React Router", "Axios"]
+category: "Full-Stack & E-Commerce"
+image: "/images/projects/cake.png"
+github:
+  - label: "Frontend"
+    url: "https://github.com/Ashankavinda277/Demo-Project-Frontend"
+  - label: "Backend"
+    url: "https://github.com/Ashankavinda277/Demo-Project-Backend"
+featured: false
+year: "2025"
+order: 5
+---
+
+## Project Overview
+
+CakeShop is a full-stack e-commerce web application designed for an artisan bakery business. It delivers a complete online storefront for customers — from product browsing and category filtering to a fully functional cart, checkout, and order placement flow — alongside a dedicated admin dashboard for product inventory management, promotional offer creation, and Kanban-style order fulfillment tracking.
+
+## Problem Statement
+
+Small-to-medium bakery businesses typically rely on manual order-taking via phone calls, WhatsApp messages, or walk-in visits — resulting in missed orders, pricing inconsistencies for promotional deals, no centralized inventory tracking, and zero visibility into order pipeline status for fulfillment teams.
+
+## Project Goals
+
+- **Customer-Facing Storefront**: A polished, responsive product catalog with category-based filtering, detailed product pages, and a seamless cart-to-checkout experience.
+- **Promotional Offers Engine**: Admin-managed time-bound promotional deals with discount pricing, savings calculations, and direct offer-to-order conversion.
+- **End-to-End Order Flow**: Complete order lifecycle from cart checkout through customer details collection, delivery scheduling, and order success confirmation.
+- **Kanban Order Management**: Administrative order board with status columns (Pending → Processing → Completed → Cancelled) and real-time status updates.
+- **Cloud-Based Media Pipeline**: Cloudinary-integrated image upload and delivery for product and promotion imagery with automatic format optimization.
+
+## System Architecture
+
+The platform follows a classic MERN-style architecture with a decoupled client-server design:
+
+1. **Frontend**: React 19 with Vite, React Router v7 for client-side routing, Axios for HTTP communication, and Context API for global cart state management.
+2. **Backend & API**: Express.js v5 RESTful API server with modular MVC architecture — organized into dedicated route, controller, and model layers per domain entity.
+3. **Database**: MongoDB with Mongoose ODM, utilizing a namespaced `cake-shop` database with cached connection instances across all collection models.
+4. **Media & Storage**: Cloudinary CDN for product and promotion image upload, transformation (auto-resize to 800×800), and optimized delivery via Multer-Cloudinary storage middleware.
+5. **Infrastructure**: CORS-enabled API server, environment-based configuration via dotenv, and Nodemon-powered development workflow.
+
+## Key Features
+
+- **Category-Filtered Product Catalog**: Dynamic product grid with type-based category routing (`/categories/:type`) and regex-powered server-side product search by name.
+- **Product Detail & Quick Order**: Individual product pages with quantity selection and direct "Order Now" — bypassing the cart for single-item purchases.
+- **Smart Cart System**: Context API-powered cart with add, remove, quantity update, clear, and persistent localStorage backup for checkout continuity.
+- **Promotional Offers with Savings Calculator**: Admin offer creation form with real-time savings percentage calculation, date validation, and Cloudinary icon upload.
+- **Unified Order Processing**: Single order pipeline supporting both regular product and promotional offer items with polymorphic item resolution (product vs. offer lookup).
+- **Kanban Order Board**: Admin order management dashboard with status-grouped columns, inline status dropdown updates, and customer/delivery detail cards.
+- **Custom Cake Messages**: Per-item "Message on Cake" input field during checkout with 50-character limit.
+- **Cloudinary Image Pipeline**: Multer middleware with CloudinaryStorage adapter for automatic image upload, transformation, and CDN URL generation on product and offer creation.
+
+## Challenges & Solutions
+
+### Polymorphic Order Items (Products vs. Offers)
+* **Challenge**: The order system needed to accept both regular products and promotional offers in a single order, each sourced from different collections with different field schemas (`Price` vs `Discount_Price`, `Product_Name` vs `Promotion_Name`).
+* **Solution**: Introduced an `isOffer` boolean flag on order items. The backend controller conditionally resolves items against either the Product or Promotion collection, normalizing field names into a unified order item structure before persisting.
+
+### Cart Persistence Across Navigation
+* **Challenge**: React Context state is lost on full page reloads, causing cart data to disappear when customers navigate away or refresh the browser.
+* **Solution**: Implemented a localStorage-backed cart persistence strategy — serializing cart items to `localStorage` before checkout and hydrating from storage on the Order Page when no navigation state is available.
+
+### Cloudinary Image Lifecycle Management
+* **Challenge**: When a product image is updated or deleted, orphaned images remain in Cloudinary storage, consuming quota and creating stale references.
+* **Solution**: Tracked `imagePublicId` on each product document. On update or delete operations, the controller explicitly destroys the previous Cloudinary asset via `cloudinary.uploader.destroy()` before uploading the replacement or removing the product record.
+
+## Lessons Learned
+
+- Designing RESTful API architectures with modular MVC patterns using Express.js and Mongoose.
+- Implementing cloud-based media pipelines with Cloudinary and Multer middleware for image upload, transformation, and lifecycle management.
+- Managing client-side global state with React Context API and synchronizing it with localStorage for persistence.
+- Building polymorphic data models that support heterogeneous item types within a single order document.
+- Structuring a multi-role application with separate customer-facing pages and admin management views sharing a unified API layer.
+

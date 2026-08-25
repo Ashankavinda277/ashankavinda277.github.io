@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ProjectCard } from './ProjectCard';
 import { buttonClass } from '../ui/buttonStyles';
+import type { GithubField } from '@/lib/repos';
 
 export interface ProjectItem {
   slug: string;
@@ -11,7 +12,7 @@ export interface ProjectItem {
   category: string;
   year: string | number;
   image?: string | undefined;
-  github?: string | undefined;
+  github?: GithubField;
   demo?: string | undefined;
 }
 

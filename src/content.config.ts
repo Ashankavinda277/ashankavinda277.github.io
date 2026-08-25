@@ -9,7 +9,22 @@ const projectsCollection = defineCollection({
     technologies: z.array(z.string()),
     category: z.string().default('Full-Stack'),
     image: z.string().optional(),
-    github: z.string().optional(),
+    /*
+     * Either a single repository URL, or a labelled list when a project is
+     * split across several repos (web client + API service, and so on).
+     * Both shapes are normalized by `normalizeRepos` before rendering.
+     */
+    github: z
+      .union([
+        z.string(),
+        z.array(
+          z.object({
+            label: z.string(),
+            url: z.string(),
+          })
+        ),
+      ])
+      .optional(),
     demo: z.string().optional(),
     featured: z.boolean().default(false),
     year: z.union([z.string(), z.number()]).default('2024'),
