@@ -9,6 +9,7 @@ export interface SiteConfig {
   ogImage: string;
   location: string;
   email: string;
+  resumeUrl: string;
   availability: {
     status: boolean;
     text: string;
@@ -26,6 +27,18 @@ export const siteConfig: SiteConfig = {
   ogImage: "/images/og-cover.png",
   location: "Sri Lanka",
   email: "ashankavinda277@gmail.com",
+  /*
+   * Single source for the resume link — the hero icon and the About button
+   * both read it, so swapping hosts is a one-line change here.
+   *
+   * Local file (current): "/resume.pdf", served from public/.
+   * Google Drive: use the direct-download form, NOT the /view share link —
+   *   https://drive.google.com/uc?export=download&id=YOUR_FILE_ID
+   * The FILE_ID is the segment between /d/ and /view in the share URL, and
+   * the file must be shared as "Anyone with the link" or visitors hit a
+   * Google sign-in wall instead of the download.
+   */
+  resumeUrl: "https://drive.google.com/file/d/1SO3zcWEDv4imYQ7d7DOM_xpLX_aKbu-U/view?usp=sharing",
   availability: {
     status: true,
     text: "Available for new opportunities",

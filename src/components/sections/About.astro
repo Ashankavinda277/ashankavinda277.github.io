@@ -3,6 +3,7 @@ import Container from '@/components/ui/Container.astro';
 import SectionMarker from '@/components/ui/SectionMarker.astro';
 import Button from '@/components/ui/Button.astro';
 import { journeyTimeline } from '@/data/journey';
+import { siteConfig } from '@/data/site';
 import { Code, Cloud, Cpu, FileText } from 'lucide-react';
 
 const focusAreas = [
@@ -62,7 +63,7 @@ const focusAreas = [
 
         <div class="border-t border-border pt-6">
           <Button
-            href="/resume.pdf"
+            href={siteConfig.resumeUrl}
             target="_blank"
             variant="primary"
             size="lg"
