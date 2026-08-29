@@ -38,7 +38,7 @@ export const siteConfig: SiteConfig = {
    * the file must be shared as "Anyone with the link" or visitors hit a
    * Google sign-in wall instead of the download.
    */
-  resumeUrl: "https://drive.google.com/file/d/1SO3zcWEDv4imYQ7d7DOM_xpLX_aKbu-U/view?usp=sharing",
+  resumeUrl: "https://drive.google.com/file/d/1eZ3Br7PrpzKjpfi3G2hsx3t220gID4et/view?usp=sharing",
   availability: {
     status: true,
     text: "Available for new opportunities",
